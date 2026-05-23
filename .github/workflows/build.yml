@@ -37,16 +37,20 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: APK 빌드
+      - name: Keystore 생성
         run: |
-          cd android
-          keytool -genkey -v -keystore app/debug.keystore \
+          keytool -genkey -v \
+            -keystore $HOME/debug.keystore \
             -alias androiddebugkey \
             -keyalg RSA -keysize 2048 -validity 10000 \
             -storepass android -keypass android \
             -dname "CN=Android Debug,O=Android,C=US"
+
+      - name: APK 빌드
+        run: |
+          cd android
           ./gradlew assembleDebug \
-            -Pandroid.injected.signing.store.file=app/debug.keystore \
+            -Pandroid.injected.signing.store.file=$HOME/debug.keystore \
             -Pandroid.injected.signing.store.password=android \
             -Pandroid.injected.signing.key.alias=androiddebugkey \
             -Pandroid.injected.signing.key.password=android
