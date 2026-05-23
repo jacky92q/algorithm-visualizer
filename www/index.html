@@ -13,12 +13,21 @@
   </div>
 
   <div class="stack-bar">
-    <span class="stack-label">STACK</span>
+    <button class="menu-btn" onclick="openDrawer()">☰</button>
+    <span class="stack-label" id="stack-label">STACK</span>
     <div id="stack-view"></div>
   </div>
 
+  <!-- 그래프 카드 (DFS/BFS만 표시) -->
+  <div class="graph-card" id="graph-card" style="display:none;">
+    <canvas id="graph-canvas"></canvas>
+  </div>
+
   <div class="code-card">
-    <div class="input-display" id="input-display"></div>
+    <div class="input-row">
+      <div class="input-display" id="input-display"></div>
+      <button class="input-btn" onclick="openModal()">✏️</button>
+    </div>
     <div id="code-view"></div>
   </div>
 
@@ -33,6 +42,27 @@
       <button onclick="togglePlay()" id="play-btn">▶ Play</button>
       <button onclick="nextStep()">▶</button>
     </div>
+  </div>
+
+  <!-- 입력값 모달 -->
+  <div class="modal-overlay" id="modal-overlay" onclick="closeModal()">
+    <div class="modal" onclick="event.stopPropagation()">
+      <div class="modal-title">입력값 설정</div>
+      <input class="modal-input" id="modal-input" type="text" placeholder="예: ([])" maxlength="20" />
+      <div class="modal-desc" id="modal-desc">괄호만 입력해주세요</div>
+      <div class="modal-buttons">
+        <button class="modal-cancel" onclick="closeModal()">취소</button>
+        <button class="modal-confirm" onclick="confirmInput()">확인</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Sheet Drawer -->
+  <div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
+  <div class="drawer" id="drawer">
+    <div class="drawer-handle"></div>
+    <div class="drawer-title" id="drawer-title">자료구조 선택</div>
+    <div class="drawer-list" id="drawer-list"></div>
   </div>
 
   <script src="app.js"></script>
