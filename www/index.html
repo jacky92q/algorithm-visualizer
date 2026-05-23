@@ -7,35 +7,30 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>🧠 Algorithm Visualizer</h1>
 
-  <div class="container">
-
-    <div class="card">
-      <div id="code-view"></div>
+  <div class="header">
+    <span class="title">🧠 Algorithm Visualizer</span>
+    <div class="stack-inline">
+      <span class="stack-label">STACK</span>
+      <div id="stack-view"></div>
     </div>
+  </div>
 
-    <div class="card">
-      <h2 style="text-align:center; margin-bottom:12px;">STACK</h2>
-      <div id="stack-view" class="stack-container"></div>
+  <div class="code-card">
+    <div id="code-view"></div>
+  </div>
+
+  <div class="bottom-panel">
+    <div class="info-row">
+      <span class="action-badge" id="action"></span>
+      <span class="current-char" id="current-char"></span>
     </div>
-
-    <div class="card">
-      <div class="current-char" id="current-char"></div>
-      <div class="action-badge" id="action"></div>
-      <div class="description" id="description"></div>
-
-      <div class="controls">
-        <button onclick="prevStep()">◀ Prev</button>
-        <button onclick="togglePlay()" id="play-btn">▶ Play</button>
-        <button onclick="nextStep()">Next ▶</button>
-      </div>
+    <div class="description" id="description"></div>
+    <div class="controls">
+      <button onclick="prevStep()">◀</button>
+      <button onclick="togglePlay()" id="play-btn">▶ Play</button>
+      <button onclick="nextStep()">▶</button>
     </div>
-
-    <div class="footer">
-      괄호 Valid Checker 시각화 MVP
-    </div>
-
   </div>
 
   <script src="app.js"></script>
