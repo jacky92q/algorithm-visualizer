@@ -1,0 +1,8 @@
+{
+  "appId": "com.yourname.algorithmvisualizer",
+  "appName": "Algorithm Visualizer",
+  "webDir": ".",
+  "server": {
+    "androidScheme": "https"
+  }
+}

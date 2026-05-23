@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Algorithm Visualizer</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>🧠 Algorithm Visualizer</h1>
+
+  <div class="container">
+
+    <div class="card">
+      <div id="code-view"></div>
+    </div>
+
+    <div class="card">
+      <h2 style="text-align:center; margin-bottom:12px;">STACK</h2>
+      <div id="stack-view" class="stack-container"></div>
+    </div>
+
+    <div class="card">
+      <div class="current-char" id="current-char"></div>
+      <div class="action-badge" id="action"></div>
+      <div class="description" id="description"></div>
+
+      <div class="controls">
+        <button onclick="prevStep()">◀ Prev</button>
+        <button onclick="togglePlay()" id="play-btn">▶ Play</button>
+        <button onclick="nextStep()">Next ▶</button>
+      </div>
+    </div>
+
+    <div class="footer">
+      괄호 Valid Checker 시각화 MVP
+    </div>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
