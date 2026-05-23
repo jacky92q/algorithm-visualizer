@@ -25,6 +25,12 @@ jobs:
       - name: Capacitor sync
         run: npx cap sync android
 
+      - name: Android SDK 버전 설정
+        run: |
+          sed -i 's/minSdkVersion = .*/minSdkVersion = 24/' android/variables.gradle
+          sed -i 's/compileSdkVersion = .*/compileSdkVersion = 35/' android/variables.gradle
+          sed -i 's/targetSdkVersion = .*/targetSdkVersion = 35/' android/variables.gradle
+
       - name: Java 설치
         uses: actions/setup-java@v3
         with:
