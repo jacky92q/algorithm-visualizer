@@ -20,28 +20,29 @@ body {
 
 /* Header */
 .header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: #1b1f27;
-  border-radius: 14px;
-  padding: 8px 14px;
+  padding: 14px;
+  text-align: center;
 }
 
 .title {
-  font-size: 15px;
+  font-size: 30px;
   font-weight: bold;
 }
 
-.stack-inline {
+/* Stack Bar */
+.stack-bar {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
+  background: #1b1f27;
+  border-radius: 14px;
+  padding: 6px 14px;
 }
 
 .stack-label {
   font-size: 11px;
   color: #888;
+  flex-shrink: 0;
 }
 
 #stack-view {
@@ -49,7 +50,6 @@ body {
   flex-direction: row;
   gap: 4px;
   align-items: center;
-  min-width: 40px;
   min-height: 36px;
 }
 
@@ -75,20 +75,36 @@ body {
 .code-card {
   background: #1b1f27;
   border-radius: 14px;
-  padding: 10px 8px;
+  padding: 8px;
   flex: 1;
-  overflow-y: auto;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-display {
+  font-family: monospace;
+  font-size: 13px;
+  color: #00ff99;
+  padding: 4px 8px 6px 8px;
+  border-bottom: 1px solid #2a2f3a;
+  margin-bottom: 6px;
+}
+
+#code-view {
+  overflow: hidden;
+  flex: 1;
 }
 
 .code-line {
   display: flex;
-  padding: 4px 8px;
-  border-radius: 8px;
+  align-items: baseline;
+  padding: 3px 6px;
+  border-radius: 6px;
   margin-bottom: 2px;
   transition: all 0.3s ease;
   font-family: monospace;
-  font-size: 13px;
-  overflow-x: auto;
+  white-space: nowrap;
 }
 
 .active-line {
@@ -97,10 +113,24 @@ body {
 }
 
 .line-number {
-  width: 24px;
-  color: #888;
+  width: 22px;
+  color: #555;
   flex-shrink: 0;
-  font-size: 12px;
+  text-align: right;
+  margin-right: 8px;
+}
+
+.indent {
+  display: inline-block;
+  width: 12px;
+  flex-shrink: 0;
+  border-left: 1px solid #2a2f3a;
+  height: 1em;
+  margin-right: 0;
+}
+
+.code-text {
+  color: #e0e0e0;
 }
 
 /* Bottom Panel */
