@@ -19,6 +19,9 @@ jobs:
       - name: 패키지 설치
         run: npm install
 
+      - name: Capacitor Android 추가
+        run: npx cap add android
+
       - name: Capacitor sync
         run: npx cap sync android
 
