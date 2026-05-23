@@ -27,6 +27,7 @@ const trace = [
 let currentIndex = 0;
 let timer = null;
 let isPlaying = false;
+let lastStack = null;
 
 function render() {
   const step = trace[currentIndex];
@@ -48,6 +49,10 @@ function renderCode(activeLine) {
 }
 
 function renderStack(stack) {
+  const serialized = JSON.stringify(stack);
+  if (serialized === lastStack) return;
+  lastStack = serialized;
+
   const stackView = document.getElementById('stack-view');
   stackView.innerHTML = stack.map(item =>
     `<div class="stack-item">${item}</div>`
@@ -76,6 +81,11 @@ function togglePlay() {
     isPlaying = false;
     btn.innerText = '▶ Play';
   } else {
+    if (currentIndex >= trace.length - 1) {
+      currentIndex = 0;
+      render();
+    }
+
     isPlaying = true;
     btn.innerText = '⏸ Pause';
 
@@ -97,4 +107,6 @@ function escapeHtml(text) {
   return div.innerHTML;
 }
 
-render();
+document.addEventListener('DOMContentLoaded', () => {
+  render();
+});
