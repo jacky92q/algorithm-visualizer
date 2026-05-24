@@ -4,12 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Algorithm Visualizer</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/drawer.css" />
 </head>
 <body>
 
   <div class="header">
-    <span class="title">🧠 Algorithm Visualizer</span>
+    <span class="title">Algorithm Visualizer</span>
   </div>
 
   <div class="stack-bar">
@@ -18,7 +20,6 @@
     <div id="stack-view"></div>
   </div>
 
-  <!-- 그래프 카드 (DFS/BFS만 표시) -->
   <div class="graph-card" id="graph-card" style="display:none;">
     <canvas id="graph-canvas"></canvas>
   </div>
@@ -65,6 +66,15 @@
     <div class="drawer-list" id="drawer-list"></div>
   </div>
 
-  <script src="app.js"></script>
+  <!-- JS -->
+  <script src="js/algorithms/stack/stack_basic.js"></script>
+  <script src="js/algorithms/stack/brackets.js"></script>
+  <script src="js/algorithms/stack/dfs.js"></script>
+  <script src="js/algorithms/queue/queue_basic.js"></script>
+  <script src="js/algorithms/queue/bfs.js"></script>
+  <script src="js/graph.js"></script>
+  <script src="js/drawer.js"></script>
+  <script src="js/render.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>

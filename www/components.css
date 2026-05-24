@@ -1,0 +1,159 @@
+/* Stack Bar */
+.menu-btn {
+  background: #2a2f3a;
+  border: none;
+  color: white;
+  font-size: 16px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.stack-label {
+  font-size: 11px;
+  color: #888;
+  flex-shrink: 0;
+}
+
+#stack-view {
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+  align-items: center;
+  min-height: 36px;
+  flex: 1;
+}
+
+.stack-item {
+  width: 34px;
+  height: 34px;
+  background: linear-gradient(135deg, #4f8cff, #2563eb);
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
+  font-weight: bold;
+  animation: popIn 0.3s ease;
+}
+
+@keyframes popIn {
+  from { transform: scale(0.5); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+
+/* Code View */
+.input-row {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #2a2f3a;
+  margin-bottom: 6px;
+}
+
+.input-display {
+  font-family: monospace;
+  font-size: 13px;
+  color: #00ff99;
+  padding: 4px 8px 10px 8px;
+  flex: 1;
+}
+
+.input-btn {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 16px;
+  padding: 4px 6px 10px 6px;
+  border-radius: 8px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+#code-view {
+  overflow: hidden;
+  flex: 1;
+}
+
+.code-line {
+  display: flex;
+  align-items: baseline;
+  padding: 3px 6px;
+  border-radius: 6px;
+  margin-bottom: 2px;
+  transition: all 0.3s ease;
+  font-family: monospace;
+  white-space: nowrap;
+}
+
+.active-line {
+  background: rgba(0, 255, 128, 0.2);
+  border-left: 3px solid #00ff99;
+}
+
+.line-number {
+  width: 22px;
+  color: #555;
+  flex-shrink: 0;
+  text-align: right;
+  margin-right: 8px;
+}
+
+.indent {
+  display: inline-block;
+  width: 12px;
+  flex-shrink: 0;
+  border-left: 1px solid #2a2f3a;
+  height: 1em;
+}
+
+.code-text {
+  color: #e0e0e0;
+}
+
+/* Bottom Panel */
+.info-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.action-badge {
+  background: #00aa66;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.current-char {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.description {
+  color: #aaaaaa;
+  font-size: 17px;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+button {
+  border: none;
+  background: #2563eb;
+  color: white;
+  padding: 8px 20px;
+  border-radius: 10px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+button:hover {
+  transform: scale(1.03);
+}
