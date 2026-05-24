@@ -25,7 +25,7 @@ function goBack() {
   }
 }
 
-// 뒤로가기 버튼 처리 (Android)
+// 뒤로가기 버튼 처리 (Android/모바일)
 function handleBackButton() {
   if (document.getElementById('modal-overlay').classList.contains('show')) {
     closeModal();
@@ -41,12 +41,10 @@ function handleBackButton() {
   }
 }
 
-// Capacitor 뒤로가기 이벤트
-document.addEventListener('DOMContentLoaded', () => {
-  if (window.Capacitor) {
-    document.addEventListener('backbutton', handleBackButton);
-  }
-});
+// Capacitor 뒤로가기 이벤트 (DOMContentLoaded 기다리지 않고 바로 등록)
+if (window.Capacitor) {
+  document.addEventListener('backbutton', handleBackButton);
+}
 
 // 브라우저 뒤로가기도 처리
 window.addEventListener('popstate', handleBackButton);
