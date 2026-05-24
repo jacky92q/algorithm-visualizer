@@ -62,22 +62,19 @@ const ALGO_BUBBLE_SORT = {
     const comparing = step.comparing || [-1, -1];
 
     return `
-      <div style="width:100%;height:180px;background:#0a0c10;border-radius:10px;padding:20px;border:1px solid #1e2330;display:flex;align-items:flex-end;justify-content:center;gap:8px;">
+      <div style="width:100%;height:100%;background:#0a0c10;border-radius:10px;padding:16px;border:1px solid #1e2330;display:flex;align-items:flex-end;justify-content:center;gap:6px;">
         ${array.map((val, idx) => {
-          const height = ((val - minVal) / range) * 150 + 20;
+          const height = ((val - minVal) / range) * 85 + 10;
           const isComparing = comparing.includes(idx);
           const bgColor = isComparing ? '#f59e0b' : '#3b82f6';
 
           return `
-            <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;min-width:40px;">
-              <div style="width:100%;height:${height}px;background:${bgColor};border-radius:6px;box-shadow:0 0 8px ${isComparing ? '#f59e0b' : '#3b82f6'}40;transition:all 0.2s ease;"></div>
-              <div style="font-size:12px;color:#93c5fd;font-weight:bold;margin-top:4px;">${val}</div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;min-width:35px;">
+              <div style="width:100%;height:${height}%;background:${bgColor};border-radius:4px;box-shadow:0 0 8px ${isComparing ? '#f59e0b' : '#3b82f6'}30;transition:all 0.2s ease;"></div>
+              <div style="font-size:10px;color:#93c5fd;font-weight:bold;">${val}</div>
             </div>
           `;
         }).join('')}
-      </div>
-      <div style="text-align:center;margin-top:12px;font-size:13px;color:#a0a8b0;">
-        ${step.action === 'SWAP' ? '🔄 Swapping' : step.action === 'COMPARE' ? '🔍 Comparing' : '✓ Sorted'}
       </div>
     `;
   },

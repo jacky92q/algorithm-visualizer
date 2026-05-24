@@ -118,34 +118,33 @@ const ALGO_MERGE_SORT = {
     const range = maxVal - minVal || 1;
 
     return `
-      <div style="width:100%;display:flex;flex-direction:column;gap:16px;">
-        <div>
-          <div style="font-size:12px;color:#a0a8b0;margin-bottom:8px;">Result</div>
-          <div style="width:100%;height:140px;background:#0a0c10;border-radius:10px;padding:16px;border:1px solid #1e2330;display:flex;align-items:flex-end;justify-content:center;gap:6px;">
-            ${array.length > 0 ? array.map((val) => {
-              const height = ((val - minVal) / range) * 110 + 15;
-              return `
-                <div style="display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;min-width:30px;">
-                  <div style="width:100%;height:${height}px;background:#10b981;border-radius:4px;box-shadow:0 0 8px #10b98140;"></div>
-                  <div style="font-size:11px;color:#34d399;font-weight:bold;">${val}</div>
-                </div>
-              `;
-            }).join('') : '<div style="color:#666;">Merging...</div>'}
-          </div>
+      <div style="width:100%;height:100%;background:#0a0c10;border-radius:10px;padding:16px;border:1px solid #1e2330;display:flex;flex-direction:column;gap:12px;">
+        <!-- Result Array -->
+        <div style="flex:1;display:flex;align-items:flex-end;justify-content:center;gap:4px;">
+          ${array.length > 0 ? array.map((val) => {
+            const height = ((val - minVal) / range) * 85 + 10;
+            return `
+              <div style="display:flex;flex-direction:column;align-items:center;gap:2px;flex:1;min-width:28px;">
+                <div style="width:100%;height:${height}%;background:#10b981;border-radius:3px;box-shadow:0 0 6px #10b98130;"></div>
+                <div style="font-size:9px;color:#34d399;font-weight:bold;">${val}</div>
+              </div>
+            `;
+          }).join('') : '<div style="color:#666;font-size:12px;">Merging...</div>'}
         </div>
 
-        ${leftArray.length > 0 || rightArray.length > 0 ? `
-          <div style="display:flex;gap:12px;">
+        <!-- Sub-arrays (Left & Right) -->
+        ${(leftArray.length > 0 || rightArray.length > 0) ? `
+          <div style="display:flex;gap:8px;height:auto;font-size:11px;">
             ${leftArray.length > 0 ? `
-              <div style="flex:1;background:#0a0c10;border-radius:10px;padding:12px;border:1px solid #1e2330;">
-                <div style="font-size:11px;color:#888;margin-bottom:8px;">LEFT</div>
-                <div style="color:#93c5fd;font-family:monospace;font-size:12px;word-break:break-all;">[${leftArray.join(', ')}]</div>
+              <div style="flex:1;background:#1e2330;border-radius:8px;padding:8px;border:1px solid #2a3040;">
+                <div style="color:#888;margin-bottom:4px;font-size:10px;">LEFT</div>
+                <div style="color:#93c5fd;font-family:monospace;font-size:10px;word-break:break-all;line-height:1.4;">[${leftArray.join(', ')}]</div>
               </div>
             ` : ''}
             ${rightArray.length > 0 ? `
-              <div style="flex:1;background:#0a0c10;border-radius:10px;padding:12px;border:1px solid #1e2330;">
-                <div style="font-size:11px;color:#888;margin-bottom:8px;">RIGHT</div>
-                <div style="color:#ec4899;font-family:monospace;font-size:12px;word-break:break-all;">[${rightArray.join(', ')}]</div>
+              <div style="flex:1;background:#1e2330;border-radius:8px;padding:8px;border:1px solid #2a3040;">
+                <div style="color:#888;margin-bottom:4px;font-size:10px;">RIGHT</div>
+                <div style="color:#ec4899;font-family:monospace;font-size:10px;word-break:break-all;line-height:1.4;">[${rightArray.join(', ')}]</div>
               </div>
             ` : ''}
           </div>
