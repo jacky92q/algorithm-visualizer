@@ -1,26 +1,29 @@
-let drawerStep = 'ds';
+var drawerStep = 'ds';
+var DATA_STRUCTURES = null;
 
-const DATA_STRUCTURES = {
-  stack: {
-    name: 'Stack',
-    desc: '후입선출 (LIFO)',
-    stackLabel: 'STACK',
-    algorithms: {
-      stack_basic: ALGO_STACK_BASIC,
-      brackets:    ALGO_BRACKETS,
-      dfs:         ALGO_DFS,
+function initDataStructures() {
+  DATA_STRUCTURES = {
+    stack: {
+      name: 'Stack',
+      desc: '후입선출 (LIFO)',
+      stackLabel: 'STACK',
+      algorithms: {
+        stack_basic: ALGO_STACK_BASIC,
+        brackets:    ALGO_BRACKETS,
+        dfs:         ALGO_DFS,
+      }
+    },
+    queue: {
+      name: 'Queue',
+      desc: '선입선출 (FIFO)',
+      stackLabel: 'QUEUE',
+      algorithms: {
+        queue_basic: ALGO_QUEUE_BASIC,
+        bfs:         ALGO_BFS,
+      }
     }
-  },
-  queue: {
-    name: 'Queue',
-    desc: '선입선출 (FIFO)',
-    stackLabel: 'QUEUE',
-    algorithms: {
-      queue_basic: ALGO_QUEUE_BASIC,
-      bfs:         ALGO_BFS,
-    }
-  }
-};
+  };
+}
 
 function getCurrentAlgo() {
   return DATA_STRUCTURES[currentDS].algorithms[currentAlgoKey];

@@ -6,15 +6,14 @@ window.onerror = function(msg, src, line) {
   );
 };
 
-// 전역 상태
-let currentDS = 'stack';
-let currentAlgoKey = 'brackets';
-let inputString = ALGO_BRACKETS.defaultInput;
-let trace = [];
-let currentIndex = 0;
-let timer = null;
-let isPlaying = false;
-let lastStack = null;
+var currentDS = 'stack';
+var currentAlgoKey = 'brackets';
+var inputString = '([])';
+var trace = [];
+var currentIndex = 0;
+var timer = null;
+var isPlaying = false;
+var lastStack = null;
 
 function resetAndStart() {
   clearInterval(timer);
@@ -66,6 +65,8 @@ function togglePlay() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  initDataStructures();
+  inputString = getCurrentAlgo().defaultInput;
   updateGraphVisibility();
   trace = getCurrentAlgo().generateTrace(inputString);
   render();
