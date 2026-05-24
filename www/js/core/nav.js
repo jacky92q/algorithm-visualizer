@@ -27,23 +27,34 @@ function goBack() {
 
 // 뒤로가기 버튼 처리 (Android/모바일)
 function handleBackButton() {
+  console.log('[BackButton] currentPage:', currentPage, 'modalOpen:', document.getElementById('modal-overlay').classList.contains('show'));
+
   if (document.getElementById('modal-overlay').classList.contains('show')) {
+    console.log('[BackButton] 모달 닫기');
     closeModal();
     return;
   }
   if (currentPage === 'visual') {
+    console.log('[BackButton] 홈으로 이동');
     goBack();
     return;
   }
   // 홈이면 앱 종료 (Capacitor)
+  console.log('[BackButton] 앱 종료');
   if (window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.App) {
     window.Capacitor.Plugins.App.exitApp();
   }
 }
 
-// Capacitor 뒤로가기 이벤트 (DOMContentLoaded 기다리지 않고 바로 등록)
-if (window.Capacitor) {
-  document.addEventListener('backbutton', handleBackButton);
+// Capacitor 뒤로가기 이벤트 (App 플러그인 사용)
+if (window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.App) {
+  const { App } = window.Capacitor.Plugins;
+  App.addListener('backButton', () => {
+    handleBackButton();
+  });
+  console.log('[Capacitor] backButton 리스너 등록됨');
+} else {
+  console.log('[Capacitor] Capacitor 또는 App 플러그인 없음');
 }
 
 // 브라우저 뒤로가기도 처리
