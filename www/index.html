@@ -22,7 +22,7 @@
 
     <!-- 헤더 -->
     <div class="nav-bar">
-      <button class="nav-back" id="nav-back" onclick="goBack()">‹</button>
+      <button class="nav-back" onclick="goBack()">‹</button>
       <span class="nav-title" id="nav-title"></span>
       <button class="nav-edit" onclick="openModal()">✏️</button>
     </div>
@@ -54,6 +54,7 @@
         </div>
         <div class="status-desc" id="description"></div>
         <div class="controls">
+          <button class="ctrl-btn" onclick="resetToFirst()">↺</button>
           <button class="ctrl-btn" onclick="prevStep()">‹</button>
           <button class="ctrl-btn play-btn" onclick="togglePlay()" id="play-btn">▶ Play</button>
           <button class="ctrl-btn" onclick="nextStep()">›</button>
