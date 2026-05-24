@@ -39,6 +39,40 @@ function initData() {
       algorithms: {
         binary_tree: ALGO_BINARY_TREE,
       }
+    },
+    sorting: {
+      name: 'Sorting',
+      desc: 'Array Sorting Algorithms',
+      iconClass: 'sorting',
+      algorithms: {
+        bubble_sort: ALGO_BUBBLE_SORT,
+        quick_sort:  ALGO_QUICK_SORT,
+        merge_sort:  ALGO_MERGE_SORT,
+      }
+    },
+    search: {
+      name: 'Search',
+      desc: 'Array Search Algorithms',
+      iconClass: 'search',
+      algorithms: {
+        binary_search: ALGO_BINARY_SEARCH,
+      }
+    },
+    graph: {
+      name: 'Graph',
+      desc: 'Graph Algorithms',
+      iconClass: 'graph',
+      algorithms: {
+        dijkstra: ALGO_DIJKSTRA,
+      }
+    },
+    dp: {
+      name: 'Dynamic Programming',
+      desc: 'DP Algorithms',
+      iconClass: 'dp',
+      algorithms: {
+        fibonacci: ALGO_FIBONACCI,
+      }
     }
   };
 }
