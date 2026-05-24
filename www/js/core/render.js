@@ -44,26 +44,56 @@ function renderCode(activeLine) {
 function renderVisual(step) {
   const algo = getCurrentAlgo();
   const card = document.getElementById('visual-card');
+
+  if (!step) {
+    card.innerHTML = `<div style="color:#888;font-size:14px;">No data</div>`;
+    return;
+  }
+
   if (algo.renderVisual) {
-    card.innerHTML = algo.renderVisual(step);
-  } else {
-    // 기본 스택 시각화
-    const stack = step.stack || [];
-    if (stack.length === 0) {
-      card.innerHTML = `<div style="color:#333;font-size:14px;">비어있음</div>`;
-      return;
+    try {
+      card.innerHTML = algo.renderVisual(step);
+    } catch (e) {
+      console.error('renderVisual error:', e);
+      card.innerHTML = `<div style="color:#f87171;font-size:12px;">Visualization error</div>`;
     }
-    card.innerHTML = `
-      <div class="v-stack">
-        <div class="v-label">TOP</div>
-        <div class="v-stack-row">
-          ${[...stack].reverse().map((item, i) => `
-            <div class="v-block ${i === 0 ? 'active' : ''}">${item}</div>
-          `).join('')}
+  } else {
+    // Default stack visualization
+    const stack = step.stack || [];
+    const array = step.array || [];
+
+    if (array.length > 0) {
+      // Show array/sorting visualization
+      const maxVal = Math.max(...array, 10);
+      card.innerHTML = `
+        <div style="width:100%;display:flex;align-items:flex-end;justify-content:center;gap:6px;height:120px;background:#0a0c10;border-radius:10px;padding:12px;border:1px solid #1e2330;">
+          ${array.map((val, idx) => {
+            const height = (val / maxVal) * 100;
+            return `
+              <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;">
+                <div style="width:100%;height:${height}%;background:#3b82f6;border-radius:4px;transition:all 0.3s;"></div>
+                <div style="font-size:11px;color:#93c5fd;font-weight:bold;">${val}</div>
+              </div>
+            `;
+          }).join('')}
         </div>
-        <div class="v-label">BOTTOM</div>
-      </div>
-    `;
+      `;
+    } else if (stack.length > 0) {
+      // Default stack visualization
+      card.innerHTML = `
+        <div class="v-stack">
+          <div class="v-label">TOP</div>
+          <div class="v-stack-row">
+            ${[...stack].reverse().map((item, i) => `
+              <div class="v-block ${i === 0 ? 'active' : ''}">${item}</div>
+            `).join('')}
+          </div>
+          <div class="v-label">BOTTOM</div>
+        </div>
+      `;
+    } else {
+      card.innerHTML = `<div style="color:#555;font-size:14px;">Empty</div>`;
+    }
   }
 }
 
