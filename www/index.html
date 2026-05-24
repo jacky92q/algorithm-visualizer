@@ -2,86 +2,96 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
   <title>Algorithm Visualizer</title>
-  <link rel="stylesheet" href="css/layout.css" />
-  <link rel="stylesheet" href="css/components.css" />
-  <link rel="stylesheet" href="css/drawer.css" />
+  <link rel="stylesheet" href="css/main.css" />
 </head>
 <body>
 
-  <div class="header">
-    <span class="title">Algorithm Visualizer</span>
-  </div>
-
-  <div class="stack-bar">
-    <button class="menu-btn" onclick="openDrawer()">☰</button>
-    <span class="stack-label" id="stack-label">STACK</span>
-    <div id="stack-view"></div>
-  </div>
-
-  <div class="graph-card" id="graph-card" style="display:none;">
-    <canvas id="graph-canvas"></canvas>
-  </div>
-
-  <div class="code-card">
-    <div class="input-row">
-      <div class="input-display" id="input-display"></div>
-      <button class="input-btn" onclick="openModal()">✏️</button>
+  <!-- 페이지 1: 알고리즘 선택 -->
+  <div class="page" id="page-home">
+    <div class="home-header">
+      <div class="home-title">Algorithm</div>
+      <div class="home-subtitle">Visualizer</div>
     </div>
-    <div id="code-view"></div>
+    <div class="home-list" id="home-list"></div>
   </div>
 
-  <div class="bottom-panel">
-    <div class="info-row">
-      <span class="action-badge" id="action"></span>
-      <span class="current-char" id="current-char"></span>
+  <!-- 페이지 2: 시각화 -->
+  <div class="page hidden" id="page-visual">
+
+    <!-- 헤더 -->
+    <div class="nav-bar">
+      <button class="nav-back" id="nav-back" onclick="goBack()">‹</button>
+      <span class="nav-title" id="nav-title"></span>
+      <button class="nav-edit" onclick="openModal()">✏️</button>
     </div>
-    <div class="description" id="description"></div>
-    <div class="controls">
-      <button onclick="prevStep()">◀</button>
-      <button onclick="togglePlay()" id="play-btn">▶ Play</button>
-      <button onclick="nextStep()">▶</button>
+
+    <!-- 탭 -->
+    <div class="tab-bar">
+      <button class="tab-btn active" id="tab-desc" onclick="switchTab('desc')">설명</button>
+      <button class="tab-btn" id="tab-vis" onclick="switchTab('vis')">시각화</button>
     </div>
+
+    <!-- 설명 탭 -->
+    <div class="tab-content" id="content-desc">
+      <div class="desc-card" id="desc-card"></div>
+    </div>
+
+    <!-- 시각화 탭 -->
+    <div class="tab-content hidden" id="content-vis">
+      <div class="visual-card" id="visual-card"></div>
+      <div class="code-card">
+        <div class="code-input-row">
+          <div class="code-input-display" id="input-display"></div>
+        </div>
+        <div id="code-view"></div>
+      </div>
+      <div class="status-panel">
+        <div class="status-top">
+          <span class="action-badge" id="action"></span>
+          <span class="status-char" id="current-char"></span>
+        </div>
+        <div class="status-desc" id="description"></div>
+        <div class="controls">
+          <button class="ctrl-btn" onclick="prevStep()">‹</button>
+          <button class="ctrl-btn play-btn" onclick="togglePlay()" id="play-btn">▶ Play</button>
+          <button class="ctrl-btn" onclick="nextStep()">›</button>
+        </div>
+      </div>
+    </div>
+
   </div>
 
+  <!-- 입력값 모달 -->
   <div class="modal-overlay" id="modal-overlay" onclick="closeModal()">
-    <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-sheet" onclick="event.stopPropagation()">
+      <div class="modal-handle"></div>
       <div class="modal-title">입력값 설정</div>
-      <input class="modal-input" id="modal-input" type="text" placeholder="예: ([])" maxlength="30" />
-      <div class="modal-desc" id="modal-desc">입력해주세요</div>
-      <div class="modal-buttons">
+      <input class="modal-input" id="modal-input" type="text" maxlength="30" />
+      <div class="modal-desc" id="modal-desc"></div>
+      <div class="modal-btns">
         <button class="modal-cancel" onclick="closeModal()">취소</button>
         <button class="modal-confirm" onclick="confirmInput()">확인</button>
       </div>
     </div>
   </div>
 
-  <div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
-  <div class="drawer" id="drawer">
-    <div class="drawer-handle"></div>
-    <div class="drawer-title" id="drawer-title">자료구조 선택</div>
-    <div class="drawer-list" id="drawer-list"></div>
-  </div>
-
-  <!-- Stack -->
+  <!-- 알고리즘 파일 -->
   <script src="js/algorithms/stack/stack_basic.js"></script>
   <script src="js/algorithms/stack/brackets.js"></script>
   <script src="js/algorithms/stack/dfs.js"></script>
   <script src="js/algorithms/stack/rpn.js"></script>
   <script src="js/algorithms/stack/palindrome.js"></script>
-  <!-- Queue -->
   <script src="js/algorithms/queue/queue_basic.js"></script>
   <script src="js/algorithms/queue/bfs.js"></script>
   <script src="js/algorithms/queue/bfs_maze.js"></script>
-  <!-- Linked List -->
   <script src="js/algorithms/linkedlist/linked_list.js"></script>
-  <!-- Tree -->
   <script src="js/algorithms/tree/binary_tree.js"></script>
-  <!-- Core -->
-  <script src="js/drawer.js"></script>
-  <script src="js/graph.js"></script>
-  <script src="js/render.js"></script>
-  <script src="js/main.js"></script>
+  <!-- 코어 -->
+  <script src="js/core/data.js"></script>
+  <script src="js/core/render.js"></script>
+  <script src="js/core/nav.js"></script>
+  <script src="js/core/main.js"></script>
 </body>
 </html>
