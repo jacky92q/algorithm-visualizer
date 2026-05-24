@@ -24,6 +24,15 @@ function resetAndStart() {
   if (currentTab === 'vis') render();
 }
 
+function resetToFirst() {
+  clearInterval(timer);
+  isPlaying = false;
+  const btn = document.getElementById('play-btn');
+  if (btn) btn.innerText = '▶ Play';
+  currentIndex = 0;
+  render();
+}
+
 function nextStep() {
   if (currentIndex < trace.length - 1) {
     currentIndex++;
