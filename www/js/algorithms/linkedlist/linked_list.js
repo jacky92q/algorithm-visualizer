@@ -1,9 +1,9 @@
 const ALGO_LINKED_LIST = {
   name: 'Linked List',
-  desc: '연결 리스트 삽입/삭제',
+  desc: 'Linked List Insertion/Deletion',
   defaultInput: '1,2,3,4,5',
-  inputPlaceholder: '예: 1,2,3,4,5',
-  inputDesc: '숫자를 쉼표로 구분해서 입력하세요',
+  inputPlaceholder: 'e.g., 1,2,3,4,5',
+  inputDesc: 'Enter numbers separated by commas',
 
   sourceCode: [
     { text: 'class Node:',                      indent: 0 },
@@ -30,54 +30,54 @@ const ALGO_LINKED_LIST = {
     const result = [];
     const list = [];
 
-    // 삽입
+    // Insert
     for (const n of nums) {
       result.push({
         line: 5, currentChar: `append(${n})`, stack: [...list],
-        action: 'CALL', description: `append(${n}) 호출`, highlight: null
+        action: 'CALL', description: `append(${n}) called`, highlight: null
       });
       result.push({
         line: 6, currentChar: `Node(${n})`, stack: [...list],
-        action: 'CREATE', description: `Node(${n}) 생성`, highlight: null
+        action: 'CREATE', description: `Node(${n}) created`, highlight: null
       });
       if (list.length > 0) {
         result.push({
           line: 8, currentChar: `traverse`, stack: [...list],
-          action: 'TRAVERSE', description: `마지막 노드까지 순회`, highlight: list[list.length - 1]
+          action: 'TRAVERSE', description: `Traverse to last node`, highlight: list[list.length - 1]
         });
       }
       list.push(n);
       result.push({
         line: 10, currentChar: `${n}`, stack: [...list],
-        action: 'APPEND', description: `${n} 연결 완료`, highlight: n
+        action: 'APPEND', description: `${n} linked`, highlight: n
       });
     }
 
-    // 삭제 (앞에서부터)
+    // Delete (from front)
     const deleteQueue = [...nums];
     while (deleteQueue.length > 0) {
       const target = deleteQueue.shift();
       result.push({
         line: 11, currentChar: `delete(${target})`, stack: [...list],
-        action: 'CALL', description: `delete(${target}) 호출`, highlight: null
+        action: 'CALL', description: `delete(${target}) called`, highlight: null
       });
       result.push({
-        line: 13, currentChar: `찾는 중...`, stack: [...list],
-        action: 'SEARCH', description: `val == ${target} 인 노드 탐색`, highlight: target
+        line: 13, currentChar: `searching...`, stack: [...list],
+        action: 'SEARCH', description: `Search for node with val == ${target}`, highlight: target
       });
       const idx = list.indexOf(target);
       if (idx !== -1) {
         list.splice(idx, 1);
         result.push({
           line: 15, currentChar: `${target}`, stack: [...list],
-          action: 'DELETE', description: `노드 ${target} 삭제 → cur.next = cur.next.next`, highlight: null
+          action: 'DELETE', description: `Node ${target} deleted → cur.next = cur.next.next`, highlight: null
         });
       }
     }
 
     result.push({
       line: 1, currentChar: 'None', stack: [],
-      action: 'DONE ✅', description: '리스트가 비었습니다', highlight: null
+      action: 'DONE ✅', description: 'List is empty', highlight: null
     });
     return result;
   },
@@ -88,13 +88,13 @@ const ALGO_LINKED_LIST = {
 };
 
 ALGO_LINKED_LIST.info = {
-  summary: '연결 리스트는 각 노드가 다음 노드를 가리키는 포인터를 가지는 선형 자료구조입니다. 삽입과 삭제가 효율적입니다.',
+  summary: 'A linked list is a linear data structure where each node has a pointer to the next node. Insertion and deletion are efficient.',
   complexity: 'O(n)',
   space: 'O(n)',
   keyPoints: [
-    '각 노드는 데이터(val)와 다음 노드 포인터(next)를 가짐',
-    '삽입: 마지막 노드까지 순회 후 연결',
-    '삭제: 삭제할 노드의 이전 노드의 next를 건너뜀',
+    'Each node has data (val) and a next node pointer',
+    'Insert: Traverse to the last node, then link new node',
+    'Delete: Skip the target node by updating previous node\'s next pointer',
   ],
 };
 
@@ -106,7 +106,7 @@ ALGO_LINKED_LIST.renderVisual = function(step) {
   if (list.length === 0) {
     return `
       <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
-        <div style="color:#333;font-size:14px;">리스트 비어있음</div>
+        <div style="color:#333;font-size:14px;">List is empty</div>
         <div style="font-size:12px;color:#555;">HEAD → NULL</div>
       </div>
     `;

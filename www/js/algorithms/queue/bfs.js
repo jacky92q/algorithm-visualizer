@@ -1,9 +1,9 @@
 const ALGO_BFS = {
-  name: 'BFS 탐색',
+  name: 'BFS Search',
   desc: 'Breadth First Search',
   defaultInput: '0',
-  inputPlaceholder: '시작 노드 번호 (예: 0)',
-  inputDesc: '시작 노드 번호를 입력하세요 (0~4)',
+  inputPlaceholder: 'Starting node number (e.g., 0)',
+  inputDesc: 'Enter starting node number (0-4)',
   hasGraph: true,
   graph: { 0: [1,2], 1: [0,3], 2: [0,4], 3: [1], 4: [2] },
   nodePositions: [
@@ -30,21 +30,21 @@ const ALGO_BFS = {
     const result = [];
     const queue = [start];
     const visited = new Set([start]);
-    result.push({ line: 2, currentChar: `start: ${start}`, stack: [...queue], visited: [...visited], current: null, action: 'INIT', description: `큐 초기화: [${start}]` });
+    result.push({ line: 2, currentChar: `start: ${start}`, stack: [...queue], visited: [...visited], current: null, action: 'INIT', description: `Initialize queue: [${start}]` });
     while (queue.length > 0) {
       const node = queue.shift();
-      result.push({ line: 5, currentChar: `node: ${node}`, stack: [...queue], visited: [...visited], current: node, action: 'DEQUEUE', description: `노드 ${node} 꺼내기` });
+      result.push({ line: 5, currentChar: `node: ${node}`, stack: [...queue], visited: [...visited], current: node, action: 'DEQUEUE', description: `Dequeue node ${node}` });
       visited.add(node);
-      result.push({ line: 6, currentChar: `node: ${node}`, stack: [...queue], visited: [...visited], current: node, action: 'VISIT', description: `노드 ${node} 방문! visited: {${[...visited].join(', ')}}` });
+      result.push({ line: 6, currentChar: `node: ${node}`, stack: [...queue], visited: [...visited], current: node, action: 'VISIT', description: `Visit node ${node}! visited: {${[...visited].join(', ')}}` });
       for (const neighbor of graph[node]) {
         if (!visited.has(neighbor)) {
           visited.add(neighbor);
           queue.push(neighbor);
-          result.push({ line: 9, currentChar: `neighbor: ${neighbor}`, stack: [...queue], visited: [...visited], current: node, action: 'ENQUEUE', description: `이웃 노드 ${neighbor} 큐에 추가` });
+          result.push({ line: 9, currentChar: `neighbor: ${neighbor}`, stack: [...queue], visited: [...visited], current: node, action: 'ENQUEUE', description: `Enqueue neighbor node ${neighbor}` });
         }
       }
     }
-    result.push({ line: 4, currentChar: '', stack: [], visited: [...visited], current: null, action: 'DONE ✅', description: `탐색 완료! 방문 순서: ${[...visited].join(' → ')}` });
+    result.push({ line: 4, currentChar: '', stack: [], visited: [...visited], current: null, action: 'DONE ✅', description: `Search complete! Visit order: ${[...visited].join(' → ')}` });
     return result;
   },
   renderInput(s) {
@@ -53,13 +53,13 @@ const ALGO_BFS = {
 };
 
 ALGO_BFS.info = {
-  summary: '큐를 이용해 그래프를 너비 우선으로 탐색합니다. 가까운 노드부터 차례로 방문합니다.',
+  summary: 'Explore a graph in breadth-first order using a queue. Visits closer nodes before distant ones.',
   complexity: 'O(V+E)',
   space: 'O(V)',
   keyPoints: [
-    '시작 노드를 큐에 enqueue',
-    '큐에서 dequeue한 노드를 방문',
-    '방문하지 않은 이웃 노드를 큐에 enqueue',
+    'Enqueue starting node to queue',
+    'Visit node dequeued from queue',
+    'Enqueue unvisited neighbor nodes to queue',
   ],
 };
 

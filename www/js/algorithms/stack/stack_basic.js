@@ -1,18 +1,18 @@
 const ALGO_STACK_BASIC = {
-  name: 'Stack 기본',
+  name: 'Basic Stack',
   desc: 'Push & Pop',
   defaultInput: '1,2,3,4,5',
-  inputPlaceholder: '예: 1,2,3,4,5',
-  inputDesc: '숫자를 쉼표로 구분해서 입력하세요',
+  inputPlaceholder: 'e.g., 1,2,3,4,5',
+  inputDesc: 'Enter numbers separated by commas',
 
   info: {
-    summary: '스택(Stack)은 후입선출(LIFO) 구조입니다. 마지막에 넣은 데이터가 가장 먼저 나옵니다.',
+    summary: 'Stack is a Last-In-First-Out (LIFO) data structure. The last element added is the first one removed.',
     complexity: 'O(1)',
     space: 'O(n)',
     keyPoints: [
-      'push: 스택 맨 위에 데이터 추가',
-      'pop: 스택 맨 위 데이터 제거 및 반환',
-      '접시 쌓기와 같은 구조',
+      'push: Add data to the top of the stack',
+      'pop: Remove and return data from the top of the stack',
+      'Similar structure to stacking plates',
     ],
   },
 
@@ -31,16 +31,16 @@ const ALGO_STACK_BASIC = {
     const result = [];
     const stack = [];
     for (const n of nums) {
-      result.push({ line: 2, currentChar: `push(${n})`, stack: [...stack], action: 'CALL', description: `push(${n}) 호출` });
+      result.push({ line: 2, currentChar: `push(${n})`, stack: [...stack], action: 'CALL', description: `push(${n}) called` });
       stack.push(n);
-      result.push({ line: 3, currentChar: `${n}`, stack: [...stack], action: 'PUSH', description: `${n} 을 스택에 push → [${stack.join(', ')}]` });
+      result.push({ line: 3, currentChar: `${n}`, stack: [...stack], action: 'PUSH', description: `${n} pushed to stack → [${stack.join(', ')}]` });
     }
     while (stack.length > 0) {
-      result.push({ line: 4, currentChar: 'pop()', stack: [...stack], action: 'CALL', description: `pop() 호출` });
+      result.push({ line: 4, currentChar: 'pop()', stack: [...stack], action: 'CALL', description: `pop() called` });
       const val = stack.pop();
-      result.push({ line: 6, currentChar: `${val}`, stack: [...stack], action: 'POP', description: `${val} 을 스택에서 pop → [${stack.join(', ')}]` });
+      result.push({ line: 6, currentChar: `${val}`, stack: [...stack], action: 'POP', description: `${val} popped from stack → [${stack.join(', ')}]` });
     }
-    result.push({ line: 1, currentChar: '[]', stack: [], action: 'DONE ✅', description: '스택이 비었습니다' });
+    result.push({ line: 1, currentChar: '[]', stack: [], action: 'DONE ✅', description: 'Stack is empty' });
     return result;
   },
 
@@ -49,7 +49,7 @@ const ALGO_STACK_BASIC = {
     const isPush = step.action === 'PUSH';
     const isPop = step.action === 'POP';
     if (stack.length === 0) {
-      return `<div style="color:#555;font-size:14px;">스택 비어있음</div>`;
+      return `<div style="color:#555;font-size:14px;">Stack is empty</div>`;
     }
     return `
       <div style="display:flex;flex-direction:column;align-items:center;gap:4px;width:100%;">
@@ -73,13 +73,13 @@ const ALGO_STACK_BASIC = {
 };
 
 ALGO_STACK_BASIC.info = {
-  summary: '스택(Stack)은 후입선출(LIFO) 구조입니다. 마지막에 넣은 데이터가 가장 먼저 나옵니다.',
+  summary: 'Stack is a Last-In-First-Out (LIFO) data structure. The last element added is the first one removed.',
   complexity: 'O(1)',
   space: 'O(n)',
   keyPoints: [
-    'push: 스택 맨 위에 데이터 추가',
-    'pop: 스택 맨 위 데이터 제거 및 반환',
-    '접시 쌓기와 같은 구조',
+    'push: Add data to the top of the stack',
+    'pop: Remove and return data from the top of the stack',
+    'Similar structure to stacking plates',
   ],
 };
 
@@ -88,7 +88,7 @@ ALGO_STACK_BASIC.renderVisual = function(step) {
   const isPush = step.action === 'PUSH';
   const isPop = step.action === 'POP';
   if (stack.length === 0) {
-    return `<div style="color:#333;font-size:14px;">스택 비어있음</div>`;
+    return `<div style="color:#333;font-size:14px;">Stack is empty</div>`;
   }
   return `
     <div style="display:flex;flex-direction:column;align-items:center;gap:4px;width:100%;">

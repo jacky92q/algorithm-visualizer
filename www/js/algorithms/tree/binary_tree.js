@@ -1,9 +1,9 @@
 const ALGO_BINARY_TREE = {
   name: 'Binary Tree',
-  desc: '중위순회 (Inorder)',
+  desc: 'Inorder Traversal',
   defaultInput: '4,2,6,1,3,5,7',
-  inputPlaceholder: '예: 4,2,6,1,3,5,7',
-  inputDesc: '레벨 순서로 노드값 입력 (루트부터)',
+  inputPlaceholder: 'e.g., 4,2,6,1,3,5,7',
+  inputDesc: 'Enter node values in level-order from root',
 
   sourceCode: [
     { text: 'def inorder(root, stack=[]):',  indent: 0 },
@@ -28,18 +28,18 @@ const ALGO_BINARY_TREE = {
       const leftIdx = 2 * idx + 1;
       const rightIdx = 2 * idx + 2;
 
-      // 왼쪽으로 이동
+      // Move left
       if (leftIdx < nums.length) {
         stack.push(nums[idx]);
         result.push({
           line: 5, currentChar: `${nums[idx]}`, stack: [...stack],
           visited: [...visited], current: idx, action: 'PUSH',
-          description: `노드 ${nums[idx]} 스택에 push, 왼쪽으로 이동`
+          description: `Push node ${nums[idx]} to stack, move left`
         });
         inorder(leftIdx);
       }
 
-      // 현재 노드 방문
+      // Visit current node
       const stackIdx = stack.lastIndexOf(nums[idx]);
       if (stackIdx !== -1) stack.splice(stackIdx, 1);
       else if (leftIdx >= nums.length) {}
@@ -48,15 +48,15 @@ const ALGO_BINARY_TREE = {
       result.push({
         line: 8, currentChar: `${nums[idx]}`, stack: [...stack],
         visited: [...visited], current: idx, action: 'VISIT',
-        description: `노드 ${nums[idx]} 방문! 순서: [${visited.map(i => nums[i]).join(', ')}]`
+        description: `Visit node ${nums[idx]}! Order: [${visited.map(i => nums[i]).join(', ')}]`
       });
 
-      // 오른쪽으로 이동
+      // Move right
       if (rightIdx < nums.length) {
         result.push({
           line: 9, currentChar: `${nums[idx]}`, stack: [...stack],
           visited: [...visited], current: idx, action: 'RIGHT',
-          description: `오른쪽 자식 ${nums[rightIdx]}으로 이동`
+          description: `Move to right child ${nums[rightIdx]}`
         });
         inorder(rightIdx);
       }
@@ -65,13 +65,13 @@ const ALGO_BINARY_TREE = {
     result.push({
       line: 2, currentChar: `root: ${nums[0]}`, stack: [],
       visited: [], current: 0, action: 'INIT',
-      description: `루트: ${nums[0]}, 중위순회 시작`
+      description: `Root: ${nums[0]}, start inorder traversal`
     });
     inorder(0);
     result.push({
       line: 3, currentChar: '', stack: [],
       visited: visited, current: -1, action: 'DONE ✅',
-      description: `중위순회 완료: [${visited.map(i => nums[i]).join(', ')}]`
+      description: `Inorder traversal complete: [${visited.map(i => nums[i]).join(', ')}]`
     });
     return result;
   },
@@ -82,13 +82,13 @@ const ALGO_BINARY_TREE = {
 };
 
 ALGO_BINARY_TREE.info = {
-  summary: '이진 트리를 스택을 이용해 중위순회(inorder)합니다. 왼쪽 → 루트 → 오른쪽 순서로 방문하며, BST에서는 정렬된 결과가 나옵니다.',
+  summary: 'Perform inorder traversal of a binary tree using a stack. Visits nodes in order: left → root → right. For a BST, this produces a sorted result.',
   complexity: 'O(n)',
   space: 'O(h)',
   keyPoints: [
-    '중위순회: 왼쪽 → 루트 → 오른쪽',
-    'BST 중위순회 결과는 항상 오름차순',
-    '스택으로 재귀 없이 구현 가능',
+    'Inorder: left → root → right',
+    'Inorder traversal of BST yields sorted order',
+    'Implement without recursion using a stack',
   ],
 };
 
@@ -98,7 +98,7 @@ ALGO_BINARY_TREE.renderVisual = function(step) {
   const current = step.current;
   const stack = step.stack || [];
 
-  // 트리 노드 위치 계산 (최대 3레벨)
+  // Tree node positions (max 3 levels)
   const positions = {
     0: { x: 50, y: 10 },
     1: { x: 25, y: 35 },
@@ -109,7 +109,7 @@ ALGO_BINARY_TREE.renderVisual = function(step) {
     6: { x: 88, y: 65 },
   };
 
-  // 엣지
+  // Edges
   const edges = [];
   for (let i = 0; i < nums.length; i++) {
     const left = 2 * i + 1;
@@ -179,7 +179,7 @@ ALGO_BINARY_TREE.renderVisual = function(step) {
   `;
 };
 
-// 입력값 파싱해서 nums 저장
+// Parse input and store nums
 const _origBTGenerate = ALGO_BINARY_TREE.generateTrace;
 ALGO_BINARY_TREE.generateTrace = function(s) {
   ALGO_BINARY_TREE._lastNums = s.split(',').map(x => parseInt(x.trim())).filter(x => !isNaN(x));
