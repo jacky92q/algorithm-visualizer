@@ -65,3 +65,66 @@ const ALGO_BFS_MAZE = {
     return `bfs_maze(<span style="color:#ffdd57;">5x5 미로</span>)`;
   }
 };
+
+ALGO_BFS_MAZE.info = {
+  summary: 'BFS를 이용해 미로의 최단 경로를 탐색합니다. 너비 우선 탐색으로 가장 가까운 경로를 먼저 탐색합니다.',
+  complexity: 'O(V+E)',
+  space: 'O(V)',
+  keyPoints: [
+    '시작점에서 BFS로 탐색',
+    '큐를 이용해 너비 우선으로 진행',
+    '목표 지점에 도달하면 종료',
+  ],
+};
+
+ALGO_BFS_MAZE.renderVisual = function(step) {
+  const maze = [
+    [0,0,1,0,0],
+    [1,0,1,0,1],
+    [1,0,0,0,1],
+    [1,1,1,0,1],
+    [0,0,0,0,0],
+  ];
+  const visited = step.visited || [];
+  const currentPos = step.currentChar && step.currentChar.includes(',') ? step.currentChar.replace('node: ','') : null;
+
+  const cellSize = 40;
+  const cells = maze.map((row, r) =>
+    row.map((cell, c) => {
+      const posKey = `${r},${c}`;
+      const isWall = cell === 1;
+      const isCurrent = posKey === currentPos;
+      const isVisited = visited.includes(posKey);
+      const isStart = r === 0 && c === 0;
+      const isEnd = r === 4 && c === 4;
+
+      let bg = '#0a0c10';
+      let text = '';
+      if (isWall) bg = '#1e2330';
+      else if (isCurrent) bg = '#422006';
+      else if (isEnd) bg = '#052e16';
+      else if (isStart) bg = '#1e2d4a';
+      else if (isVisited) bg = '#0f2d1f';
+
+      if (isStart) text = 'S';
+      if (isEnd) text = 'E';
+
+      return `
+        <rect x="${c * cellSize + 2}" y="${r * cellSize + 2}"
+          width="${cellSize - 4}" height="${cellSize - 4}"
+          rx="6" fill="${bg}" stroke="${isWall ? '#1e2330' : '#13161e'}" stroke-width="1"/>
+        ${text ? `<text x="${c * cellSize + cellSize/2}" y="${r * cellSize + cellSize/2}"
+          text-anchor="middle" dominant-baseline="middle"
+          fill="${isStart ? '#93c5fd' : '#34d399'}" font-size="11" font-weight="bold">${text}</text>` : ''}
+        ${isCurrent && !isWall ? `<circle cx="${c * cellSize + cellSize/2}" cy="${r * cellSize + cellSize/2}"
+          r="8" fill="#f59e0b"/>` : ''}
+      `;
+    }).join('')
+  ).join('');
+
+  return `
+    <svg width="${5 * cellSize}" height="${5 * cellSize}" style="border-radius:12px;overflow:hidden;">
+      ${cells}
+    </svg>
+  `;
+};
