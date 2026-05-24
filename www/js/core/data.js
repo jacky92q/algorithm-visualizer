@@ -4,8 +4,7 @@ function initData() {
   DATA_STRUCTURES = {
     stack: {
       name: 'Stack',
-      desc: '후입선출 (LIFO)',
-      icon: '📚',
+      desc: 'Last In First Out',
       iconClass: 'stack',
       algorithms: {
         stack_basic: ALGO_STACK_BASIC,
@@ -17,8 +16,7 @@ function initData() {
     },
     queue: {
       name: 'Queue',
-      desc: '선입선출 (FIFO)',
-      icon: '🚶',
+      desc: 'First In First Out',
       iconClass: 'queue',
       algorithms: {
         queue_basic: ALGO_QUEUE_BASIC,
@@ -28,8 +26,7 @@ function initData() {
     },
     linkedlist: {
       name: 'Linked List',
-      desc: '연결 리스트',
-      icon: '🔗',
+      desc: 'Node-based Data Structure',
       iconClass: 'linked',
       algorithms: {
         linked_list: ALGO_LINKED_LIST,
@@ -37,8 +34,7 @@ function initData() {
     },
     tree: {
       name: 'Tree',
-      desc: '이진 트리',
-      icon: '🌲',
+      desc: 'Binary Tree Structure',
       iconClass: 'tree',
       algorithms: {
         binary_tree: ALGO_BINARY_TREE,

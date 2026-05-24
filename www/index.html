@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
@@ -8,7 +8,7 @@
 </head>
 <body>
 
-  <!-- 페이지 1: 알고리즘 선택 -->
+  <!-- Page 1: Algorithm Selection -->
   <div class="page" id="page-home">
     <div class="home-header">
       <div class="home-title">Algorithm</div>
@@ -17,28 +17,33 @@
     <div class="home-list" id="home-list"></div>
   </div>
 
-  <!-- 페이지 2: 시각화 -->
+  <!-- Page 2: Visualization -->
   <div class="page hidden" id="page-visual">
 
-    <!-- 헤더 -->
+    <!-- Header -->
     <div class="nav-bar">
       <button class="nav-back" onclick="goBack()">‹</button>
       <span class="nav-title" id="nav-title"></span>
-      <button class="nav-edit" onclick="openModal()">✏️</button>
+      <button class="nav-edit" onclick="openModal()">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2.5 17.5h3l11-11L13.5 3.5l-11 11v3z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
+          <path d="M14.5 2.5l3 3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+      </button>
     </div>
 
-    <!-- 탭 -->
+    <!-- Tabs -->
     <div class="tab-bar">
-      <button class="tab-btn active" id="tab-desc" onclick="switchTab('desc')">설명</button>
-      <button class="tab-btn" id="tab-vis" onclick="switchTab('vis')">시각화</button>
+      <button class="tab-btn active" id="tab-desc" onclick="switchTab('desc')">Description</button>
+      <button class="tab-btn" id="tab-vis" onclick="switchTab('vis')">Visualization</button>
     </div>
 
-    <!-- 설명 탭 -->
+    <!-- Description Tab -->
     <div class="tab-content" id="content-desc">
       <div class="desc-card" id="desc-card"></div>
     </div>
 
-    <!-- 시각화 탭 -->
+    <!-- Visualization Tab -->
     <div class="tab-content hidden" id="content-vis">
       <div class="visual-card" id="visual-card"></div>
       <div class="code-card">
@@ -60,7 +65,7 @@
           <button class="ctrl-btn" onclick="nextStep()">›</button>
         </div>
         <div class="speed-control">
-          <label for="speed-slider">속도:</label>
+          <label for="speed-slider">Speed:</label>
           <input type="range" id="speed-slider" min="0.5" max="3" step="0.5" value="1" oninput="setPlaybackSpeed(parseFloat(this.value))" />
           <span id="speed-display">1x</span>
         </div>
@@ -69,21 +74,21 @@
 
   </div>
 
-  <!-- 입력값 모달 -->
+  <!-- Input Modal -->
   <div class="modal-overlay" id="modal-overlay" onclick="closeModal()">
     <div class="modal-sheet" onclick="event.stopPropagation()">
       <div class="modal-handle"></div>
-      <div class="modal-title">입력값 설정</div>
+      <div class="modal-title">Set Input</div>
       <input class="modal-input" id="modal-input" type="text" maxlength="30" />
       <div class="modal-desc" id="modal-desc"></div>
       <div class="modal-btns">
-        <button class="modal-cancel" onclick="closeModal()">취소</button>
-        <button class="modal-confirm" onclick="confirmInput()">확인</button>
+        <button class="modal-cancel" onclick="closeModal()">Cancel</button>
+        <button class="modal-confirm" onclick="confirmInput()">Confirm</button>
       </div>
     </div>
   </div>
 
-  <!-- 알고리즘 파일 -->
+  <!-- Algorithm Files -->
   <script src="js/algorithms/stack/stack_basic.js"></script>
   <script src="js/algorithms/stack/brackets.js"></script>
   <script src="js/algorithms/stack/dfs.js"></script>
