@@ -88,13 +88,13 @@ const ALGO_LINKED_LIST = {
 };
 
 ALGO_LINKED_LIST.info = {
-  summary: '연결 리스트는 각 노드가 다음 노드를 가리키는 포인터를 가지는 선형 자료구조입니다. 삽입과 삭제가 효율적입니다.',
+  summary: 'A linked list is a linear data structure where each node has a pointer to the next node. Insertion and deletion are efficient.',
   complexity: 'O(n)',
   space: 'O(n)',
   keyPoints: [
-    '각 노드는 데이터(val)와 다음 노드 포인터(next)를 가짐',
-    '삽입: 마지막 노드까지 순회 후 연결',
-    '삭제: 삭제할 노드의 이전 노드의 next를 건너뜀',
+    'Each node has data (val) and a next node pointer',
+    'Insert: Traverse to the last node, then link new node',
+    'Delete: Skip the target node by updating previous node\'s next pointer',
   ],
 };
 
@@ -106,7 +106,7 @@ ALGO_LINKED_LIST.renderVisual = function(step) {
   if (list.length === 0) {
     return `
       <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
-        <div style="color:#333;font-size:14px;">리스트 비어있음</div>
+        <div style="color:#333;font-size:14px;">List is empty</div>
         <div style="font-size:12px;color:#555;">HEAD → NULL</div>
       </div>
     `;
