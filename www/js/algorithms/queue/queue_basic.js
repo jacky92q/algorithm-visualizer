@@ -34,3 +34,38 @@ const ALGO_QUEUE_BASIC = {
     return `enqueue/dequeue([<span style="color:#ffdd57;">${s}</span>])`;
   }
 };
+
+ALGO_QUEUE_BASIC.info = {
+  summary: '큐(Queue)는 선입선출(FIFO) 구조입니다. 먼저 넣은 데이터가 가장 먼저 나옵니다.',
+  complexity: 'O(1)',
+  space: 'O(n)',
+  keyPoints: [
+    'enqueue: 큐 맨 뒤에 데이터 추가',
+    'dequeue: 큐 맨 앞 데이터 제거 및 반환',
+    '줄 서기와 같은 구조',
+  ],
+};
+
+ALGO_QUEUE_BASIC.renderVisual = function(step) {
+  const queue = step.stack || [];
+  const isEnqueue = step.action === 'ENQUEUE';
+  const isDequeue = step.action === 'DEQUEUE';
+  if (queue.length === 0) {
+    return `<div style="color:#333;font-size:14px;">큐 비어있음</div>`;
+  }
+  return `
+    <div style="display:flex;flex-direction:column;align-items:center;gap:8px;width:100%;">
+      <div style="display:flex;flex-direction:row;gap:6px;align-items:center;">
+        <div style="font-size:11px;color:#10b981;writing-mode:vertical-rl;">FRONT</div>
+        ${queue.map((item, i) => `
+          <div class="v-block ${i === 0 && isDequeue ? 'highlight' : ''} ${i === queue.length-1 && isEnqueue ? 'active' : ''}">${item}</div>
+        `).join('<div style="color:#333;font-size:12px;">→</div>')}
+        <div style="font-size:11px;color:#3b82f6;writing-mode:vertical-rl;">BACK</div>
+      </div>
+      <div style="display:flex;gap:20px;font-size:12px;color:#555;">
+        <span>← dequeue</span>
+        <span>enqueue →</span>
+      </div>
+    </div>
+  `;
+};
