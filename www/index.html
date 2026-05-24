@@ -59,6 +59,11 @@
           <button class="ctrl-btn play-btn" onclick="togglePlay()" id="play-btn">▶ Play</button>
           <button class="ctrl-btn" onclick="nextStep()">›</button>
         </div>
+        <div class="speed-control">
+          <label for="speed-slider">속도:</label>
+          <input type="range" id="speed-slider" min="0.5" max="3" step="0.5" value="1" oninput="setPlaybackSpeed(parseFloat(this.value))" />
+          <span id="speed-display">1x</span>
+        </div>
       </div>
     </div>
 

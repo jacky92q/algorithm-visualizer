@@ -13,6 +13,7 @@ var trace = [];
 var currentIndex = 0;
 var timer = null;
 var isPlaying = false;
+var playbackSpeed = 1.0;
 
 function resetAndStart() {
   clearInterval(timer);
@@ -60,6 +61,7 @@ function togglePlay() {
     }
     isPlaying = true;
     btn.innerText = '⏸ Pause';
+    const interval = Math.max(300, 1200 / playbackSpeed);
     timer = setInterval(() => {
       if (currentIndex >= trace.length - 1) {
         clearInterval(timer);
@@ -68,7 +70,7 @@ function togglePlay() {
         return;
       }
       nextStep();
-    }, 1200);
+    }, interval);
   }
 }
 
