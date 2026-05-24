@@ -175,4 +175,20 @@ function setPlaybackSpeed(speed) {
   if (display) {
     display.innerText = speed + 'x';
   }
+
+  // If playing, restart timer with new speed
+  if (isPlaying) {
+    clearInterval(timer);
+    const interval = Math.max(300, 1200 / playbackSpeed);
+    timer = setInterval(() => {
+      if (currentIndex >= trace.length - 1) {
+        clearInterval(timer);
+        isPlaying = false;
+        const btn = document.getElementById('play-btn');
+        if (btn) btn.innerText = '▶ Play';
+        return;
+      }
+      nextStep();
+    }, interval);
+  }
 }
