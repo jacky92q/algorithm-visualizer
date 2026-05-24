@@ -45,12 +45,11 @@
     </div>
   </div>
 
-  <!-- 입력값 모달 -->
   <div class="modal-overlay" id="modal-overlay" onclick="closeModal()">
     <div class="modal" onclick="event.stopPropagation()">
       <div class="modal-title">입력값 설정</div>
-      <input class="modal-input" id="modal-input" type="text" placeholder="예: ([])" maxlength="20" />
-      <div class="modal-desc" id="modal-desc">괄호만 입력해주세요</div>
+      <input class="modal-input" id="modal-input" type="text" placeholder="예: ([])" maxlength="30" />
+      <div class="modal-desc" id="modal-desc">입력해주세요</div>
       <div class="modal-buttons">
         <button class="modal-cancel" onclick="closeModal()">취소</button>
         <button class="modal-confirm" onclick="confirmInput()">확인</button>
@@ -58,7 +57,6 @@
     </div>
   </div>
 
-  <!-- Bottom Sheet Drawer -->
   <div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
   <div class="drawer" id="drawer">
     <div class="drawer-handle"></div>
@@ -66,14 +64,23 @@
     <div class="drawer-list" id="drawer-list"></div>
   </div>
 
-  <!-- JS -->
+  <!-- Stack -->
   <script src="js/algorithms/stack/stack_basic.js"></script>
   <script src="js/algorithms/stack/brackets.js"></script>
   <script src="js/algorithms/stack/dfs.js"></script>
+  <script src="js/algorithms/stack/rpn.js"></script>
+  <script src="js/algorithms/stack/palindrome.js"></script>
+  <!-- Queue -->
   <script src="js/algorithms/queue/queue_basic.js"></script>
   <script src="js/algorithms/queue/bfs.js"></script>
-  <script src="js/graph.js"></script>
+  <script src="js/algorithms/queue/bfs_maze.js"></script>
+  <!-- Linked List -->
+  <script src="js/algorithms/linkedlist/linked_list.js"></script>
+  <!-- Tree -->
+  <script src="js/algorithms/tree/binary_tree.js"></script>
+  <!-- Core -->
   <script src="js/drawer.js"></script>
+  <script src="js/graph.js"></script>
   <script src="js/render.js"></script>
   <script src="js/main.js"></script>
 </body>
