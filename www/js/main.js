@@ -1,3 +1,11 @@
+window.onerror = function(msg, src, line) {
+  document.body.insertAdjacentHTML('afterbegin',
+    `<div style="background:red;color:white;padding:10px;font-size:12px;position:fixed;top:0;z-index:9999;">
+      ERROR: ${msg}<br>${src}:${line}
+    </div>`
+  );
+};
+
 // 전역 상태
 let currentDS = 'stack';
 let currentAlgoKey = 'brackets';
