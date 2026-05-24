@@ -39,3 +39,39 @@ const ALGO_PALINDROME = {
     return `is_palindrome(<span style="color:#ffdd57;">"${s}"</span>)`;
   }
 };
+
+ALGO_PALINDROME.info = {
+  summary: '스택을 이용해 문자열이 앞뒤로 동일한지(팰린드롬) 확인합니다.',
+  complexity: 'O(n)',
+  space: 'O(n)',
+  keyPoints: [
+    '모든 문자를 스택에 push',
+    '스택에서 pop하면 역순으로 나옴',
+    '원본과 역순이 같으면 팰린드롬',
+  ],
+};
+
+ALGO_PALINDROME.renderVisual = function(step) {
+  const stack = step.stack || [];
+  const isPush = step.action === 'PUSH';
+  const isPop = step.action === 'POP';
+  return `
+    <div style="display:flex;flex-direction:column;align-items:center;gap:10px;width:100%;">
+      ${stack.length === 0
+        ? `<div style="color:#333;font-size:14px;">스택 비어있음</div>`
+        : `
+          <div style="font-size:11px;color:#888;">TOP ↓</div>
+          <div style="display:flex;gap:4px;flex-wrap:wrap;justify-content:center;">
+            ${[...stack].reverse().map((ch, i) => `
+              <div class="v-block ${i === 0 && (isPush || isPop) ? 'highlight' : ''}">${ch}</div>
+            `).join('')}
+          </div>
+          <div style="font-size:11px;color:#888;">BOTTOM</div>
+        `
+      }
+      ${step.action === 'POP' ? `
+        <div style="font-size:13px;color:#a78bfa;">역순: "${step.description.split('"')[1] || ''}"</div>
+      ` : ''}
+    </div>
+  `;
+};
