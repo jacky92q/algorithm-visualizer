@@ -118,11 +118,11 @@ const ALGO_MERGE_SORT = {
     const range = maxVal - minVal || 1;
 
     return `
-      <div style="width:100%;height:150px;background:#0a0c10;border-radius:10px;padding:16px;border:1px solid #1e2330;display:flex;align-items:flex-end;justify-content:center;gap:5px;">
+      <div style="width:100%;height:150px;background:#0a0c10;border-radius:10px;padding:16px;border:1px solid #1e2330;display:flex;align-items:stretch;justify-content:center;gap:5px;">
         ${array.length > 0 ? array.map((val) => {
           const height = ((val - minVal) / range) * 110 + 5;
           return `
-            <div style="display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;min-width:25px;">
+            <div style="display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:3px;flex:1;min-width:25px;">
               <div style="width:100%;height:${height}%;background:#10b981;border-radius:3px;box-shadow:0 0 6px #10b98130;transition:all 0.2s ease;"></div>
               <div style="font-size:10px;color:#34d399;font-weight:bold;">${val}</div>
             </div>
