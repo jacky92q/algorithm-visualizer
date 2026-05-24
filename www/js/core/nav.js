@@ -169,3 +169,11 @@ function confirmInput() {
   closeModal();
   resetAndStart();
 }
+
+function setPlaybackSpeed(speed) {
+  playbackSpeed = speed;
+  const display = document.getElementById('speed-display');
+  if (display) {
+    display.innerText = speed + 'x';
+  }
+}

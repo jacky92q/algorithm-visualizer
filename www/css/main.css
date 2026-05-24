@@ -502,6 +502,69 @@ button { cursor: pointer; }
   font-size: 15px;
 }
 
+.speed-control {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 12px;
+  padding: 0 12px;
+  font-size: 13px;
+  color: #a0a8b0;
+}
+
+.speed-control label {
+  min-width: 35px;
+}
+
+.speed-control input[type="range"] {
+  flex: 1;
+  min-width: 120px;
+  max-width: 200px;
+  height: 6px;
+  border-radius: 3px;
+  background: #1e2330;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.speed-control input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #1d4ed8;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.speed-control input[type="range"]::-webkit-slider-thumb:active {
+  background: #1b3ec3;
+}
+
+.speed-control input[type="range"]::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #1d4ed8;
+  cursor: pointer;
+  border: none;
+  transition: background 0.15s;
+}
+
+.speed-control input[type="range"]::-moz-range-thumb:active {
+  background: #1b3ec3;
+}
+
+.speed-control #speed-display {
+  min-width: 25px;
+  text-align: right;
+  font-weight: 600;
+  color: #1d4ed8;
+}
+
 .play-btn:active { background: #1e40af; }
 
 /* =====================
