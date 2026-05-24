@@ -1,9 +1,9 @@
 const ALGO_DFS = {
-  name: 'DFS 탐색',
+  name: 'DFS Search',
   desc: 'Depth First Search',
   defaultInput: '0',
-  inputPlaceholder: '시작 노드 번호 (예: 0)',
-  inputDesc: '시작 노드 번호를 입력하세요 (0~4)',
+  inputPlaceholder: 'Starting node number (e.g., 0)',
+  inputDesc: 'Enter starting node number (0-4)',
   hasGraph: true,
   graph: { 0: [1,2], 1: [0,3], 2: [0,4], 3: [1], 4: [2] },
   nodePositions: [
@@ -30,22 +30,22 @@ const ALGO_DFS = {
     const result = [];
     const stack = [start];
     const visited = new Set();
-    result.push({ line: 2, currentChar: `start: ${start}`, stack: [...stack], visited: [], current: null, action: 'INIT', description: `스택 초기화: [${start}]` });
+    result.push({ line: 2, currentChar: `start: ${start}`, stack: [...stack], visited: [], current: null, action: 'INIT', description: `Initialize stack: [${start}]` });
     while (stack.length > 0) {
       const node = stack.pop();
-      result.push({ line: 5, currentChar: `node: ${node}`, stack: [...stack], visited: [...visited], current: node, action: 'POP', description: `노드 ${node} 꺼내기` });
+      result.push({ line: 5, currentChar: `node: ${node}`, stack: [...stack], visited: [...visited], current: node, action: 'POP', description: `Pop node ${node}` });
       if (!visited.has(node)) {
         visited.add(node);
-        result.push({ line: 7, currentChar: `node: ${node}`, stack: [...stack], visited: [...visited], current: node, action: 'VISIT', description: `노드 ${node} 방문! visited: {${[...visited].join(', ')}}` });
+        result.push({ line: 7, currentChar: `node: ${node}`, stack: [...stack], visited: [...visited], current: node, action: 'VISIT', description: `Visit node ${node}! visited: {${[...visited].join(', ')}}` });
         for (const neighbor of graph[node]) {
           if (!visited.has(neighbor)) {
             stack.push(neighbor);
-            result.push({ line: 9, currentChar: `neighbor: ${neighbor}`, stack: [...stack], visited: [...visited], current: node, action: 'PUSH', description: `이웃 노드 ${neighbor} 스택에 push` });
+            result.push({ line: 9, currentChar: `neighbor: ${neighbor}`, stack: [...stack], visited: [...visited], current: node, action: 'PUSH', description: `Push neighbor node ${neighbor} to stack` });
           }
         }
       }
     }
-    result.push({ line: 4, currentChar: '', stack: [], visited: [...visited], current: null, action: 'DONE ✅', description: `탐색 완료! 방문 순서: ${[...visited].join(' → ')}` });
+    result.push({ line: 4, currentChar: '', stack: [], visited: [...visited], current: null, action: 'DONE ✅', description: `Search complete! Visit order: ${[...visited].join(' → ')}` });
     return result;
   },
   renderInput(s) {
@@ -53,15 +53,14 @@ const ALGO_DFS = {
   }
 };
 
-// info & renderVisual 추가
 ALGO_DFS.info = {
-  summary: '스택을 이용해 그래프를 깊이 우선으로 탐색합니다. 한 방향으로 끝까지 탐색 후 되돌아옵니다.',
+  summary: 'Explore a graph in depth-first order using a stack. Explores one direction to the end, then backtracks.',
   complexity: 'O(V+E)',
   space: 'O(V)',
   keyPoints: [
-    '시작 노드를 스택에 push',
-    '스택에서 pop한 노드를 방문',
-    '방문하지 않은 이웃 노드를 스택에 push',
+    'Push starting node to stack',
+    'Visit node popped from stack',
+    'Push unvisited neighbor nodes to stack',
   ],
 };
 

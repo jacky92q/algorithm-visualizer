@@ -1,33 +1,33 @@
 const ALGO_BRACKETS = {
-  name: '괄호 검사',
+  name: 'Valid Parentheses',
   desc: 'Valid Parentheses',
   defaultInput: '([])',
-  inputPlaceholder: '예: ([])',
-  inputDesc: '괄호만 입력해주세요 ( ) [ ] { }',
+  inputPlaceholder: 'e.g., ([])',
+  inputDesc: 'Enter brackets only: ( ) [ ] { }',
 
   info: {
-    summary: '스택을 이용해 괄호가 올바르게 짝지어졌는지 확인하는 알고리즘입니다.',
+    summary: 'Algorithm to check if parentheses are correctly matched using a stack.',
     complexity: 'O(n)',
     space: 'O(n)',
     keyPoints: [
-      '여는 괄호는 스택에 push',
-      '닫는 괄호는 스택에서 pop해서 매칭 확인',
-      '마지막에 스택이 비어있으면 Valid',
+      'Push opening brackets to stack',
+      'Pop and match closing brackets',
+      'Valid if stack is empty at the end',
     ],
   },
 
   sourceCode: [
-    { text: 'def is_valid(s):',                       indent: 0 },
-    { text: 'stack = []',                             indent: 1 },
+    { text: 'def is_valid(s):', indent: 0 },
+    { text: 'stack = []', indent: 1 },
     { text: "mapping = {')':'(', ']':'[', '}':'{'}",  indent: 1 },
-    { text: 'for ch in s:',                           indent: 1 },
-    { text: 'if ch in "([{":',                        indent: 2 },
-    { text: 'stack.append(ch)',                       indent: 3 },
-    { text: 'else:',                                  indent: 2 },
-    { text: 'if not stack:',                          indent: 3 },
-    { text: 'return False',                           indent: 4 },
-    { text: 'stack.pop()',                            indent: 3 },
-    { text: 'return len(stack) == 0',                 indent: 1 },
+    { text: 'for ch in s:', indent: 1 },
+    { text: 'if ch in "([{":', indent: 2 },
+    { text: 'stack.append(ch)', indent: 3 },
+    { text: 'else:', indent: 2 },
+    { text: 'if not stack:', indent: 3 },
+    { text: 'return False', indent: 4 },
+    { text: 'stack.pop()', indent: 3 },
+    { text: 'return len(stack) == 0', indent: 1 },
   ],
 
   generateTrace(s) {
@@ -35,28 +35,28 @@ const ALGO_BRACKETS = {
     const stack = [];
     const mapping = { ')': '(', ']': '[', '}': '{' };
     for (const ch of s) {
-      result.push({ line: 4, currentChar: ch, stack: [...stack], action: 'READ', description: `문자 "${ch}" 읽기` });
+      result.push({ line: 4, currentChar: ch, stack: [...stack], action: 'READ', description: `Read character "${ch}"` });
       if ('([{'.includes(ch)) {
         stack.push(ch);
-        result.push({ line: 6, currentChar: ch, stack: [...stack], action: 'PUSH', description: `"${ch}" 를 스택에 push` });
+        result.push({ line: 6, currentChar: ch, stack: [...stack], action: 'PUSH', description: `Push "${ch}" to stack` });
       } else {
         if (stack.length === 0) {
-          result.push({ line: 9, currentChar: ch, stack: [], action: 'INVALID ❌', description: '스택이 비어있어 매칭 불가!' });
+          result.push({ line: 9, currentChar: ch, stack: [], action: 'INVALID ❌', description: 'Stack is empty! Cannot match.' });
           return result;
         }
         stack.pop();
-        result.push({ line: 10, currentChar: ch, stack: [...stack], action: 'POP', description: `"${mapping[ch]}" 를 스택에서 pop` });
+        result.push({ line: 10, currentChar: ch, stack: [...stack], action: 'POP', description: `Pop "${mapping[ch]}" from stack` });
       }
     }
     const valid = stack.length === 0;
-    result.push({ line: 11, currentChar: '', stack: [...stack], action: valid ? 'VALID ✅' : 'INVALID ❌', description: valid ? '스택이 비어있음 → 유효한 괄호!' : '스택에 남은 괄호 있음 → 유효하지 않음!' });
+    result.push({ line: 11, currentChar: '', stack: [...stack], action: valid ? 'VALID ✅' : 'INVALID ❌', description: valid ? 'Stack is empty - Valid parentheses!' : 'Remaining brackets in stack - Invalid!' });
     return result;
   },
 
   renderVisual(step) {
     const stack = step.stack;
     if (stack.length === 0) {
-      return `<div style="color:#555;font-size:14px;">스택 비어있음</div>`;
+      return `<div style="color:#555;font-size:14px;">Stack is empty</div>`;
     }
     return `
       <div style="display:flex;flex-direction:column;align-items:center;gap:6px;width:100%;">
@@ -85,13 +85,13 @@ const ALGO_BRACKETS = {
 };
 
 ALGO_BRACKETS.info = {
-  summary: '스택을 이용해 괄호가 올바르게 짝지어졌는지 확인하는 알고리즘입니다.',
+  summary: 'Algorithm to check if parentheses are correctly matched using a stack.',
   complexity: 'O(n)',
   space: 'O(n)',
   keyPoints: [
-    '여는 괄호는 스택에 push',
-    '닫는 괄호는 스택에서 pop해서 매칭 확인',
-    '마지막에 스택이 비어있으면 Valid',
+    'Push opening brackets to stack',
+    'Pop and match closing brackets',
+    'Valid if stack is empty at the end',
   ],
 };
 
@@ -104,7 +104,7 @@ ALGO_BRACKETS.renderVisual = function(step) {
     <div style="display:flex;flex-direction:column;align-items:center;gap:10px;width:100%;">
       <div style="display:flex;align-items:center;gap:12px;">
         <div style="text-align:center;">
-          <div style="font-size:11px;color:#555;margin-bottom:6px;">현재 문자</div>
+          <div style="font-size:11px;color:#555;margin-bottom:6px;">Current Char</div>
           <div style="width:50px;height:50px;background:${isPush?'#1e2d4a':isPop?'#422006':'#13161e'};
             border:2px solid ${isPush?'#3b82f6':isPop?'#f59e0b':'#2a3040'};
             border-radius:12px;display:flex;align-items:center;justify-content:center;
@@ -117,7 +117,7 @@ ALGO_BRACKETS.renderVisual = function(step) {
           <div style="font-size:11px;color:#555;margin-bottom:6px;">STACK</div>
           <div style="display:flex;gap:4px;">
             ${stack.length === 0
-              ? `<div style="color:#333;font-size:13px;line-height:50px;">비어있음</div>`
+              ? `<div style="color:#333;font-size:13px;line-height:50px;">Empty</div>`
               : [...stack].reverse().map((item, i) => `
                 <div class="v-block ${i === 0 ? 'active' : ''}">${item}</div>
               `).join('')

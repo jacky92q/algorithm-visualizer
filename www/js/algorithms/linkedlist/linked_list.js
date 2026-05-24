@@ -1,9 +1,9 @@
 const ALGO_LINKED_LIST = {
   name: 'Linked List',
-  desc: '연결 리스트 삽입/삭제',
+  desc: 'Linked List Insertion/Deletion',
   defaultInput: '1,2,3,4,5',
-  inputPlaceholder: '예: 1,2,3,4,5',
-  inputDesc: '숫자를 쉼표로 구분해서 입력하세요',
+  inputPlaceholder: 'e.g., 1,2,3,4,5',
+  inputDesc: 'Enter numbers separated by commas',
 
   sourceCode: [
     { text: 'class Node:',                      indent: 0 },
@@ -30,54 +30,54 @@ const ALGO_LINKED_LIST = {
     const result = [];
     const list = [];
 
-    // 삽입
+    // Insert
     for (const n of nums) {
       result.push({
         line: 5, currentChar: `append(${n})`, stack: [...list],
-        action: 'CALL', description: `append(${n}) 호출`, highlight: null
+        action: 'CALL', description: `append(${n}) called`, highlight: null
       });
       result.push({
         line: 6, currentChar: `Node(${n})`, stack: [...list],
-        action: 'CREATE', description: `Node(${n}) 생성`, highlight: null
+        action: 'CREATE', description: `Node(${n}) created`, highlight: null
       });
       if (list.length > 0) {
         result.push({
           line: 8, currentChar: `traverse`, stack: [...list],
-          action: 'TRAVERSE', description: `마지막 노드까지 순회`, highlight: list[list.length - 1]
+          action: 'TRAVERSE', description: `Traverse to last node`, highlight: list[list.length - 1]
         });
       }
       list.push(n);
       result.push({
         line: 10, currentChar: `${n}`, stack: [...list],
-        action: 'APPEND', description: `${n} 연결 완료`, highlight: n
+        action: 'APPEND', description: `${n} linked`, highlight: n
       });
     }
 
-    // 삭제 (앞에서부터)
+    // Delete (from front)
     const deleteQueue = [...nums];
     while (deleteQueue.length > 0) {
       const target = deleteQueue.shift();
       result.push({
         line: 11, currentChar: `delete(${target})`, stack: [...list],
-        action: 'CALL', description: `delete(${target}) 호출`, highlight: null
+        action: 'CALL', description: `delete(${target}) called`, highlight: null
       });
       result.push({
-        line: 13, currentChar: `찾는 중...`, stack: [...list],
-        action: 'SEARCH', description: `val == ${target} 인 노드 탐색`, highlight: target
+        line: 13, currentChar: `searching...`, stack: [...list],
+        action: 'SEARCH', description: `Search for node with val == ${target}`, highlight: target
       });
       const idx = list.indexOf(target);
       if (idx !== -1) {
         list.splice(idx, 1);
         result.push({
           line: 15, currentChar: `${target}`, stack: [...list],
-          action: 'DELETE', description: `노드 ${target} 삭제 → cur.next = cur.next.next`, highlight: null
+          action: 'DELETE', description: `Node ${target} deleted → cur.next = cur.next.next`, highlight: null
         });
       }
     }
 
     result.push({
       line: 1, currentChar: 'None', stack: [],
-      action: 'DONE ✅', description: '리스트가 비었습니다', highlight: null
+      action: 'DONE ✅', description: 'List is empty', highlight: null
     });
     return result;
   },
