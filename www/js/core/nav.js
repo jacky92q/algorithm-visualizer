@@ -105,6 +105,9 @@ function switchTab(tab) {
   document.getElementById('content-vis').classList.toggle('hidden', tab !== 'vis');
   document.getElementById('tab-desc').classList.toggle('active', tab === 'desc');
   document.getElementById('tab-vis').classList.toggle('active', tab === 'vis');
+  if (tab === 'vis') {
+    render();
+  }
 }
 
 // 설명 카드 렌더링
