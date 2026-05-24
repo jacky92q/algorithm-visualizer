@@ -52,28 +52,32 @@ const ALGO_BUBBLE_SORT = {
 
   renderVisual(step) {
     const array = step.array || [];
+    if (array.length === 0) {
+      return `<div style="color:#888;text-align:center;padding:40px;">No array data</div>`;
+    }
+
+    const maxVal = Math.max(...array);
+    const minVal = Math.min(...array);
+    const range = maxVal - minVal || 1;
     const comparing = step.comparing || [-1, -1];
-    const maxVal = Math.max(...array, 10);
 
     return `
-      <div style="width:100%;display:flex;flex-direction:column;gap:12px;">
-        <div style="display:flex;align-items:flex-end;justify-content:center;gap:6px;height:120px;background:#0a0c10;border-radius:10px;padding:12px;border:1px solid #1e2330;">
-          ${array.map((val, idx) => {
-            const height = (val / maxVal) * 100;
-            const isComparing = comparing.includes(idx);
-            const bgColor = isComparing ? '#f59e0b' : '#3b82f6';
-            const textColor = isComparing ? '#fbbf24' : '#93c5fd';
-            return `
-              <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;">
-                <div style="width:100%;height:${height}%;background:${bgColor};border-radius:4px;transition:all 0.3s;"></div>
-                <div style="font-size:11px;color:${textColor};font-weight:bold;">${val}</div>
-              </div>
-            `;
-          }).join('')}
-        </div>
-        <div style="text-align:center;font-size:12px;color:#888;">
-          ${step.action === 'SWAP' ? 'Swapping...' : step.action === 'COMPARE' ? 'Comparing...' : 'Sorted!'}
-        </div>
+      <div style="width:100%;height:180px;background:#0a0c10;border-radius:10px;padding:20px;border:1px solid #1e2330;display:flex;align-items:flex-end;justify-content:center;gap:8px;">
+        ${array.map((val, idx) => {
+          const height = ((val - minVal) / range) * 150 + 20;
+          const isComparing = comparing.includes(idx);
+          const bgColor = isComparing ? '#f59e0b' : '#3b82f6';
+
+          return `
+            <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;min-width:40px;">
+              <div style="width:100%;height:${height}px;background:${bgColor};border-radius:6px;box-shadow:0 0 8px ${isComparing ? '#f59e0b' : '#3b82f6'}40;transition:all 0.2s ease;"></div>
+              <div style="font-size:12px;color:#93c5fd;font-weight:bold;margin-top:4px;">${val}</div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+      <div style="text-align:center;margin-top:12px;font-size:13px;color:#a0a8b0;">
+        ${step.action === 'SWAP' ? '🔄 Swapping' : step.action === 'COMPARE' ? '🔍 Comparing' : '✓ Sorted'}
       </div>
     `;
   },

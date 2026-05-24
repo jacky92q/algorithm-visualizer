@@ -79,31 +79,34 @@ const ALGO_QUICK_SORT = {
 
   renderVisual(step) {
     const array = step.array || [];
+    if (array.length === 0) {
+      return `<div style="color:#888;text-align:center;padding:40px;">No array data</div>`;
+    }
+
+    const maxVal = Math.max(...array);
+    const minVal = Math.min(...array);
+    const range = maxVal - minVal || 1;
     const pivot = step.pivot;
     const comparing = step.comparing || [-1, -1];
-    const maxVal = Math.max(...array, 10);
 
     return `
-      <div style="width:100%;display:flex;flex-direction:column;gap:12px;">
-        <div style="display:flex;align-items:flex-end;justify-content:center;gap:6px;height:120px;background:#0a0c10;border-radius:10px;padding:12px;border:1px solid #1e2330;">
-          ${array.map((val, idx) => {
-            const height = (val / maxVal) * 100;
-            let bgColor = '#3b82f6';
-            if (idx === pivot) bgColor = '#f59e0b';
-            else if (comparing.includes(idx)) bgColor = '#ec4899';
+      <div style="width:100%;height:180px;background:#0a0c10;border-radius:10px;padding:20px;border:1px solid #1e2330;display:flex;align-items:flex-end;justify-content:center;gap:8px;">
+        ${array.map((val, idx) => {
+          const height = ((val - minVal) / range) * 150 + 20;
+          let bgColor = '#3b82f6';
+          if (idx === pivot) bgColor = '#f59e0b';
+          else if (comparing.includes(idx)) bgColor = '#ec4899';
 
-            const textColor = idx === pivot ? '#fbbf24' : comparing.includes(idx) ? '#f472b6' : '#93c5fd';
-            return `
-              <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;">
-                <div style="width:100%;height:${height}%;background:${bgColor};border-radius:4px;transition:all 0.3s;"></div>
-                <div style="font-size:11px;color:${textColor};font-weight:bold;">${val}</div>
-              </div>
-            `;
-          }).join('')}
-        </div>
-        <div style="text-align:center;font-size:12px;color:#888;">
-          ${step.action === 'SELECT_PIVOT' ? 'Selecting pivot...' : step.action === 'SWAP' ? 'Swapping...' : step.action === 'PIVOT_PLACED' ? 'Pivot placed' : 'Partitioning...'}
-        </div>
+          return `
+            <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;min-width:40px;">
+              <div style="width:100%;height:${height}px;background:${bgColor};border-radius:6px;box-shadow:0 0 8px ${bgColor}40;transition:all 0.2s ease;"></div>
+              <div style="font-size:12px;color:#93c5fd;font-weight:bold;margin-top:4px;">${val}</div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+      <div style="text-align:center;margin-top:12px;font-size:13px;color:#a0a8b0;">
+        ${step.action === 'PIVOT_PLACED' ? '📌 Pivot placed' : step.action === 'SWAP' ? '🔄 Swapping' : '🔍 Partitioning'}
       </div>
     `;
   },

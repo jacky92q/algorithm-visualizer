@@ -107,35 +107,49 @@ const ALGO_MERGE_SORT = {
     const array = step.array || [];
     const leftArray = step.leftArray || [];
     const rightArray = step.rightArray || [];
-    const maxVal = Math.max(...[...array, ...leftArray, ...rightArray], 10);
+
+    const allVals = [...array, ...leftArray, ...rightArray];
+    if (allVals.length === 0) {
+      return `<div style="color:#888;text-align:center;padding:40px;">No array data</div>`;
+    }
+
+    const maxVal = Math.max(...allVals);
+    const minVal = Math.min(...allVals);
+    const range = maxVal - minVal || 1;
 
     return `
-      <div style="width:100%;display:flex;flex-direction:column;gap:12px;">
-        <div style="display:flex;align-items:flex-end;justify-content:center;gap:6px;height:100px;background:#0a0c10;border-radius:10px;padding:12px;border:1px solid #1e2330;">
-          ${array.length > 0 ? array.map((val, idx) => {
-            const height = (val / maxVal) * 100;
-            return `
-              <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;">
-                <div style="width:100%;height:${height}%;background:#10b981;border-radius:4px;"></div>
-                <div style="font-size:11px;color:#34d399;font-weight:bold;">${val}</div>
+      <div style="width:100%;display:flex;flex-direction:column;gap:16px;">
+        <div>
+          <div style="font-size:12px;color:#a0a8b0;margin-bottom:8px;">Result</div>
+          <div style="width:100%;height:140px;background:#0a0c10;border-radius:10px;padding:16px;border:1px solid #1e2330;display:flex;align-items:flex-end;justify-content:center;gap:6px;">
+            ${array.length > 0 ? array.map((val) => {
+              const height = ((val - minVal) / range) * 110 + 15;
+              return `
+                <div style="display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;min-width:30px;">
+                  <div style="width:100%;height:${height}px;background:#10b981;border-radius:4px;box-shadow:0 0 8px #10b98140;"></div>
+                  <div style="font-size:11px;color:#34d399;font-weight:bold;">${val}</div>
+                </div>
+              `;
+            }).join('') : '<div style="color:#666;">Merging...</div>'}
+          </div>
+        </div>
+
+        ${leftArray.length > 0 || rightArray.length > 0 ? `
+          <div style="display:flex;gap:12px;">
+            ${leftArray.length > 0 ? `
+              <div style="flex:1;background:#0a0c10;border-radius:10px;padding:12px;border:1px solid #1e2330;">
+                <div style="font-size:11px;color:#888;margin-bottom:8px;">LEFT</div>
+                <div style="color:#93c5fd;font-family:monospace;font-size:12px;word-break:break-all;">[${leftArray.join(', ')}]</div>
               </div>
-            `;
-          }).join('') : '<div style="color:#555;">-</div>'}
-        </div>
-        <div style="display:flex;gap:8px;font-size:12px;">
-          ${leftArray.length > 0 ? `
-            <div style="flex:1;background:#0a0c10;border-radius:10px;padding:8px;border:1px solid #1e2330;">
-              <div style="color:#555;margin-bottom:4px;">LEFT</div>
-              <div style="color:#93c5fd;font-family:monospace;font-size:11px;">[${leftArray.join(', ')}]</div>
-            </div>
-          ` : ''}
-          ${rightArray.length > 0 ? `
-            <div style="flex:1;background:#0a0c10;border-radius:10px;padding:8px;border:1px solid #1e2330;">
-              <div style="color:#555;margin-bottom:4px;">RIGHT</div>
-              <div style="color:#ec4899;font-family:monospace;font-size:11px;">[${rightArray.join(', ')}]</div>
-            </div>
-          ` : ''}
-        </div>
+            ` : ''}
+            ${rightArray.length > 0 ? `
+              <div style="flex:1;background:#0a0c10;border-radius:10px;padding:12px;border:1px solid #1e2330;">
+                <div style="font-size:11px;color:#888;margin-bottom:8px;">RIGHT</div>
+                <div style="color:#ec4899;font-family:monospace;font-size:12px;word-break:break-all;">[${rightArray.join(', ')}]</div>
+              </div>
+            ` : ''}
+          </div>
+        ` : ''}
       </div>
     `;
   },
