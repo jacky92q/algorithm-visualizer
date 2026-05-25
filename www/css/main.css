@@ -89,7 +89,7 @@ button { cursor: pointer; }
 /* DS 섹션 */
 .ds-section {
   flex-shrink: 0;
-  background: #13161e;
+  background: #2c3347;
   border-radius: 20px;
   overflow: hidden;
   border: 1px solid #1e2330;
@@ -98,6 +98,7 @@ button { cursor: pointer; }
 .ds-header {
   display: flex;
   align-items: center;
+  background: #13161e;
   gap: 12px;
   padding: 16px;
   border-bottom: 1px solid #1e2330;
