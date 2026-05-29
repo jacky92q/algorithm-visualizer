@@ -39,11 +39,8 @@ function handleBackButton() {
     goBack();
     return;
   }
-  // 홈이면 앱 종료 (Capacitor)
-  console.log('[BackButton] 앱 종료');
-  if (window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.App) {
-    window.Capacitor.Plugins.App.exitApp();
-  }
+  // 홈이면 아무것도 하지 않음 (앱 유지)
+  console.log('[BackButton] 홈 페이지에서 뒤로가기 - 앱 유지');
 }
 
 // Capacitor 뒤로가기 이벤트 (App 플러그인 사용)
