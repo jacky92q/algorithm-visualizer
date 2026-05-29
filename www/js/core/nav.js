@@ -71,15 +71,21 @@ function renderHome() {
           <div class="ds-desc">${ds.desc}</div>
         </div>
       </div>
-      ${Object.entries(ds.algorithms).map(([algoKey, algo]) => `
-        <div class="algo-item" onclick="selectAlgo('${dsKey}', '${algoKey}')">
-          <span class="algo-name">${algo.name}</span>
-          <div style="display:flex;align-items:center;gap:6px;">
-            <span class="algo-tag">${algo.info ? algo.info.complexity : 'O(n)'}</span>
-            <span class="algo-arrow">›</span>
+      ${Object.entries(ds.algorithms).map(([algoKey, algo]) => {
+        const isFav = isFavorite(dsKey, algoKey);
+        return `
+          <div class="algo-item" onclick="selectAlgo('${dsKey}', '${algoKey}')">
+            <span class="algo-name">${algo.name}</span>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <span class="algo-tag">${algo.info ? algo.info.complexity : 'O(n)'}</span>
+              <button class="fav-btn ${isFav ? 'active' : ''}" onclick="event.stopPropagation(); toggleFavorite('${dsKey}', '${algoKey}')">
+                ${isFav ? '★' : '☆'}
+              </button>
+              <span class="algo-arrow">›</span>
+            </div>
           </div>
-        </div>
-      `).join('')}
+        `;
+      }).join('')}
     </div>
   `).join('');
 }
@@ -174,6 +180,17 @@ function setPlaybackSpeed(speed) {
   const display = document.getElementById('speed-display');
   if (display) {
     display.innerText = speed + 'x';
+  }
+
+  // Update active state for preset buttons
+  document.querySelectorAll('.speed-preset').forEach(btn => {
+    btn.classList.toggle('active', parseFloat(btn.innerText) === speed);
+  });
+
+  // Update slider
+  const slider = document.getElementById('speed-slider');
+  if (slider) {
+    slider.value = speed;
   }
 
   // If playing, restart timer with new speed

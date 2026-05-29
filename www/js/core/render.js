@@ -21,6 +21,13 @@ function render() {
   document.getElementById('current-char').innerText = step.currentChar || '';
   document.getElementById('description').innerText = step.description || '';
   document.getElementById('action').innerText = step.action || '';
+
+  // 스텝 카운터 업데이트
+  const stepCounter = document.getElementById('step-counter');
+  if (stepCounter) {
+    stepCounter.innerText = `${currentIndex + 1} / ${trace.length}`;
+  }
+
   if (algo.renderInput) {
     document.getElementById('input-display').innerHTML = algo.renderInput(inputString, currentIndex, trace);
   }
