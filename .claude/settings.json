@@ -1,0 +1,17 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "mcp__github__create_pull_request",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.tool_response.url | split(\"/\") | .[-1]' | { read -r pr; gh pr merge \"$pr\" --auto --squash 2>/dev/null && echo \"✓ PR $pr queued for auto-merge\" || echo \"⚠ Auto-merge unavailable for PR $pr\"; }",
+            "statusMessage": "Setting up auto-merge...",
+            "async": true
+          }
+        ]
+      }
+    ]
+  }
+}
