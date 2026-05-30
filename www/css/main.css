@@ -423,7 +423,8 @@ button { cursor: pointer; }
   display: grid !important;
   grid-template-columns: 65% 35%;
   grid-template-rows: 1fr auto;
-  flex-direction: unset;
+  width: 100%;
+  height: 100%;
 }
 
 /* Main visualization area - MUCH LARGER */
@@ -437,7 +438,9 @@ button { cursor: pointer; }
   align-items: center;
   justify-content: center;
   border: none;
-  overflow: hidden;
+  overflow: auto;
+  min-width: 0;
+  min-height: 0;
 }
 
 /* Code area - SMALLER on right */
@@ -453,6 +456,7 @@ button { cursor: pointer; }
   border: 1px solid #2d3b5c;
   border-left: 1px solid #2d3b5c;
   min-height: 0;
+  min-width: 0;
 }
 
 .code-input-row {
