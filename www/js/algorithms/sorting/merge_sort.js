@@ -118,13 +118,13 @@ const ALGO_MERGE_SORT = {
     const range = maxVal - minVal || 1;
 
     return `
-      <div style="width:100%;height:150px;background:#0a0c10;border-radius:10px;padding:16px;border:1px solid #1e2330;display:flex;align-items:stretch;justify-content:center;gap:5px;">
+      <div style="width:100%;height:280px;background:#0a0e27;border-radius:0;padding:20px;border:none;display:flex;align-items:stretch;justify-content:center;gap:6px;">
         ${array.length > 0 ? array.map((val) => {
-          const height = ((val - minVal) / range) * 110 + 5;
+          const height = ((val - minVal) / range) * 95 + 5;
           return `
-            <div style="display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:3px;flex:1;min-width:25px;">
-              <div style="width:100%;height:${height}%;background:#10b981;border-radius:3px;box-shadow:0 0 6px #10b98130;transition:all 0.2s ease;"></div>
-              <div style="font-size:10px;color:#34d399;font-weight:bold;">${val}</div>
+            <div style="display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:4px;flex:1;min-width:35px;">
+              <div style="width:100%;height:${height}%;background:#34d399;border-radius:4px;box-shadow:0 0 12px #34d39940;transition:all 0.2s ease;"></div>
+              <div style="font-size:12px;color:#34d399;font-weight:bold;">${val}</div>
             </div>
           `;
         }).join('') : '<div style="color:#666;font-size:12px;">Merging...</div>'}
