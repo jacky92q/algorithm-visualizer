@@ -90,17 +90,17 @@ const ALGO_QUICK_SORT = {
     const comparing = step.comparing || [-1, -1];
 
     return `
-      <div style="width:100%;height:150px;background:#0a0c10;border-radius:10px;padding:16px;border:1px solid #1e2330;display:flex;align-items:stretch;justify-content:center;gap:6px;">
+      <div style="width:100%;height:280px;background:#0a0e27;border-radius:0;padding:20px;border:none;display:flex;align-items:stretch;justify-content:center;gap:8px;">
         ${array.map((val, idx) => {
-          const height = ((val - minVal) / range) * 110 + 5;
+          const height = ((val - minVal) / range) * 95 + 5;
           let bgColor = '#3b82f6';
-          if (idx === pivot) bgColor = '#f59e0b';
+          if (idx === pivot) bgColor = '#fbbf24';
           else if (comparing.includes(idx)) bgColor = '#ec4899';
 
           return `
-            <div style="display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:3px;flex:1;min-width:30px;">
-              <div style="width:100%;height:${height}%;background:${bgColor};border-radius:4px;box-shadow:0 0 8px ${bgColor}30;transition:all 0.2s ease;"></div>
-              <div style="font-size:11px;color:#93c5fd;font-weight:bold;">${val}</div>
+            <div style="display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:4px;flex:1;min-width:40px;">
+              <div style="width:100%;height:${height}%;background:${bgColor};border-radius:4px;box-shadow:0 0 12px ${bgColor}40;transition:all 0.2s ease;"></div>
+              <div style="font-size:12px;color:#60a5fa;font-weight:bold;">${val}</div>
             </div>
           `;
         }).join('')}
