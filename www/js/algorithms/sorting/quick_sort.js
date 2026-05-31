@@ -1,8 +1,8 @@
 const ALGO_QUICK_SORT = {
   name: 'Quick Sort',
   desc: 'Quick Sort',
-  defaultInput: '7,3,8,1,6,2,5',
-  inputPlaceholder: 'e.g., 7,3,8,1,6,2,5',
+  defaultInput: '12,5,9,2,8,15,3,7,1,11,6,4',
+  inputPlaceholder: 'e.g., 7,3,8,1,6',
   inputDesc: 'Enter numbers separated by commas',
 
   info: {

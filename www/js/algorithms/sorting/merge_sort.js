@@ -1,8 +1,8 @@
 const ALGO_MERGE_SORT = {
   name: 'Merge Sort',
   desc: 'Merge Sort',
-  defaultInput: '6,3,8,5,2,7,1,4',
-  inputPlaceholder: 'e.g., 6,3,8,5,2,7,1,4',
+  defaultInput: '10,7,2,9,4,12,5,1,8,3,11,6',
+  inputPlaceholder: 'e.g., 6,3,8,5,2',
   inputDesc: 'Enter numbers separated by commas',
 
   info: {

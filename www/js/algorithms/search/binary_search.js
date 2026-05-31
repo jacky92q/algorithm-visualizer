@@ -1,8 +1,8 @@
 const ALGO_BINARY_SEARCH = {
   name: 'Binary Search',
   desc: 'Binary Search',
-  defaultInput: '1,3,5,7,9,11 / 7',
-  inputPlaceholder: 'e.g., 1,3,5,7,9,11 / 7',
+  defaultInput: '2,5,8,12,16,23,28,32,41,50,63,78 / 23',
+  inputPlaceholder: 'e.g., 1,3,5,7,9 / 7',
   inputDesc: 'Sorted array / target (separated by /)',
 
   info: {

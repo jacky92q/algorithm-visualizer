@@ -331,19 +331,19 @@ button { cursor: pointer; }
   flex: 1;
   background: #1a1f3a;
   border-radius: 0;
-  padding: 24px 20px;
+  padding: 32px 28px;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 24px;
   border: none;
   min-height: 0;
 }
 
 .desc-algo-name {
-  font-size: 20px;
-  font-weight: 800;
+  font-size: 32px;
+  font-weight: 900;
   background: linear-gradient(135deg, #60a5fa, #34d399);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -351,66 +351,67 @@ button { cursor: pointer; }
 }
 
 .desc-summary {
-  font-size: 13px;
+  font-size: 16px;
   color: #cbd5e1;
-  line-height: 1.6;
+  line-height: 1.8;
 }
 
 .desc-complexity-row {
   display: flex;
-  gap: 12px;
+  gap: 16px;
 }
 
 .complexity-box {
   flex: 1;
   background: #0a0e27;
-  border-radius: 8px;
-  padding: 12px;
+  border-radius: 12px;
+  padding: 16px;
   border: 1px solid #2d3b5c;
 }
 
 .complexity-label {
-  font-size: 10px;
+  font-size: 11px;
   color: #64748b;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: 4px;
+  letter-spacing: 0.8px;
+  margin-bottom: 8px;
 }
 
 .complexity-value {
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 700;
   color: #60a5fa;
   font-family: 'Courier New', monospace;
 }
 
 .desc-points-title {
-  font-size: 11px;
+  font-size: 12px;
   color: #64748b;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: 8px;
+  letter-spacing: 0.8px;
+  margin-bottom: 12px;
+  margin-top: 8px;
 }
 
 .desc-point {
   display: flex;
   align-items: flex-start;
-  gap: 10px;
-  padding: 8px 0;
+  gap: 12px;
+  padding: 12px 0;
   border-bottom: 1px solid #2d3b5c;
-  font-size: 13px;
+  font-size: 15px;
   color: #e2e8f0;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 .desc-point:last-child { border-bottom: none; }
 
 .desc-point-dot {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   background: linear-gradient(135deg, #60a5fa, #34d399);
-  margin-top: 5px;
+  margin-top: 6px;
   flex-shrink: 0;
 }
 
