@@ -73,13 +73,13 @@ function renderVisual(step) {
       // Show array/sorting visualization
       const maxVal = Math.max(...array, 10);
       card.innerHTML = `
-        <div style="width:100%;display:flex;align-items:flex-end;justify-content:center;gap:6px;height:120px;background:#0a0c10;border-radius:10px;padding:12px;border:1px solid #1e2330;">
+        <div style="width:100%;display:flex;align-items:flex-end;justify-content:center;gap:8px;height:100%;background:#0a0e27;border-radius:0;padding:20px;border:none;">
           ${array.map((val, idx) => {
-            const height = (val / maxVal) * 100;
+            const height = (val / maxVal) * 90;
             return `
-              <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;">
-                <div style="width:100%;height:${height}%;background:#3b82f6;border-radius:4px;transition:all 0.3s;"></div>
-                <div style="font-size:11px;color:#93c5fd;font-weight:bold;">${val}</div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:6px;flex:1;min-width:30px;">
+                <div style="width:100%;height:${height}%;background:#3b82f6;border-radius:6px;transition:all 0.3s;box-shadow:0 0 10px rgba(59,130,246,0.3);"></div>
+                <div style="font-size:13px;color:#60a5fa;font-weight:bold;">${val}</div>
               </div>
             `;
           }).join('')}

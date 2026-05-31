@@ -701,47 +701,51 @@ button { cursor: pointer; }
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: 12px;
   width: 100%;
+  height: 100%;
+  justify-content: center;
 }
 
 .v-stack-row {
   display: flex;
   flex-direction: row;
-  gap: 6px;
+  gap: 12px;
   align-items: flex-end;
   justify-content: center;
   flex-wrap: wrap;
 }
 
 .v-block {
-  min-width: 40px;
-  height: 40px;
+  min-width: 60px;
+  height: 60px;
   background: #1e293b;
-  border: 1.5px solid #2d3b5c;
-  border-radius: 8px;
+  border: 2px solid #2d3b5c;
+  border-radius: 12px;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 700;
   color: #cbd5e1;
   animation: popIn 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-  padding: 0 8px;
+  padding: 0 12px;
+  transition: all 0.2s ease;
 }
 
 .v-block.active {
   background: #60a5fa;
   border-color: #3b82f6;
   color: #fff;
-  box-shadow: 0 0 12px rgba(96, 165, 250, 0.3);
+  box-shadow: 0 0 16px rgba(96, 165, 250, 0.4);
+  transform: scale(1.08);
 }
 
 .v-block.highlight {
-  background: #f59e0b;
-  border-color: #d97706;
-  color: #fff;
-  box-shadow: 0 0 12px rgba(245, 158, 11, 0.3);
+  background: #fbbf24;
+  border-color: #f59e0b;
+  color: #000;
+  box-shadow: 0 0 16px rgba(251, 191, 36, 0.4);
 }
 
 .v-block.visited {
@@ -751,10 +755,13 @@ button { cursor: pointer; }
 }
 
 .v-label {
-  font-size: 10px;
-  color: #475569;
+  font-size: 12px;
+  color: #64748b;
   text-align: center;
-  margin-top: 2px;
+  margin-top: 4px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 @keyframes popIn {
