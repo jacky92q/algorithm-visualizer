@@ -1,8 +1,8 @@
 const ALGO_BUBBLE_SORT = {
   name: 'Bubble Sort',
   desc: 'Bubble Sort',
-  defaultInput: '5,3,8,1,2',
-  inputPlaceholder: 'e.g., 5,3,8,1,2',
+  defaultInput: '9,4,7,2,8,5,1,6,3,10',
+  inputPlaceholder: 'e.g., 9,4,7,2,8',
   inputDesc: 'Enter numbers separated by commas',
 
   info: {

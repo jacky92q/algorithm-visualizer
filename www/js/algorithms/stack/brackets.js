@@ -1,8 +1,8 @@
 const ALGO_BRACKETS = {
   name: 'Valid Parentheses',
   desc: 'Valid Parentheses',
-  defaultInput: '([])',
-  inputPlaceholder: 'e.g., ([])',
+  defaultInput: '({[()]})[]',
+  inputPlaceholder: 'e.g., ({[()]})[]',
   inputDesc: 'Enter brackets only: ( ) [ ] { }',
 
   info: {

@@ -1,7 +1,7 @@
 const ALGO_PALINDROME = {
   name: 'Palindrome Check',
   desc: 'Palindrome Check',
-  defaultInput: 'racecar',
+  defaultInput: 'madam',
   inputPlaceholder: 'e.g., racecar',
   inputDesc: 'Enter an English word',
   sourceCode: [

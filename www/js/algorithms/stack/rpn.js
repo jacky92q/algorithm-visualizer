@@ -1,7 +1,7 @@
 const ALGO_RPN = {
   name: 'RPN Calculator',
   desc: 'RPN Calculator',
-  defaultInput: '2,3,+,4,*',
+  defaultInput: '15,7,-,2,3,+,*',
   inputPlaceholder: 'e.g., 2,3,+,4,*',
   inputDesc: 'Enter numbers and operators (+ - * /) separated by commas',
 

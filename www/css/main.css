@@ -331,19 +331,19 @@ button { cursor: pointer; }
   flex: 1;
   background: #1a1f3a;
   border-radius: 0;
-  padding: 24px 20px;
+  padding: 32px 28px;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 24px;
   border: none;
   min-height: 0;
 }
 
 .desc-algo-name {
-  font-size: 20px;
-  font-weight: 800;
+  font-size: 32px;
+  font-weight: 900;
   background: linear-gradient(135deg, #60a5fa, #34d399);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -351,66 +351,67 @@ button { cursor: pointer; }
 }
 
 .desc-summary {
-  font-size: 13px;
+  font-size: 16px;
   color: #cbd5e1;
-  line-height: 1.6;
+  line-height: 1.8;
 }
 
 .desc-complexity-row {
   display: flex;
-  gap: 12px;
+  gap: 16px;
 }
 
 .complexity-box {
   flex: 1;
   background: #0a0e27;
-  border-radius: 8px;
-  padding: 12px;
+  border-radius: 12px;
+  padding: 16px;
   border: 1px solid #2d3b5c;
 }
 
 .complexity-label {
-  font-size: 10px;
+  font-size: 11px;
   color: #64748b;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: 4px;
+  letter-spacing: 0.8px;
+  margin-bottom: 8px;
 }
 
 .complexity-value {
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 700;
   color: #60a5fa;
   font-family: 'Courier New', monospace;
 }
 
 .desc-points-title {
-  font-size: 11px;
+  font-size: 12px;
   color: #64748b;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: 8px;
+  letter-spacing: 0.8px;
+  margin-bottom: 12px;
+  margin-top: 8px;
 }
 
 .desc-point {
   display: flex;
   align-items: flex-start;
-  gap: 10px;
-  padding: 8px 0;
+  gap: 12px;
+  padding: 12px 0;
   border-bottom: 1px solid #2d3b5c;
-  font-size: 13px;
+  font-size: 15px;
   color: #e2e8f0;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 .desc-point:last-child { border-bottom: none; }
 
 .desc-point-dot {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   background: linear-gradient(135deg, #60a5fa, #34d399);
-  margin-top: 5px;
+  margin-top: 6px;
   flex-shrink: 0;
 }
 
@@ -700,47 +701,51 @@ button { cursor: pointer; }
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: 12px;
   width: 100%;
+  height: 100%;
+  justify-content: center;
 }
 
 .v-stack-row {
   display: flex;
   flex-direction: row;
-  gap: 6px;
+  gap: 12px;
   align-items: flex-end;
   justify-content: center;
   flex-wrap: wrap;
 }
 
 .v-block {
-  min-width: 40px;
-  height: 40px;
+  min-width: 60px;
+  height: 60px;
   background: #1e293b;
-  border: 1.5px solid #2d3b5c;
-  border-radius: 8px;
+  border: 2px solid #2d3b5c;
+  border-radius: 12px;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 700;
   color: #cbd5e1;
   animation: popIn 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-  padding: 0 8px;
+  padding: 0 12px;
+  transition: all 0.2s ease;
 }
 
 .v-block.active {
   background: #60a5fa;
   border-color: #3b82f6;
   color: #fff;
-  box-shadow: 0 0 12px rgba(96, 165, 250, 0.3);
+  box-shadow: 0 0 16px rgba(96, 165, 250, 0.4);
+  transform: scale(1.08);
 }
 
 .v-block.highlight {
-  background: #f59e0b;
-  border-color: #d97706;
-  color: #fff;
-  box-shadow: 0 0 12px rgba(245, 158, 11, 0.3);
+  background: #fbbf24;
+  border-color: #f59e0b;
+  color: #000;
+  box-shadow: 0 0 16px rgba(251, 191, 36, 0.4);
 }
 
 .v-block.visited {
@@ -750,10 +755,13 @@ button { cursor: pointer; }
 }
 
 .v-label {
-  font-size: 10px;
-  color: #475569;
+  font-size: 12px;
+  color: #64748b;
   text-align: center;
-  margin-top: 2px;
+  margin-top: 4px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 @keyframes popIn {

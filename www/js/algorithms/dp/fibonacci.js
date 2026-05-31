@@ -1,8 +1,8 @@
 const ALGO_FIBONACCI = {
   name: 'Fibonacci',
   desc: 'Fibonacci Sequence',
-  defaultInput: '6',
-  inputPlaceholder: 'e.g., 6',
+  defaultInput: '8',
+  inputPlaceholder: 'e.g., 8',
   inputDesc: 'Enter n (compute fib(n))',
 
   info: {
