@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion';
 import type { CodeLine } from '../core/types';
 
 interface Props {
@@ -21,15 +20,9 @@ export default function CodePanel({ code, activeLine, compact }: Props) {
           const active = i === activeLine;
           return (
             <div key={i} className={`code-line ${active ? 'active' : ''}`}>
-              {active && (
-                <motion.span
-                  className="line-glow"
-                  layoutId="line-glow"
-                  transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                />
-              )}
+              {active && <span className="line-glow" />}
               <span className="ln-num">{i + 1}</span>
-              <span className="ln-text" style={{ paddingLeft: ln.indent * 18 }}>
+              <span className="ln-text" style={{ paddingLeft: ln.indent * 16 }}>
                 {ln.text}
               </span>
             </div>

@@ -8,7 +8,7 @@ export default function App() {
   const location = useLocation();
   return (
     <AnimatePresence mode="wait">
-      <Routes location={location} key={location.pathname}>
+      <Routes location={location} key={location.key}>
         <Route path="/" element={<HomePage />} />
         <Route path="/algo/:id" element={<DescriptionPage />} />
         <Route path="/algo/:id/run" element={<VisualizePage />} />
