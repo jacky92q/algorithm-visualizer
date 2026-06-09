@@ -25,16 +25,41 @@ const source = [
 
 // '1'=cost 1 (light cream), '5'=cost 5, '9'=cost 9 (dark brown)
 // No walls — Dijkstra picks the cheapest total path through any terrain.
-const WEIGHTS = [
-  '111159111',
-  '195519191',
-  '111915191',
-  '991511191',
-  '111599951',
-  '195111111',
-  '199995991',
-  '111111111',
-];
+const GRIDS: Record<string, string[]> = {
+  // A — scattered: patches of expensive terrain to weave between
+  scattered: [
+    '111159111',
+    '195519191',
+    '111915191',
+    '991511191',
+    '111599951',
+    '195111111',
+    '199995991',
+    '111111111',
+  ],
+  // B — river: a costly band across the middle; cross at the cheapest ford
+  river: [
+    '111111111',
+    '111111111',
+    '111111111',
+    '999919999',
+    '999919999',
+    '111111111',
+    '111111111',
+    '111111111',
+  ],
+  // C — valley: a cheap diagonal corridor through expensive highlands
+  valley: [
+    '159999999',
+    '115999999',
+    '911599999',
+    '991159999',
+    '999115999',
+    '999911599',
+    '999991159',
+    '999999115',
+  ],
+};
 
 export const dijkstra: Algorithm<GridStep> = {
   meta: {
@@ -61,8 +86,13 @@ export const dijkstra: Algorithm<GridStep> = {
       '이웃의 거리를 (현재 누적 + 이동 비용)으로 완화합니다.',
       '도착점이 확정되면 prev 기록으로 경로를 복원합니다.',
     ],
-    defaultInput: '가중치 격자 (고정)',
+    defaultInput: 'scattered',
     inputHint: '셀 숫자 = 이동 비용, 어두울수록 비쌉니다 (벽은 없음)',
+    presets: [
+      { label: '흩어진 지형', labelEn: 'Scattered terrain', value: 'scattered' },
+      { label: '강 건너기', labelEn: 'River crossing', value: 'river' },
+      { label: '계곡 통로', labelEn: 'Cheap valley', value: 'valley' },
+    ],
     en: {
       name: "Dijkstra's Shortest Path",
       tagline: 'Cheapest-first over weighted terrain',
@@ -79,12 +109,13 @@ export const dijkstra: Algorithm<GridStep> = {
         'Relax neighbors: update if current + edge cost < recorded distance.',
         'When the goal is confirmed, trace back via prev pointers.',
       ],
-      defaultInput: 'Weighted grid (fixed)',
+      defaultInput: 'scattered',
       inputHint: 'Cell number = movement cost; darker = more expensive (no walls)',
     },
   },
   sourceCode: source,
-  generate() {
+  generate(input) {
+    const WEIGHTS = GRIDS[input] ?? GRIDS.scattered;
     const rows = WEIGHTS.length;
     const cols = WEIGHTS[0].length;
     const weights: number[] = [];

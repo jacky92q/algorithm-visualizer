@@ -158,19 +158,48 @@ class DfsGridRenderer implements Renderer<GridStep> {
 
 // ─── Maze ────────────────────────────────────────────────────────────────────
 
-// Same maze as BFS so learners can compare exploration patterns
-const MAZE = [
-  'S.........',
-  '.########.',
-  '.#......#.',
-  '.#.####.#.',
-  '.#.#..#.#.',
-  '.#.#.##.#.',
-  '.#.#....#.',
-  '.#.######.',
-  '.#........',
-  '.########G',
-];
+// Mazes with branches and dead ends so backtracking is clearly visible
+const MAZES: Record<string, string[]> = {
+  // A — comb: vertical teeth, DFS dives down each one before backtracking
+  comb: [
+    'S.........',
+    '#.#.#.#.#.',
+    '#.#.#.#.#.',
+    '#.#.#.#.#.',
+    '#.#.#.#.#.',
+    '#.#.#.#.#.',
+    '#.#.#.#.#.',
+    '#.#.#.#.#.',
+    '..#.#.#.#.',
+    '#.......#G',
+  ],
+  // B — fingers: dead-end fingers off a central spine
+  fingers: [
+    'S.........',
+    '.#.#.#.##.',
+    '.#.#.#..#.',
+    '.#.#.##.#.',
+    '.#.#..#.#.',
+    '.#.##.#.#.',
+    '.#....#.#.',
+    '.####.#.#.',
+    '....#.#...',
+    '.##.#.###G',
+  ],
+  // C — forks: repeated branch points, many lead nowhere
+  forks: [
+    'S........#',
+    '######.#.#',
+    '.....#.#.#',
+    '.###.#.#.#',
+    '.#.#.#.#.#',
+    '.#.#.#.#.#',
+    '.#.#.#.#.#',
+    '.#.#.#.#.#',
+    '.#...#...#',
+    '.#####...G',
+  ],
+};
 
 // ─── Source Code ─────────────────────────────────────────────────────────────
 
@@ -221,8 +250,13 @@ export const dfsGrid: Algorithm<GridStep> = {
       '목표 칸을 발견하면 탐색을 종료합니다.',
       'prev 기록으로 경로를 역추적합니다.',
     ],
-    defaultInput: '미로 (고정)',
-    inputHint: 'DFS 미로는 데모용으로 고정되어 있습니다',
+    defaultInput: 'comb',
+    inputHint: '탐색할 미로를 선택하세요',
+    presets: [
+      { label: '빗살 미로 (깊은 가지)', labelEn: 'Comb (deep teeth)', value: 'comb' },
+      { label: '손가락 막다른 길', labelEn: 'Dead-end fingers', value: 'fingers' },
+      { label: '갈림길 미로', labelEn: 'Forking paths', value: 'forks' },
+    ],
     en: {
       name: 'DFS Pathfinding',
       tagline: 'Dive deep before backtracking',
@@ -239,13 +273,14 @@ export const dfsGrid: Algorithm<GridStep> = {
         'Stop when the goal is found.',
         'Trace prev pointers to reconstruct the path.',
       ],
-      defaultInput: 'Maze (fixed)',
-      inputHint: 'The DFS maze is a fixed demo',
+      defaultInput: 'comb',
+      inputHint: 'Choose a maze to explore',
     },
   },
   sourceCode: source,
 
-  generate() {
+  generate(input) {
+    const MAZE = MAZES[input] ?? MAZES.comb;
     const rows = MAZE.length;
     const cols = MAZE[0].length;
     const walls: boolean[] = [];

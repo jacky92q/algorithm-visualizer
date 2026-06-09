@@ -544,6 +544,25 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   box-shadow: var(--shadow-sm);
 }
 
+/* preset selector (pathfinding mazes etc.) */
+.preset-list { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+.preset-btn {
+  display: flex; align-items: center; justify-content: space-between;
+  width: 100%; text-align: left;
+  padding: 14px 18px; border-radius: 14px;
+  border: 1.5px solid var(--line); background: var(--cream);
+  color: var(--ink); font-weight: 700; font-size: 15px;
+  cursor: pointer; transition: border-color 0.18s, background 0.18s, transform 0.12s;
+}
+.preset-btn:hover { background: var(--cream-2); transform: translateY(-1px); }
+.preset-btn.on {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 12%, var(--paper));
+  color: var(--accent-deep);
+}
+.preset-label { line-height: 1.3; }
+.preset-check { font-weight: 900; color: var(--accent-deep); font-size: 16px; }
+
 .missing { min-height: 100%; display: grid; place-items: center; gap: 16px; text-align: center; color: var(--ink-soft); }
 .missing button { font-weight: 700; color: var(--brown); background: var(--paper); border: 1px solid var(--line); padding: 10px 20px; border-radius: 999px; }
 

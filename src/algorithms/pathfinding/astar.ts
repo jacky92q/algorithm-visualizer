@@ -169,19 +169,48 @@ class AStarRenderer implements Renderer<AStarStep> {
 
 // ─── Maze ────────────────────────────────────────────────────────────────────
 
-// A maze that showcases A*'s directed exploration toward the goal
-const MAZE = [
-  'S...#.....',
-  '####.####.',
-  '....#...#.',
-  '.##.#.#.#.',
-  '....#.#.#.',
-  '.####.#...',
-  '.#....###.',
-  '.#.##.....',
-  '...#.####.',
-  '....#....G',
-];
+// Mazes that showcase A*'s directed exploration toward the goal
+const MAZES: Record<string, string[]> = {
+  // A — barrier: open start, a thick wall block A* must detour around
+  barrier: [
+    'S.........',
+    '......##..',
+    '..##..##..',
+    '..##..##..',
+    '..##......',
+    '..##.####.',
+    '..##....#.',
+    '......#.#.',
+    '.####.#...',
+    '....#....G',
+  ],
+  // B — diagonal: a staircase wall; the heuristic hugs it toward the goal
+  diagonal: [
+    'S.........',
+    '.#........',
+    '.##.......',
+    '..##......',
+    '...##.....',
+    '....##....',
+    '.....##...',
+    '......##..',
+    '.......##.',
+    '.........G',
+  ],
+  // C — corridors: serpentine — heuristic is repeatedly misled, then corrects
+  corridors: [
+    'S.........',
+    '########..',
+    '..........',
+    '.########.',
+    '..........',
+    '########..',
+    '..........',
+    '.########.',
+    '..........',
+    '########G.',
+  ],
+};
 
 // ─── Source Code ─────────────────────────────────────────────────────────────
 
@@ -228,8 +257,13 @@ export const astar: Algorithm<AStarStep> = {
       '더 짧은 경로 발견 시 g, prev 갱신, open에 추가합니다.',
       '목표에 도달하면 prev로 경로를 복원합니다.',
     ],
-    defaultInput: '미로 (고정)',
-    inputHint: 'A* 미로는 데모용으로 고정되어 있습니다',
+    defaultInput: 'barrier',
+    inputHint: '탐색할 미로를 선택하세요',
+    presets: [
+      { label: '장벽 우회', labelEn: 'Wall barrier', value: 'barrier' },
+      { label: '대각선 계단', labelEn: 'Diagonal staircase', value: 'diagonal' },
+      { label: '뱀형 복도', labelEn: 'Serpentine corridors', value: 'corridors' },
+    ],
     en: {
       name: 'A* Search',
       tagline: 'Add a heuristic to Dijkstra for goal-directed search',
@@ -246,13 +280,14 @@ export const astar: Algorithm<AStarStep> = {
         'Update g and prev when a shorter path is found; add to open.',
         'When the goal is reached, trace back via prev pointers.',
       ],
-      defaultInput: 'Maze (fixed)',
-      inputHint: 'The A* maze is a fixed demo',
+      defaultInput: 'barrier',
+      inputHint: 'Choose a maze to explore',
     },
   },
   sourceCode: source,
 
-  generate(): AStarStep[] {
+  generate(input: string): AStarStep[] {
+    const MAZE = MAZES[input] ?? MAZES.barrier;
     const rows = MAZE.length;
     const cols = MAZE[0].length;
     const walls: boolean[] = [];

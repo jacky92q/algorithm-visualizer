@@ -223,7 +223,7 @@ export const twoPointers: Algorithm<TwoPointerStep> = {
       '합 < target 이면 L++, 합 > target 이면 R--.',
       'L >= R 까지 반복합니다.',
     ],
-    defaultInput: '1 3 5 7 9 11 13 15 17 19 ? 20',
+    defaultInput: '1 4 6 8 10 13 17 20 24 29 ? 23',
     inputHint: '정렬된 숫자 그리고 " ? target" (예: 1,3,5,7 ? 8)',
     en: {
       name: 'Two Pointers',
@@ -241,14 +241,14 @@ export const twoPointers: Algorithm<TwoPointerStep> = {
         'If sum < target, L++; if sum > target, R--.',
         'Repeat until L >= R.',
       ],
-      defaultInput: '1 3 5 7 9 11 13 15 17 19 ? 20',
+      defaultInput: '1 4 6 8 10 13 17 20 24 29 ? 23',
       inputHint: 'Sorted numbers then " ? target" (e.g. 1,3,5,7 ? 8)',
     },
   },
   sourceCode: source,
 
   generate(input) {
-    let target = 20;
+    let target = 23;
     let arrPart = input;
     if (input.includes('?')) {
       const [a, t] = input.split('?');
@@ -260,7 +260,7 @@ export const twoPointers: Algorithm<TwoPointerStep> = {
       .map((s) => parseInt(s, 10))
       .filter((x) => Number.isFinite(x))
       .slice(0, 14);
-    if (!values.length) values = [1, 3, 5, 7, 9, 11, 13, 15, 17, 19];
+    if (!values.length) values = [1, 4, 6, 8, 10, 13, 17, 20, 24, 29];
     values = [...values].sort((a, b) => a - b);
     if (!Number.isFinite(target)) target = values[Math.floor(values.length / 2)] + values[Math.floor(values.length / 2) + 1];
 

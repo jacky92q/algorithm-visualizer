@@ -52,6 +52,13 @@ export default function VisualizePage() {
     setEditOpen(false);
   };
 
+  const applyPreset = (value: string) => {
+    setInput(value);
+    setDraft(value);
+    setEditOpen(false);
+    player.reset();
+  };
+
   return (
     <motion.main
       className={`viz accent-${m.accent}`}
@@ -170,21 +177,47 @@ export default function VisualizePage() {
               transition={{ type: 'spring', stiffness: 300, damping: 24 }}
               onClick={(e) => e.stopPropagation()}
             >
-              <h3>{t('viz.inputTitle')}</h3>
-              <p className="modal-hint">{inputHint}</p>
-              <input
-                className="modal-input"
-                value={draft}
-                onChange={(e) => setDraft(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && applyInput()}
-                autoFocus
-              />
-              <div className="modal-actions">
-                <button className="btn-ghost" onClick={() => setDraft(lang === 'en' && m.en ? m.en.defaultInput : m.defaultInput)}>
-                  {t('viz.default')}
-                </button>
-                <button className="btn-solid" onClick={applyInput}>{t('viz.apply')}</button>
-              </div>
+              {m.presets ? (
+                <>
+                  <h3>{t('viz.presetTitle')}</h3>
+                  <p className="modal-hint">{inputHint}</p>
+                  <div className="preset-list">
+                    {m.presets.map((p) => {
+                      const selected = input === p.value;
+                      return (
+                        <button
+                          key={p.value}
+                          className={`preset-btn ${selected ? 'on' : ''}`}
+                          onClick={() => applyPreset(p.value)}
+                        >
+                          <span className="preset-label">
+                            {lang === 'en' ? (p.labelEn ?? p.label) : p.label}
+                          </span>
+                          {selected && <span className="preset-check">✓</span>}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </>
+              ) : (
+                <>
+                  <h3>{t('viz.inputTitle')}</h3>
+                  <p className="modal-hint">{inputHint}</p>
+                  <input
+                    className="modal-input"
+                    value={draft}
+                    onChange={(e) => setDraft(e.target.value)}
+                    onKeyDown={(e) => e.key === 'Enter' && applyInput()}
+                    autoFocus
+                  />
+                  <div className="modal-actions">
+                    <button className="btn-ghost" onClick={() => setDraft(lang === 'en' && m.en ? m.en.defaultInput : m.defaultInput)}>
+                      {t('viz.default')}
+                    </button>
+                    <button className="btn-solid" onClick={applyInput}>{t('viz.apply')}</button>
+                  </div>
+                </>
+              )}
             </motion.div>
           </motion.div>
         )}

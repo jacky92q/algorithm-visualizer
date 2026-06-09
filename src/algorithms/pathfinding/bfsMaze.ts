@@ -23,18 +23,47 @@ const source = [
   { text: 'return rebuild(prev, goal)', indent: 1 },
 ];
 
-const MAZE = [
-  'S.........',
-  '.########.',
-  '.#......#.',
-  '.#.####.#.',
-  '.#.#..#.#.',
-  '.#.#.##.#.',
-  '.#.#....#.',
-  '.#.######.',
-  '.#........',
-  '.########G',
-];
+const MAZES: Record<string, string[]> = {
+  // A — spiral: one long winding corridor
+  spiral: [
+    'S.........',
+    '.########.',
+    '.#......#.',
+    '.#.####.#.',
+    '.#.#..#.#.',
+    '.#.#.##.#.',
+    '.#.#....#.',
+    '.#.######.',
+    '.#........',
+    '.########G',
+  ],
+  // B — doorway: two open rooms joined by a single gap
+  doorway: [
+    'S.........',
+    '....##....',
+    '....##....',
+    '##.###.###',
+    '.....#....',
+    '.###.#.##.',
+    '.#...#.#..',
+    '.#.###.#.#',
+    '.#.....#..',
+    '.#####...G',
+  ],
+  // C — open field: scattered obstacles, many equal-length detours
+  open: [
+    'S.........',
+    '...##.....',
+    '.#..#.###.',
+    '.##.....#.',
+    '....###.#.',
+    '.####...#.',
+    '....#.##..',
+    '.##.#..#.#',
+    '.#....##..',
+    '....##...G',
+  ],
+};
 
 export const bfsMaze: Algorithm<GridStep> = {
   meta: {
@@ -61,8 +90,13 @@ export const bfsMaze: Algorithm<GridStep> = {
       '도착 칸을 꺼내면 탐색을 멈춥니다.',
       'prev 기록을 거꾸로 따라가 경로를 복원합니다.',
     ],
-    defaultInput: '미로 (고정)',
-    inputHint: 'BFS 미로는 데모용으로 고정되어 있습니다',
+    defaultInput: 'spiral',
+    inputHint: '탐색할 미로를 선택하세요',
+    presets: [
+      { label: '나선형 미로', labelEn: 'Spiral maze', value: 'spiral' },
+      { label: '두 방 + 통로', labelEn: 'Two rooms + doorway', value: 'doorway' },
+      { label: '열린 들판 (장애물)', labelEn: 'Open field (obstacles)', value: 'open' },
+    ],
     en: {
       name: 'BFS Pathfinding',
       tagline: 'Flood the maze level by level',
@@ -79,12 +113,13 @@ export const bfsMaze: Algorithm<GridStep> = {
         'Stop when the goal cell is dequeued.',
         'Trace back via the prev map to reconstruct the path.',
       ],
-      defaultInput: 'Maze (fixed)',
-      inputHint: 'The BFS maze is a fixed demo',
+      defaultInput: 'spiral',
+      inputHint: 'Choose a maze to explore',
     },
   },
   sourceCode: source,
-  generate() {
+  generate(input) {
+    const MAZE = MAZES[input] ?? MAZES.spiral;
     const rows = MAZE.length;
     const cols = MAZE[0].length;
     const walls: boolean[] = [];

@@ -52,6 +52,17 @@ export interface AlgorithmMetaEn {
   inputHint: string;
 }
 
+/**
+ * A selectable preset input. Used by algorithms whose input cannot be freely
+ * typed (e.g. pathfinding mazes): the input modal shows these as buttons.
+ * `value` is the raw string handed to `generate(input)`.
+ */
+export interface PresetOption {
+  label: string;
+  labelEn?: string;
+  value: string;
+}
+
 export interface AlgorithmMeta {
   id: string;
   category: Category;
@@ -74,6 +85,12 @@ export interface AlgorithmMeta {
   glyph: string;
   /** Optional full English translation of text fields. */
   en?: AlgorithmMetaEn;
+  /**
+   * Optional selectable presets. When present, the input modal shows these as
+   * buttons instead of a free-text field (for fixed-layout algorithms such as
+   * pathfinding mazes).
+   */
+  presets?: PresetOption[];
 }
 
 export interface Algorithm<S extends BaseStep = BaseStep> {

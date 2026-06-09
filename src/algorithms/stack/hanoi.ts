@@ -106,8 +106,11 @@ class HanoiRenderer implements Renderer<HanoiStep> {
       }
       const fromPeg = curr.from;
       const toPeg = curr.to;
-      const fromStackLevel = prev.pegs[fromPeg].length - 1;   // was at top of from
-      const toStackLevel = curr.pegs[toPeg].length - 1;        // will be at top of to
+      const fromStackLevel = prev.pegs[fromPeg].length - 1;   // was at top of `from`
+      // In the MOVE snapshot the disk has been popped from `from` but not yet
+      // pushed to `to`, so it lands on TOP of whatever is currently on `to`
+      // (i.e. at level == current length, not length - 1).
+      const toStackLevel = curr.pegs[toPeg].length;
 
       const startX2 = pegX(fromPeg);
       const startY = diskY(fromPeg, fromStackLevel);
