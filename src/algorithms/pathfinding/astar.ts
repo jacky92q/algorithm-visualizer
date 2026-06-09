@@ -230,6 +230,25 @@ export const astar: Algorithm<AStarStep> = {
     ],
     defaultInput: '미로 (고정)',
     inputHint: 'A* 미로는 데모용으로 고정되어 있습니다',
+    en: {
+      name: 'A* Search',
+      tagline: 'Add a heuristic to Dijkstra for goal-directed search',
+      hook: 'Heuristic guidance leads directly toward the goal',
+      summary: 'A* extends Dijkstra with a heuristic h(n) = Manhattan distance to the goal. f = g + h ensures the path with the lowest estimated total cost is explored first. With an admissible heuristic, A* is both complete and optimal.',
+      keyPoints: [
+        'f = g + h — g: actual cost, h: Manhattan distance estimate',
+        'Admissible heuristic → guaranteed shortest path',
+        'Explores far fewer cells than BFS by biasing toward the goal',
+      ],
+      steps: [
+        'Add the start node to the open set with f = 0 + h(start).',
+        'Extract the node with lowest f; compute g and f for each neighbor.',
+        'Update g and prev when a shorter path is found; add to open.',
+        'When the goal is reached, trace back via prev pointers.',
+      ],
+      defaultInput: 'Maze (fixed)',
+      inputHint: 'The A* maze is a fixed demo',
+    },
   },
   sourceCode: source,
 

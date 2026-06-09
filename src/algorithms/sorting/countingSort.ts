@@ -252,6 +252,25 @@ export const countingSort: Algorithm<CountStep> = {
     ],
     defaultInput: '4 2 2 8 3 3 1 4 2',
     inputHint: '공백 또는 쉼표로 구분 (1–9 권장), 최대 16개',
+    en: {
+      name: 'Counting Sort',
+      tagline: 'Count occurrences, reconstruct in order',
+      hook: 'Counts values instead of comparing — no swaps at all',
+      summary: 'Counts occurrences of each value in a count array, then reconstructs the sorted output by placing each value count[v] times. No comparisons — runs in O(n + k) where k is the value range.',
+      keyPoints: [
+        'Non-comparison sort — no element comparisons',
+        'O(n + k) time and space, where k = max value',
+        'Extremely fast when the value range is small (e.g., scores, ages)',
+      ],
+      steps: [
+        'Scan the input and increment count[x] for each element x.',
+        'Scan the count array from 0 to max.',
+        'Output each value v exactly count[v] times.',
+        'The output array is the sorted result.',
+      ],
+      defaultInput: '4 2 2 8 3 3 1 4 2',
+      inputHint: 'Space or comma-separated numbers (1–9 recommended), up to 16',
+    },
   },
   sourceCode: source,
 

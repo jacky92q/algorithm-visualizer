@@ -223,6 +223,25 @@ export const dfsGrid: Algorithm<GridStep> = {
     ],
     defaultInput: '미로 (고정)',
     inputHint: 'DFS 미로는 데모용으로 고정되어 있습니다',
+    en: {
+      name: 'DFS Pathfinding',
+      tagline: 'Dive deep before backtracking',
+      hook: 'Dives deep into one path before backtracking',
+      summary: 'DFS explores one direction as far as possible before backtracking and trying another branch. Unlike BFS, it does not guarantee the shortest path. Brown cells are dead ends that were abandoned.',
+      keyPoints: [
+        'Stack/recursion: explores deepest cell first',
+        'Dead end → backtrack to the last unvisited branch',
+        'Does NOT guarantee shortest path — compare with BFS',
+      ],
+      steps: [
+        'Visit the start cell; recursively explore each neighbor depth-first.',
+        'When a dead end is reached, backtrack to the last branch.',
+        'Stop when the goal is found.',
+        'Trace prev pointers to reconstruct the path.',
+      ],
+      defaultInput: 'Maze (fixed)',
+      inputHint: 'The DFS maze is a fixed demo',
+    },
   },
   sourceCode: source,
 

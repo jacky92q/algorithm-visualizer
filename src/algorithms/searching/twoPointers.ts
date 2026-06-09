@@ -225,6 +225,25 @@ export const twoPointers: Algorithm<TwoPointerStep> = {
     ],
     defaultInput: '1 3 5 7 9 11 13 15 17 19 ? 20',
     inputHint: '정렬된 숫자 그리고 " ? target" (예: 1,3,5,7 ? 8)',
+    en: {
+      name: 'Two Pointers',
+      tagline: 'Squeeze from both ends toward the target sum',
+      hook: 'Converges from both ends to find the target sum pair',
+      summary: 'Finds a pair in a sorted array whose sum equals the target. If the sum is too large move the right pointer left; if too small move the left pointer right. O(n) time, O(1) space.',
+      keyPoints: [
+        'Requires sorted input',
+        'Sum too large → R--  /  Sum too small → L++',
+        'O(n) time and O(1) space vs O(n²) brute force',
+      ],
+      steps: [
+        'Set L = 0, R = n-1 pointing at both ends.',
+        'Compute a[L] + a[R].',
+        'If sum < target, L++; if sum > target, R--.',
+        'Repeat until L >= R.',
+      ],
+      defaultInput: '1 3 5 7 9 11 13 15 17 19 ? 20',
+      inputHint: 'Sorted numbers then " ? target" (e.g. 1,3,5,7 ? 8)',
+    },
   },
   sourceCode: source,
 

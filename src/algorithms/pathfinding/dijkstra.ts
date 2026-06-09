@@ -63,6 +63,25 @@ export const dijkstra: Algorithm<GridStep> = {
     ],
     defaultInput: '가중치 격자 (고정)',
     inputHint: '셀 숫자 = 이동 비용, 어두울수록 비쌉니다 (벽은 없음)',
+    en: {
+      name: "Dijkstra's Shortest Path",
+      tagline: 'Cheapest-first over weighted terrain',
+      hook: 'Finds the cheapest-cost path through weighted terrain',
+      summary: 'Finds the minimum-cost path in a weighted grid where each cell has a movement cost. Uses a priority queue to always process the cheapest accumulated-cost cell first. Cell numbers show movement cost; darker = more expensive.',
+      keyPoints: [
+        'Processes lowest accumulated cost first — cheap-but-far beats near-but-expensive',
+        'Relaxes neighbor distances when a cheaper path is found',
+        'Guarantees optimal path with non-negative weights',
+      ],
+      steps: [
+        'Initialize all distances to ∞; set start distance to 0.',
+        'Extract the lowest-cost cell from the priority queue.',
+        'Relax neighbors: update if current + edge cost < recorded distance.',
+        'When the goal is confirmed, trace back via prev pointers.',
+      ],
+      defaultInput: 'Weighted grid (fixed)',
+      inputHint: 'Cell number = movement cost; darker = more expensive (no walls)',
+    },
   },
   sourceCode: source,
   generate() {

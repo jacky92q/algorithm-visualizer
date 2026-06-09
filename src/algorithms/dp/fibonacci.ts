@@ -252,6 +252,25 @@ export const fibonacci: Algorithm<FibStep> = {
     ],
     defaultInput: '10',
     inputHint: 'n 값 (2–15 권장)',
+    en: {
+      name: 'Fibonacci DP',
+      tagline: 'Build up from base cases with memoization',
+      hook: 'Records solved subproblems to eliminate redundant computation',
+      summary: 'Naive recursion recomputes the same Fibonacci values exponentially. Dynamic programming stores each dp[i] once, reducing time complexity from O(2ⁿ) to O(n). Arrows visualize which previous values each new value depends on.',
+      keyPoints: [
+        'Base cases: dp[0]=0, dp[1]=1',
+        'Recurrence: dp[i] = dp[i-1] + dp[i-2]',
+        'Memoization: O(2ⁿ) → O(n) via eliminating recomputation',
+      ],
+      steps: [
+        'Initialize dp[0]=0 and dp[1]=1.',
+        'For i from 2 to n, compute dp[i] = dp[i-1] + dp[i-2].',
+        'Arrows show which two previous values are being summed.',
+        'dp[n] is the final Fibonacci number.',
+      ],
+      defaultInput: '10',
+      inputHint: 'Value of n (2–15 recommended)',
+    },
   },
   sourceCode: source,
 

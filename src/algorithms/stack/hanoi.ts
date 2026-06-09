@@ -250,6 +250,25 @@ export const hanoi: Algorithm<HanoiStep> = {
     ],
     defaultInput: '4',
     inputHint: '원판 수 (2–5 권장)',
+    en: {
+      name: 'Tower of Hanoi',
+      tagline: 'Recursively move n disks using 3 pegs',
+      hook: 'The beauty of recursion — move n disks in minimum moves',
+      summary: 'Move n disks from peg A to C following two rules: move only one disk at a time, and never place a larger disk on a smaller one. Recursion reduces it to three lines: move n-1 to aux, move largest to goal, move n-1 to goal.',
+      keyPoints: [
+        'Divide: size n → two size-(n-1) subproblems + 1 move',
+        'Minimum moves = 2ⁿ − 1 (exponential growth)',
+        'LIFO stack property ensures disk order is maintained',
+      ],
+      steps: [
+        'Move the top n-1 disks to the auxiliary peg.',
+        'Move the largest disk to the destination peg.',
+        'Move the n-1 disks from auxiliary to destination.',
+        'Base case: n=1 is a single move.',
+      ],
+      defaultInput: '4',
+      inputHint: 'Number of disks (2–5 recommended)',
+    },
   },
   sourceCode: source,
 

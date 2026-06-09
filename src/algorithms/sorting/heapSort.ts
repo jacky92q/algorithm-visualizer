@@ -157,6 +157,25 @@ export const heapSort: Algorithm<HeapSortStep> = {
     ],
     defaultInput: '15 12 8 6 10 4 7 3 11 9',
     inputHint: '공백 또는 쉼표로 구분 (1–99), 최대 14개',
+    en: {
+      name: 'Heap Sort',
+      tagline: 'Build a max-heap, extract the maximum repeatedly',
+      hook: 'Extracts maximum values from a heap tree repeatedly',
+      summary: 'Converts the array into a max-heap then repeatedly extracts the root (maximum) to the sorted region. Curved edges on the bars show the heap\'s parent-child relationships.',
+      keyPoints: [
+        'Heap as array: node i has children at 2i+1 and 2i+2',
+        'Max-heap: parent is always ≥ its children',
+        'Extract root + sift-down restores heap in O(log n)',
+      ],
+      steps: [
+        'Convert the full array into a max-heap (build-heap phase).',
+        'Swap the root (maximum) with the last heap element.',
+        'Shrink heap by 1; sift-down the new root to restore the heap.',
+        'Repeat steps 2–3 until heap size reaches 1.',
+      ],
+      defaultInput: '15 12 8 6 10 4 7 3 11 9',
+      inputHint: 'Space or comma-separated numbers (1–99), up to 14',
+    },
   },
   sourceCode: source,
 
