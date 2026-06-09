@@ -77,7 +77,7 @@ export const mergeSort: Algorithm<SortStep> = {
       ...extra,
     });
 
-    out.push(snap({ line: 0, caption: '전체 배열을 분할하기 시작합니다.', action: 'START' }));
+    out.push(snap({ line: 0, caption: '전체 배열을 분할하기 시작합니다.', captionEn: 'Start dividing the full array.', action: 'START' }));
 
     const rangeIds = (lo: number, hi: number) =>
       Array.from({ length: hi - lo + 1 }, (_, k) => slots[lo + k]);
@@ -89,6 +89,7 @@ export const mergeSort: Algorithm<SortStep> = {
         snap({
           line: 2,
           caption: `[${lo}..${hi}] 를 [${lo}..${mid}] / [${mid + 1}..${hi}] 로 분할`,
+          captionEn: `Divide [${lo}..${hi}] into [${lo}..${mid}] / [${mid + 1}..${hi}]`,
           action: 'DIVIDE',
           tone: 'active',
           highlight: rangeIds(lo, hi),
@@ -109,6 +110,7 @@ export const mergeSort: Algorithm<SortStep> = {
           snap({
             line: 6,
             caption: `L=${valOf(left[i])} vs R=${valOf(right[j])} 비교`,
+            captionEn: `Compare L=${valOf(left[i])} vs R=${valOf(right[j])}`,
             action: 'COMPARE',
             tone: 'compare',
             compare: [left[i], right[j]],
@@ -126,6 +128,7 @@ export const mergeSort: Algorithm<SortStep> = {
           snap({
             line: merged[merged.length - 1] === left[i - 1] ? 7 : 8,
             caption: `${valOf(merged[merged.length - 1])} 를 병합 결과에 추가`,
+            captionEn: `Append ${valOf(merged[merged.length - 1])} to merged result`,
             action: 'MERGE',
             tone: 'good',
             highlight: merged.slice(),
@@ -141,6 +144,7 @@ export const mergeSort: Algorithm<SortStep> = {
         snap({
           line: 9,
           caption: `[${lo}..${hi}] 병합 완료`,
+          captionEn: `Merge complete for [${lo}..${hi}]`,
           action: 'MERGED',
           tone: 'good',
           highlight: rangeIds(lo, hi),
@@ -149,7 +153,7 @@ export const mergeSort: Algorithm<SortStep> = {
     };
 
     ms(0, n - 1);
-    out.push(snap({ line: 1, caption: '정렬 완료!', action: 'DONE', tone: 'good', sorted: [...slots] }));
+    out.push(snap({ line: 1, caption: '정렬 완료!', captionEn: 'Sorted!', action: 'DONE', tone: 'good', sorted: [...slots] }));
     return out;
   },
   createRenderer: () => new SortBarsRenderer(),

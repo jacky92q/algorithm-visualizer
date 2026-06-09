@@ -231,31 +231,31 @@ export const binarySearch: Algorithm<SearchStep> = {
       ...e,
     });
 
-    out.push(snap({ line: 1, caption: `lo=0, hi=${hi} 로 전체 범위 설정`, action: 'INIT', tone: 'neutral' }));
+    out.push(snap({ line: 1, caption: `lo=0, hi=${hi} 로 전체 범위 설정`, captionEn: `Set lo=0, hi=${hi} for full range`, action: 'INIT', tone: 'neutral' }));
 
     while (lo <= hi) {
       const mid = (lo + hi) >> 1;
       out.push(
-        snap({ line: 3, mid, caption: `mid=${mid}, a[${mid}]=${values[mid]}`, action: 'MID', tone: 'active' }),
+        snap({ line: 3, mid, caption: `mid=${mid}, a[${mid}]=${values[mid]}`, captionEn: `mid=${mid}, a[${mid}]=${values[mid]}`, action: 'MID', tone: 'active' }),
       );
       if (values[mid] === target) {
         out.push(
-          snap({ line: 5, mid, caption: `a[${mid}]=${target} 발견!`, action: 'FOUND ✓', tone: 'good', found: true, done: true }),
+          snap({ line: 5, mid, caption: `a[${mid}]=${target} 발견!`, captionEn: `Found a[${mid}]=${target}!`, action: 'FOUND ✓', tone: 'good', found: true, done: true }),
         );
         return out;
       } else if (values[mid] < target) {
         out.push(
-          snap({ line: 7, mid, caption: `${values[mid]} < ${target} → 왼쪽 절반 버림`, action: 'GO RIGHT', tone: 'compare' }),
+          snap({ line: 7, mid, caption: `${values[mid]} < ${target} → 왼쪽 절반 버림`, captionEn: `${values[mid]} < ${target} → discard left half`, action: 'GO RIGHT', tone: 'compare' }),
         );
         lo = mid + 1;
       } else {
         out.push(
-          snap({ line: 9, mid, caption: `${values[mid]} > ${target} → 오른쪽 절반 버림`, action: 'GO LEFT', tone: 'compare' }),
+          snap({ line: 9, mid, caption: `${values[mid]} > ${target} → 오른쪽 절반 버림`, captionEn: `${values[mid]} > ${target} → discard right half`, action: 'GO LEFT', tone: 'compare' }),
         );
         hi = mid - 1;
       }
     }
-    out.push(snap({ line: 10, caption: `${target} 는 배열에 없습니다.`, action: 'NOT FOUND', tone: 'bad', done: true }));
+    out.push(snap({ line: 10, caption: `${target} 는 배열에 없습니다.`, captionEn: `${target} is not in the array.`, action: 'NOT FOUND', tone: 'bad', done: true }));
     return out;
   },
   createRenderer: () => new SearchRenderer(),

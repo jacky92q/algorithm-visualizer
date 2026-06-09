@@ -149,7 +149,7 @@ export const bfsMaze: Algorithm<GridStep> = {
       ...e,
     });
 
-    out.push(snap({ line: 1, caption: '시작 칸을 큐에 넣습니다.', action: 'INIT', tone: 'neutral' }));
+    out.push(snap({ line: 1, caption: '시작 칸을 큐에 넣습니다.', captionEn: 'Add the start cell to the queue.', action: 'INIT', tone: 'neutral' }));
 
     const queue: number[] = [start];
     const seen = new Set<number>([start]);
@@ -174,6 +174,7 @@ export const bfsMaze: Algorithm<GridStep> = {
         snap({
           line: 4,
           caption: `(${Math.floor(cur / cols)}, ${cur % cols}) 칸을 큐에서 꺼냄`,
+          captionEn: `Dequeue cell (${Math.floor(cur / cols)}, ${cur % cols})`,
           action: 'DEQUEUE',
           tone: 'active',
         }),
@@ -198,6 +199,7 @@ export const bfsMaze: Algorithm<GridStep> = {
           snap({
             line: 9,
             caption: `이웃 ${added.length}칸을 큐에 추가 (frontier)`,
+            captionEn: `Enqueue ${added.length} neighbor(s) (frontier)`,
             action: 'ENQUEUE',
             tone: 'compare',
           }),
@@ -218,12 +220,13 @@ export const bfsMaze: Algorithm<GridStep> = {
         snap({
           line: 10,
           caption: `최단 경로 복원 — 길이 ${path.length - 1} 칸`,
+          captionEn: `Shortest path found — length ${path.length - 1}`,
           action: 'PATH ✓',
           tone: 'good',
         }),
       );
     } else {
-      out.push(snap({ line: 10, caption: '도달 불가!', action: 'NO PATH', tone: 'bad' }));
+      out.push(snap({ line: 10, caption: '도달 불가!', captionEn: 'No path found!', action: 'NO PATH', tone: 'bad' }));
     }
     return out;
   },

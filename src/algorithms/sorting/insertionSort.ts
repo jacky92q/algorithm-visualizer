@@ -76,7 +76,7 @@ export const insertionSort: Algorithm<SortStep> = {
       ...extra,
     });
 
-    out.push(snap({ line: 0, caption: '첫 원소는 이미 정렬된 것으로 봅니다.', action: 'START', sorted: [slots[0]] }));
+    out.push(snap({ line: 0, caption: '첫 원소는 이미 정렬된 것으로 봅니다.', captionEn: 'First element is considered already sorted.', action: 'START', sorted: [slots[0]] }));
 
     for (let i = 1; i < n; i++) {
       const keyId = slots[i];
@@ -85,6 +85,7 @@ export const insertionSort: Algorithm<SortStep> = {
         snap({
           line: 2,
           caption: `key = a[${i}] = ${key}`,
+          captionEn: `key = a[${i}] = ${key}`,
           action: 'PICK',
           tone: 'active',
           pivot: keyId,
@@ -98,6 +99,7 @@ export const insertionSort: Algorithm<SortStep> = {
           snap({
             line: 4,
             caption: `a[${j}]=${valOf(slots[j])} > ${key} → 오른쪽으로 민다`,
+            captionEn: `a[${j}]=${valOf(slots[j])} > ${key} → shift right`,
             action: 'SHIFT',
             tone: 'compare',
             compare: [slots[j]],
@@ -113,6 +115,7 @@ export const insertionSort: Algorithm<SortStep> = {
         snap({
           line: 7,
           caption: `${key} 를 a[${j + 1}] 에 삽입`,
+          captionEn: `Insert ${key} at a[${j + 1}]`,
           action: 'INSERT',
           tone: 'good',
           highlight: [keyId],
@@ -121,7 +124,7 @@ export const insertionSort: Algorithm<SortStep> = {
         }),
       );
     }
-    out.push(snap({ line: 8, caption: '정렬 완료!', action: 'DONE', tone: 'good', sorted: [...slots] }));
+    out.push(snap({ line: 8, caption: '정렬 완료!', captionEn: 'Sorted!', action: 'DONE', tone: 'good', sorted: [...slots] }));
     return out;
   },
   createRenderer: () => new SortBarsRenderer(),

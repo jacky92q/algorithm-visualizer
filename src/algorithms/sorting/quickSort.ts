@@ -79,7 +79,7 @@ export const quickSort: Algorithm<SortStep> = {
       ...extra,
     });
 
-    out.push(snap({ line: 0, caption: '전체 배열에서 시작합니다.', action: 'START' }));
+    out.push(snap({ line: 0, caption: '전체 배열에서 시작합니다.', captionEn: 'Start with the full array.', action: 'START' }));
 
     const swapSlots = (a: number, b: number) => {
       const t = slots[a];
@@ -91,7 +91,7 @@ export const quickSort: Algorithm<SortStep> = {
       if (lo >= hi) {
         if (lo === hi) {
           sorted.push(slots[lo]);
-          out.push(snap({ line: 1, caption: `단일 구간 [${lo}] 확정`, action: 'LOCKED', tone: 'good' }));
+          out.push(snap({ line: 1, caption: `단일 구간 [${lo}] 확정`, captionEn: `Single-element range [${lo}] is already sorted`, action: 'LOCKED', tone: 'good' }));
         }
         return;
       }
@@ -100,6 +100,7 @@ export const quickSort: Algorithm<SortStep> = {
         snap({
           line: 2,
           caption: `피벗 = a[${hi}] = ${valOf(pivotId)} 선택`,
+          captionEn: `Pivot = a[${hi}] = ${valOf(pivotId)}`,
           action: 'PIVOT',
           tone: 'active',
           pivot: pivotId,
@@ -112,6 +113,7 @@ export const quickSort: Algorithm<SortStep> = {
           snap({
             line: 5,
             caption: `a[${j}]=${valOf(slots[j])} < 피벗 ${valOf(pivotId)} ?`,
+            captionEn: `Is a[${j}]=${valOf(slots[j])} < pivot ${valOf(pivotId)}?`,
             action: 'COMPARE',
             tone: 'compare',
             compare: [slots[j]],
@@ -126,6 +128,7 @@ export const quickSort: Algorithm<SortStep> = {
               snap({
                 line: 6,
                 caption: `작은 값 → 왼쪽으로: 자리 ${i} ↔ ${j} 교환`,
+                captionEn: `Smaller value → left side: swap positions ${i} ↔ ${j}`,
                 action: 'SWAP',
                 tone: 'bad',
                 swap: [slots[i], slots[j]],
@@ -143,6 +146,7 @@ export const quickSort: Algorithm<SortStep> = {
         snap({
           line: 8,
           caption: `피벗 ${valOf(pivotId)} 를 자리 ${i} 에 확정`,
+          captionEn: `Place pivot ${valOf(pivotId)} at position ${i}`,
           action: 'PLACE',
           tone: 'good',
           pivot: pivotId,
@@ -154,7 +158,7 @@ export const quickSort: Algorithm<SortStep> = {
     };
 
     qs(0, n - 1);
-    out.push(snap({ line: 9, caption: '정렬 완료!', action: 'DONE', tone: 'good', sorted: [...slots] }));
+    out.push(snap({ line: 9, caption: '정렬 완료!', captionEn: 'Sorted!', action: 'DONE', tone: 'good', sorted: [...slots] }));
     return out;
   },
   createRenderer: () => new SortBarsRenderer(),

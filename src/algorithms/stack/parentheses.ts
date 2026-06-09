@@ -255,14 +255,14 @@ export const parentheses: Algorithm<StackStep> = {
       ...e,
     });
 
-    out.push(snap({ line: 1, caption: '빈 스택으로 시작합니다.', action: 'INIT', tone: 'neutral' }));
+    out.push(snap({ line: 1, caption: '빈 스택으로 시작합니다.', captionEn: 'Start with an empty stack.', action: 'INIT', tone: 'neutral' }));
 
     for (let i = 0; i < s.length; i++) {
       const ch = s[i];
-      out.push(snap({ line: 3, pos: i, caption: `'${ch}' 문자를 읽습니다.`, action: 'READ', tone: 'active' }));
+      out.push(snap({ line: 3, pos: i, caption: `'${ch}' 문자를 읽습니다.`, captionEn: `Read character '${ch}'.`, action: 'READ', tone: 'active' }));
       if (OPEN.includes(ch)) {
         stack.push({ ch, id: nid++ });
-        out.push(snap({ line: 5, pos: i, caption: `여는 괄호 '${ch}' → push`, action: 'PUSH', tone: 'compare' }));
+        out.push(snap({ line: 5, pos: i, caption: `여는 괄호 '${ch}' → push`, captionEn: `Open bracket '${ch}' → push`, action: 'PUSH', tone: 'compare' }));
       } else {
         if (stack.length === 0) {
           out.push(
@@ -270,6 +270,7 @@ export const parentheses: Algorithm<StackStep> = {
               line: 7,
               pos: i,
               caption: `'${ch}' 인데 스택이 비어 짝이 없음`,
+              captionEn: `'${ch}' found but stack is empty — no matching opener`,
               action: 'INVALID',
               tone: 'bad',
               status: 'invalid',
@@ -284,6 +285,7 @@ export const parentheses: Algorithm<StackStep> = {
               line: 7,
               pos: i,
               caption: `'${ch}' 의 짝 '${PAIR[ch]}' 와 스택 top '${top.ch}' 불일치`,
+              captionEn: `Closer '${ch}' expects '${PAIR[ch]}' but stack top is '${top.ch}'`,
               action: 'MISMATCH',
               tone: 'bad',
               status: 'invalid',
@@ -298,6 +300,7 @@ export const parentheses: Algorithm<StackStep> = {
             pos: i,
             popped,
             caption: `'${ch}' ↔ '${popped.ch}' 짝 일치 → pop`,
+            captionEn: `'${ch}' matches '${popped.ch}' → pop`,
             action: 'POP',
             tone: 'good',
           }),
@@ -309,6 +312,7 @@ export const parentheses: Algorithm<StackStep> = {
       snap({
         line: 8,
         caption: valid ? '스택이 비었습니다 — 올바른 괄호열!' : '스택에 괄호가 남았습니다 — 오류!',
+        captionEn: valid ? 'Stack is empty — valid brackets!' : 'Brackets remain in stack — invalid!',
         action: valid ? 'VALID' : 'INVALID',
         tone: valid ? 'good' : 'bad',
         status: valid ? 'valid' : 'invalid',

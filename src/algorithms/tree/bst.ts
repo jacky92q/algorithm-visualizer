@@ -247,14 +247,14 @@ export const bst: Algorithm<TreeStep> = {
       ...e,
     });
 
-    out.push(snap({ line: 0, caption: '빈 트리에서 시작합니다.', action: 'START', tone: 'neutral' }));
+    out.push(snap({ line: 0, caption: '빈 트리에서 시작합니다.', captionEn: 'Start with an empty tree.', action: 'START', tone: 'neutral' }));
 
     for (const x of vals) {
       if (root === null) {
         const node = { id: nid++, value: x, left: null, right: null };
         nodes.push(node);
         root = node.id;
-        out.push(snap({ line: 2, caption: `${x} → 루트 노드 생성`, action: 'ROOT', tone: 'good', inserted: node.id }));
+        out.push(snap({ line: 2, caption: `${x} → 루트 노드 생성`, captionEn: `${x} → create root node`, action: 'ROOT', tone: 'good', inserted: node.id }));
         continue;
       }
       let curId: number = root;
@@ -268,6 +268,7 @@ export const bst: Algorithm<TreeStep> = {
           snap({
             line: 3,
             caption: `${x} 와 ${node.value} 비교 — ${x < node.value ? '왼쪽으로' : '오른쪽으로'}`,
+            captionEn: `Compare ${x} with ${node.value} — go ${x < node.value ? 'left' : 'right'}`,
             action: 'COMPARE',
             tone: 'active',
             compare: curId,
@@ -279,7 +280,7 @@ export const bst: Algorithm<TreeStep> = {
             const nn = { id: nid++, value: x, left: null, right: null };
             nodes.push(nn);
             node.left = nn.id;
-            out.push(snap({ line: 4, caption: `빈 왼쪽 자리에 ${x} 삽입`, action: 'INSERT', tone: 'good', inserted: nn.id, active: nn.id, visited: [...path, nn.id] }));
+            out.push(snap({ line: 4, caption: `빈 왼쪽 자리에 ${x} 삽입`, captionEn: `Insert ${x} into empty left slot`, action: 'INSERT', tone: 'good', inserted: nn.id, active: nn.id, visited: [...path, nn.id] }));
             break;
           }
           curId = node.left;
@@ -288,7 +289,7 @@ export const bst: Algorithm<TreeStep> = {
             const nn = { id: nid++, value: x, left: null, right: null };
             nodes.push(nn);
             node.right = nn.id;
-            out.push(snap({ line: 6, caption: `빈 오른쪽 자리에 ${x} 삽입`, action: 'INSERT', tone: 'good', inserted: nn.id, active: nn.id, visited: [...path, nn.id] }));
+            out.push(snap({ line: 6, caption: `빈 오른쪽 자리에 ${x} 삽입`, captionEn: `Insert ${x} into empty right slot`, action: 'INSERT', tone: 'good', inserted: nn.id, active: nn.id, visited: [...path, nn.id] }));
             break;
           }
           curId = node.right;
@@ -308,6 +309,7 @@ export const bst: Algorithm<TreeStep> = {
         snap({
           line: 8,
           caption: `방문: ${node.value}`,
+          captionEn: `Visit: ${node.value}`,
           action: 'VISIT',
           tone: 'good',
           phase: 'traverse',
@@ -317,12 +319,13 @@ export const bst: Algorithm<TreeStep> = {
       );
       traverse(node.right);
     };
-    out.push(snap({ line: 8, caption: '이제 중위 순회로 읽어봅니다.', action: 'TRAVERSE', tone: 'active', phase: 'traverse' }));
+    out.push(snap({ line: 8, caption: '이제 중위 순회로 읽어봅니다.', captionEn: 'Now traversing in-order.', action: 'TRAVERSE', tone: 'active', phase: 'traverse' }));
     traverse(root);
     out.push(
       snap({
         line: 8,
         caption: '중위 순회 = 오름차순 정렬 완료!',
+        captionEn: 'In-order traversal = sorted output!',
         action: 'DONE',
         tone: 'good',
         phase: 'done',

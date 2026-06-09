@@ -79,7 +79,7 @@ export const bubbleSort: Algorithm<SortStep> = {
       ...extra,
     });
 
-    out.push(snap({ line: 1, caption: '배열을 준비합니다.', action: 'START', tone: 'neutral' }));
+    out.push(snap({ line: 1, caption: '배열을 준비합니다.', captionEn: 'Initialize the array.', action: 'START', tone: 'neutral' }));
 
     for (let i = 0; i < n - 1; i++) {
       let swapped = false;
@@ -90,6 +90,7 @@ export const bubbleSort: Algorithm<SortStep> = {
           snap({
             line: 5,
             caption: `a[${j}]=${valOf(idA)} 와 a[${j + 1}]=${valOf(idB)} 비교`,
+            captionEn: `Compare a[${j}]=${valOf(idA)} and a[${j + 1}]=${valOf(idB)}`,
             action: 'COMPARE',
             tone: 'compare',
             compare: [idA, idB],
@@ -104,6 +105,7 @@ export const bubbleSort: Algorithm<SortStep> = {
             snap({
               line: 6,
               caption: `${valOf(idA)} > ${valOf(idB)} → 교환`,
+              captionEn: `${valOf(idA)} > ${valOf(idB)} → swap`,
               action: 'SWAP',
               tone: 'bad',
               swap: [idA, idB],
@@ -117,6 +119,7 @@ export const bubbleSort: Algorithm<SortStep> = {
         snap({
           line: 8,
           caption: `${valOf(slots[n - 1 - i])} 가 제자리에 확정`,
+          captionEn: `${valOf(slots[n - 1 - i])} is now in its final position`,
           action: 'LOCKED',
           tone: 'good',
         }),
@@ -124,7 +127,7 @@ export const bubbleSort: Algorithm<SortStep> = {
       if (!swapped) break;
     }
     if (sorted.length < n) for (const id of slots) if (!sorted.includes(id)) sorted.push(id);
-    out.push(snap({ line: 9, caption: '정렬 완료!', action: 'DONE', tone: 'good', sorted: [...slots] }));
+    out.push(snap({ line: 9, caption: '정렬 완료!', captionEn: 'Sorted!', action: 'DONE', tone: 'good', sorted: [...slots] }));
     return out;
   },
   createRenderer: () => new SortBarsRenderer(),

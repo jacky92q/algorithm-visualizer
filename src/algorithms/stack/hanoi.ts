@@ -152,7 +152,7 @@ class HanoiRenderer implements Renderer<HanoiStep> {
     }
 
     // ── Move counter / info ───────────────────────────────────────────────
-    text(ctx, `2ⁿ−1 = ${Math.pow(2, n) - 1} 번 이동`, width / 2, 28, {
+    text(ctx, `2ⁿ−1 = ${Math.pow(2, n) - 1} moves`, width / 2, 28, {
       size: 13, weight: 700, color: rgba('#9A8B70', 0.9), letterSpacing: 1,
     });
   }

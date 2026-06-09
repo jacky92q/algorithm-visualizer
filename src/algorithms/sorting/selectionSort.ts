@@ -78,7 +78,7 @@ export const selectionSort: Algorithm<SortStep> = {
       ...extra,
     });
 
-    out.push(snap({ line: 1, caption: '배열을 준비합니다.', action: 'START' }));
+    out.push(snap({ line: 1, caption: '배열을 준비합니다.', captionEn: 'Initialize the array.', action: 'START' }));
 
     for (let i = 0; i < n - 1; i++) {
       let minIdx = i;
@@ -86,6 +86,7 @@ export const selectionSort: Algorithm<SortStep> = {
         snap({
           line: 3,
           caption: `min_idx = ${i} (${valOf(slots[i])}) 로 가정`,
+          captionEn: `Assume min at index ${i} (value ${valOf(slots[i])})`,
           action: 'PICK MIN',
           tone: 'active',
           pivot: slots[minIdx],
@@ -97,6 +98,7 @@ export const selectionSort: Algorithm<SortStep> = {
           snap({
             line: 5,
             caption: `a[${j}]=${valOf(slots[j])} 와 최솟값 ${valOf(slots[minIdx])} 비교`,
+            captionEn: `Compare a[${j}]=${valOf(slots[j])} with current min ${valOf(slots[minIdx])}`,
             action: 'COMPARE',
             tone: 'compare',
             compare: [slots[j]],
@@ -110,6 +112,7 @@ export const selectionSort: Algorithm<SortStep> = {
             snap({
               line: 6,
               caption: `새 최솟값 발견: ${valOf(slots[minIdx])}`,
+              captionEn: `New minimum found: ${valOf(slots[minIdx])}`,
               action: 'NEW MIN',
               tone: 'active',
               pivot: slots[minIdx],
@@ -127,6 +130,7 @@ export const selectionSort: Algorithm<SortStep> = {
         snap({
           line: 7,
           caption: `${valOf(b)} 를 ${i} 번 자리에 확정`,
+          captionEn: `Place ${valOf(b)} at index ${i}`,
           action: 'SWAP',
           tone: 'good',
           swap: [a, b],
@@ -134,7 +138,7 @@ export const selectionSort: Algorithm<SortStep> = {
       );
     }
     sorted.push(slots[n - 1]);
-    out.push(snap({ line: 8, caption: '정렬 완료!', action: 'DONE', tone: 'good', sorted: [...slots] }));
+    out.push(snap({ line: 8, caption: '정렬 완료!', captionEn: 'Sorted!', action: 'DONE', tone: 'good', sorted: [...slots] }));
     return out;
   },
   createRenderer: () => new SortBarsRenderer(),

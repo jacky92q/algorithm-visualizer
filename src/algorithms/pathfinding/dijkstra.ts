@@ -152,6 +152,7 @@ export const dijkstra: Algorithm<GridStep> = {
     out.push(snap({
       line: 1,
       caption: '시작점 비용=0, 나머지는 ∞. 어두운 셀은 비용이 높은 지형입니다.',
+      captionEn: 'Start cost=0, all others ∞. Darker cells have higher movement cost.',
       action: 'INIT',
       tone: 'neutral',
     }));
@@ -187,6 +188,7 @@ export const dijkstra: Algorithm<GridStep> = {
       out.push(snap({
         line: 3,
         caption: `확정: (${Math.floor(cur / cols)},${cur % cols}) 누적비용=${dist[cur]}`,
+        captionEn: `Confirmed: (${Math.floor(cur / cols)},${cur % cols}) accumulated cost=${dist[cur]}`,
         action: 'CONFIRM',
         tone: 'active',
       }));
@@ -211,6 +213,7 @@ export const dijkstra: Algorithm<GridStep> = {
         out.push(snap({
           line: 8,
           caption: '이웃들의 비용 갱신(relax) — 더 싼 경로 발견 시 업데이트',
+          captionEn: 'Relax neighbors — update distances when a cheaper path is found',
           action: 'RELAX',
           tone: 'compare',
         }));
@@ -225,11 +228,12 @@ export const dijkstra: Algorithm<GridStep> = {
       out.push(snap({
         line: 10,
         caption: `최소 비용 경로 확정! 총 이동 비용 = ${dist[goal]}`,
+        captionEn: `Optimal path found! Total cost = ${dist[goal]}`,
         action: 'PATH ✓',
         tone: 'good',
       }));
     } else {
-      out.push(snap({ line: 10, caption: '도달 불가!', action: 'NO PATH', tone: 'bad' }));
+      out.push(snap({ line: 10, caption: '도달 불가!', captionEn: 'No path found!', action: 'NO PATH', tone: 'bad' }));
     }
     return out;
   },
