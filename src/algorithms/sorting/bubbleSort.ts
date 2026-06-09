@@ -41,6 +41,25 @@ export const bubbleSort: Algorithm<SortStep> = {
     ],
     defaultInput: '5, 2, 9, 1, 7, 3, 8, 4',
     inputHint: '쉼표로 구분된 숫자 (1–99), 최대 14개',
+    en: {
+      name: 'Bubble Sort',
+      tagline: 'Adjacent swaps bubble the max to the end',
+      hook: 'The largest value bubbles to the end like a bubble',
+      summary: 'Compares adjacent pairs and swaps them if out of order. After each pass, the largest unsorted value is locked at the end. An early-exit flag stops the algorithm as soon as no swaps occur.',
+      keyPoints: [
+        'Only compares adjacent pairs — simplest implementation',
+        'Each pass locks the maximum at the right end',
+        'Early exit via swapped flag when already sorted',
+      ],
+      steps: [
+        'Compare two adjacent elements from the left.',
+        'If the left is greater, swap them.',
+        'After one pass, the largest value is locked at the right.',
+        'Repeat until no swaps occur in a pass.',
+      ],
+      defaultInput: '5, 2, 9, 1, 7, 3, 8, 4',
+      inputHint: 'Comma-separated numbers (1–99), up to 14 values',
+    },
   },
   sourceCode: source,
   generate(input) {

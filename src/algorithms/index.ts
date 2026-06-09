@@ -4,11 +4,18 @@ import { insertionSort } from './sorting/insertionSort';
 import { selectionSort } from './sorting/selectionSort';
 import { quickSort } from './sorting/quickSort';
 import { mergeSort } from './sorting/mergeSort';
+import { heapSort } from './sorting/heapSort';
+import { countingSort } from './sorting/countingSort';
 import { binarySearch } from './searching/binarySearch';
+import { twoPointers } from './searching/twoPointers';
 import { bfsMaze } from './pathfinding/bfsMaze';
 import { dijkstra } from './pathfinding/dijkstra';
+import { dfsGrid } from './pathfinding/dfsGrid';
+import { astar } from './pathfinding/astar';
 import { parentheses } from './stack/parentheses';
+import { hanoi } from './stack/hanoi';
 import { bst } from './tree/bst';
+import { fibonacci } from './dp/fibonacci';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const ALGORITHMS: Algorithm<any>[] = [
@@ -17,27 +24,33 @@ export const ALGORITHMS: Algorithm<any>[] = [
   insertionSort,
   quickSort,
   mergeSort,
+  heapSort,
+  countingSort,
   binarySearch,
+  twoPointers,
   bfsMaze,
   dijkstra,
+  dfsGrid,
+  astar,
   parentheses,
+  hanoi,
   bst,
+  fibonacci,
 ];
 
 export interface CategoryInfo {
   id: Category;
   label: string;
-  ko: string;
   glyph: string;
-  blurb: string;
 }
 
 export const CATEGORIES: CategoryInfo[] = [
-  { id: 'sorting', label: 'Sorting', ko: '정렬', glyph: '📊', blurb: '값을 순서대로 재배치' },
-  { id: 'searching', label: 'Searching', ko: '탐색', glyph: '🔎', blurb: '원하는 값 빠르게 찾기' },
-  { id: 'pathfinding', label: 'Pathfinding', ko: '경로 탐색', glyph: '🗺️', blurb: '격자에서 길 찾기' },
-  { id: 'stack', label: 'Stack', ko: '스택', glyph: '📚', blurb: 'LIFO 구조 활용' },
-  { id: 'tree', label: 'Tree', ko: '트리', glyph: '🌳', blurb: '계층 구조 다루기' },
+  { id: 'sorting', label: 'Sorting', glyph: '📊' },
+  { id: 'searching', label: 'Searching', glyph: '🔎' },
+  { id: 'pathfinding', label: 'Pathfinding', glyph: '🗺️' },
+  { id: 'stack', label: 'Stack', glyph: '📚' },
+  { id: 'tree', label: 'Tree', glyph: '🌳' },
+  { id: 'dp', label: 'DP', glyph: '🧮' },
 ];
 
 export function getAlgorithm(id: string): Algorithm<BaseStep> | undefined {

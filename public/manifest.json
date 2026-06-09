@@ -1,0 +1,26 @@
+{
+  "name": "Algorithm Visualizer",
+  "short_name": "AlgoViz",
+  "description": "Step-by-step algorithm animations with code highlighting",
+  "start_url": "/algorithm-visualizer/",
+  "scope": "/algorithm-visualizer/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F6EEDD",
+  "theme_color": "#6F4E37",
+  "categories": ["education", "utilities"],
+  "icons": [
+    {
+      "src": "/algorithm-visualizer/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/algorithm-visualizer/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

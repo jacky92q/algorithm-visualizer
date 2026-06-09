@@ -219,6 +219,25 @@ export const parentheses: Algorithm<StackStep> = {
     ],
     defaultInput: '{[()()]}[]',
     inputHint: '괄호 문자만: ( ) [ ] { }',
+    en: {
+      name: 'Valid Parentheses',
+      tagline: 'Stack-based bracket matching in O(n)',
+      hook: 'Uses a stack to match opening and closing brackets',
+      summary: 'Pushes opening brackets onto a stack and pops when a matching closer is found. If the stack is empty at the end, all brackets are balanced.',
+      keyPoints: [
+        'Push openers onto the stack; pop on matching closer',
+        'Mismatch or leftover items mean invalid input',
+        'Single linear pass — O(n) time, O(n) space',
+      ],
+      steps: [
+        'Read each character from left to right.',
+        'If it\'s an opener, push it onto the stack.',
+        'If it\'s a closer, check the top of the stack for a match.',
+        'At the end, the stack must be empty for valid input.',
+      ],
+      defaultInput: '{[()()]}[]',
+      inputHint: 'Bracket characters only: ( ) [ ] { }',
+    },
   },
   sourceCode: source,
   generate(input) {

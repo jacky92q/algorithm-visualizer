@@ -63,6 +63,25 @@ export const bfsMaze: Algorithm<GridStep> = {
     ],
     defaultInput: '미로 (고정)',
     inputHint: 'BFS 미로는 데모용으로 고정되어 있습니다',
+    en: {
+      name: 'BFS Pathfinding',
+      tagline: 'Flood the maze level by level',
+      hook: 'Expands like a wave to find the shortest path',
+      summary: 'Uses a queue to explore cells at the same distance simultaneously. In an unweighted grid the first time a cell is reached is always via the shortest path.',
+      keyPoints: [
+        'Queue-based: nearest cells explored first',
+        'Expands level-by-level like ripples in water',
+        'Guarantees shortest path in unweighted grids',
+      ],
+      steps: [
+        'Add the start cell to the queue and mark it visited.',
+        'Dequeue a cell and enqueue its unvisited non-wall neighbors.',
+        'Stop when the goal cell is dequeued.',
+        'Trace back via the prev map to reconstruct the path.',
+      ],
+      defaultInput: 'Maze (fixed)',
+      inputHint: 'The BFS maze is a fixed demo',
+    },
   },
   sourceCode: source,
   generate() {

@@ -1,21 +1,23 @@
 import type { Palette } from './palette';
 
-export type Category = 'sorting' | 'searching' | 'pathfinding' | 'stack' | 'tree';
+export type Category = 'sorting' | 'searching' | 'pathfinding' | 'stack' | 'tree' | 'dp';
 
 export interface CodeLine {
   text: string;
   indent: number;
 }
 
-// A single frame in an algorithm run. Algorithms extend this with their own
-// state fields; the player and renderer treat them opaquely.
 export interface BaseStep {
   /** 0-based index into sourceCode of the line being executed. */
   line: number;
-  /** Short human caption shown under the stage. */
+  /** Short human caption shown under the stage (Korean primary). */
   caption: string;
-  /** Optional badge label (PUSH / SWAP / VISIT ...). */
+  /** Optional English caption. Pages show this when lang='en'. */
+  captionEn?: string;
+  /** Optional badge label (PUSH / SWAP / VISIT …). */
   action?: string;
+  /** Optional English badge label. */
+  actionEn?: string;
   /** Optional tone for the badge / accent. */
   tone?: 'neutral' | 'compare' | 'active' | 'good' | 'bad';
 }
@@ -38,13 +40,25 @@ export interface Renderer<S extends BaseStep = BaseStep> {
   draw(rc: RenderCtx, prev: S | null, curr: S): void;
 }
 
+/** Optional English version of algorithm text fields. */
+export interface AlgorithmMetaEn {
+  name: string;
+  tagline: string;
+  hook: string;
+  summary: string;
+  keyPoints: string[];
+  steps: string[];
+  defaultInput: string;
+  inputHint: string;
+}
+
 export interface AlgorithmMeta {
   id: string;
   category: Category;
   name: string;
   /** Short English subtitle. */
   tagline: string;
-  /** One-line Korean hook. */
+  /** One-line hook (Korean primary). */
   hook: string;
   difficulty: 'Easy' | 'Medium' | 'Hard';
   time: string;
@@ -58,6 +72,8 @@ export interface AlgorithmMeta {
   accent: 'teal' | 'brown' | 'amber' | 'coral' | 'rose' | 'plum';
   /** Emoji / glyph for catalog cards. */
   glyph: string;
+  /** Optional full English translation of text fields. */
+  en?: AlgorithmMetaEn;
 }
 
 export interface Algorithm<S extends BaseStep = BaseStep> {

@@ -40,6 +40,25 @@ export const insertionSort: Algorithm<SortStep> = {
     ],
     defaultInput: '6, 3, 8, 2, 7, 4, 1, 5',
     inputHint: '쉼표로 구분된 숫자 (1–99), 최대 14개',
+    en: {
+      name: 'Insertion Sort',
+      tagline: 'Build a sorted prefix, one card at a time',
+      hook: 'Inserts each element into its correct position like sorting cards',
+      summary: 'Maintains a sorted left sub-array and inserts each new element (key) by shifting larger elements right. Near-optimal for nearly-sorted data.',
+      keyPoints: [
+        'Left portion is always sorted',
+        'Key shifts elements right to find its insertion spot',
+        'Approaches O(n) on nearly-sorted input',
+      ],
+      steps: [
+        'Take the second element as the key.',
+        'Shift elements in the sorted section that are greater than key to the right.',
+        'Insert key into the gap.',
+        'Repeat for every element until the array is sorted.',
+      ],
+      defaultInput: '6, 3, 8, 2, 7, 4, 1, 5',
+      inputHint: 'Comma-separated numbers (1–99), up to 14 values',
+    },
   },
   sourceCode: source,
   generate(input) {

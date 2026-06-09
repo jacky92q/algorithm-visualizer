@@ -40,6 +40,25 @@ export const selectionSort: Algorithm<SortStep> = {
     ],
     defaultInput: '8, 4, 1, 6, 3, 9, 2, 7',
     inputHint: '쉼표로 구분된 숫자 (1–99), 최대 14개',
+    en: {
+      name: 'Selection Sort',
+      tagline: 'Pick the minimum, place it up front',
+      hook: 'Selects the minimum from the remaining unsorted portion',
+      summary: 'Finds the minimum in the unsorted section and swaps it to the front. At most n-1 swaps total, making it good when write operations are expensive.',
+      keyPoints: [
+        'Selects one minimum per round',
+        'Swaps the minimum to the front of the unsorted section',
+        'At most n-1 swaps — good when writes are costly',
+      ],
+      steps: [
+        'Scan the unsorted section to find the minimum value.',
+        'Swap the minimum with the first element of the unsorted section.',
+        'Advance the sorted boundary by one.',
+        'Repeat until the unsorted section is empty.',
+      ],
+      defaultInput: '8, 4, 1, 6, 3, 9, 2, 7',
+      inputHint: 'Comma-separated numbers (1–99), up to 14 values',
+    },
   },
   sourceCode: source,
   generate(input) {

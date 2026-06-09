@@ -41,6 +41,25 @@ export const mergeSort: Algorithm<SortStep> = {
     ],
     defaultInput: '5, 8, 2, 9, 1, 6, 3, 7',
     inputHint: '쉼표로 구분된 숫자 (1–99), 최대 14개',
+    en: {
+      name: 'Merge Sort',
+      tagline: 'Divide to single items, merge back in order',
+      hook: 'Splits in half, then merges back sorted',
+      summary: 'Recursively splits the array down to single elements, then merges two sorted halves by comparing their fronts. A stable sort that always runs in O(n log n).',
+      keyPoints: [
+        'Divide-and-conquer — always O(n log n)',
+        'Merges two sorted halves by comparing from the front',
+        'Stable sort; requires O(n) extra memory',
+      ],
+      steps: [
+        'Recursively split the array until each piece has length 1.',
+        'Compare the front of both halves and take the smaller.',
+        'When one half is empty, append the remaining elements.',
+        'Merge up through all recursion levels.',
+      ],
+      defaultInput: '5, 8, 2, 9, 1, 6, 3, 7',
+      inputHint: 'Comma-separated numbers (1–99), up to 14 values',
+    },
   },
   sourceCode: source,
   generate(input) {

@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getAlgorithm } from '../algorithms';
+import { useLang } from '../i18n/LangContext';
 
 const fade = {
   initial: { opacity: 0, y: 20 },
@@ -11,17 +12,20 @@ const fade = {
 export default function DescriptionPage() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { lang, t } = useLang();
   const algo = id ? getAlgorithm(id) : undefined;
 
   if (!algo) {
     return (
       <div className="missing">
-        <p>알고리즘을 찾을 수 없습니다.</p>
-        <button onClick={() => navigate('/')}>← 홈으로</button>
+        <p>{t('desc.missing')}</p>
+        <button onClick={() => navigate('/')}>{t('desc.goHome')}</button>
       </div>
     );
   }
-  const m = algo.meta;
+
+  const base = algo.meta;
+  const m = lang === 'en' && base.en ? { ...base, ...base.en } : base;
 
   const stagger = (i: number) => ({
     initial: { opacity: 0, x: -16 },
@@ -31,7 +35,7 @@ export default function DescriptionPage() {
 
   return (
     <motion.main
-      className={`desc accent-${m.accent}`}
+      className={`desc accent-${base.accent}`}
       variants={fade}
       initial="initial"
       animate="animate"
@@ -39,7 +43,7 @@ export default function DescriptionPage() {
       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
     >
       <button className="back-btn" onClick={() => navigate('/')}>
-        ← 목록
+        {t('desc.back')}
       </button>
 
       <div className="desc-inner">
@@ -49,11 +53,11 @@ export default function DescriptionPage() {
           animate={{ scale: 1, opacity: 1, rotate: 0 }}
           transition={{ type: 'spring', stiffness: 240, damping: 16 }}
         >
-          {m.glyph}
+          {base.glyph}
         </motion.div>
 
         <motion.span className="desc-cat" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }}>
-          {m.category.toUpperCase()}
+          {base.category.toUpperCase()}
         </motion.span>
         <motion.h1 className="desc-title" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.12 }}>
           {m.name}
@@ -64,16 +68,16 @@ export default function DescriptionPage() {
 
         <motion.div className="stat-row" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
           <div className="stat">
-            <span className="stat-label">시간복잡도</span>
-            <span className="stat-value">{m.time}</span>
+            <span className="stat-label">{t('desc.time')}</span>
+            <span className="stat-value">{base.time}</span>
           </div>
           <div className="stat">
-            <span className="stat-label">공간복잡도</span>
-            <span className="stat-value">{m.space}</span>
+            <span className="stat-label">{t('desc.space')}</span>
+            <span className="stat-value">{base.space}</span>
           </div>
           <div className="stat">
-            <span className="stat-label">난이도</span>
-            <span className={`stat-value diff-${m.difficulty.toLowerCase()}`}>{m.difficulty}</span>
+            <span className="stat-label">{t('desc.difficulty')}</span>
+            <span className={`stat-value diff-${base.difficulty.toLowerCase()}`}>{base.difficulty}</span>
           </div>
         </motion.div>
 
@@ -83,7 +87,7 @@ export default function DescriptionPage() {
 
         <div className="desc-cols">
           <div className="desc-card">
-            <h3>핵심 포인트</h3>
+            <h3>{t('desc.keyPoints')}</h3>
             <ul className="key-list">
               {m.keyPoints.map((p, i) => (
                 <motion.li key={i} {...stagger(i)}>
@@ -94,7 +98,7 @@ export default function DescriptionPage() {
             </ul>
           </div>
           <div className="desc-card">
-            <h3>동작 순서</h3>
+            <h3>{t('desc.steps')}</h3>
             <ol className="step-list">
               {m.steps.map((p, i) => (
                 <motion.li key={i} {...stagger(i)}>
@@ -108,14 +112,14 @@ export default function DescriptionPage() {
 
         <motion.button
           className="cta"
-          onClick={() => navigate(`/algo/${m.id}/run`)}
+          onClick={() => navigate(`/algo/${base.id}/run`)}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, type: 'spring', stiffness: 260, damping: 20 }}
           whileHover={{ scale: 1.04, y: -2 }}
           whileTap={{ scale: 0.97 }}
         >
-          ▶ 시각화 시작하기
+          {t('desc.cta')}
         </motion.button>
       </div>
     </motion.main>

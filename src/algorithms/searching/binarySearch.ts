@@ -177,6 +177,25 @@ export const binarySearch: Algorithm<SearchStep> = {
     ],
     defaultInput: '3, 8, 12, 17, 23, 29, 34, 41, 50, 58 ? 34',
     inputHint: '정렬된 숫자들 그리고 " ? target" (예: 1,3,5 ? 5)',
+    en: {
+      name: 'Binary Search',
+      tagline: 'Halve the search space with every comparison',
+      hook: 'Eliminates half the array on each comparison',
+      summary: 'Repeatedly halves a sorted array\'s search range by comparing the middle element to the target. Can find a value in one million elements in about 20 comparisons.',
+      keyPoints: [
+        'Requires sorted input — O(log n) comparisons',
+        'Each step eliminates half the remaining range',
+        'Finds 1 million items in ~20 steps',
+      ],
+      steps: [
+        'Set lo and hi to bound the full range; compute mid.',
+        'Compare a[mid] to the target.',
+        'If too small, discard the left half; if too large, discard the right.',
+        'Repeat until found or the range is empty.',
+      ],
+      defaultInput: '3, 8, 12, 17, 23, 29, 34, 41, 50, 58 ? 34',
+      inputHint: 'Sorted numbers then " ? target" (e.g. 1,3,5 ? 5)',
+    },
   },
   sourceCode: source,
   generate(input) {

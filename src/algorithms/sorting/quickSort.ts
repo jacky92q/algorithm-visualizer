@@ -41,6 +41,25 @@ export const quickSort: Algorithm<SortStep> = {
     ],
     defaultInput: '7, 2, 9, 4, 3, 8, 1, 6',
     inputHint: '쉼표로 구분된 숫자 (1–99), 최대 14개',
+    en: {
+      name: 'Quick Sort',
+      tagline: 'Partition around a pivot, conquer each side',
+      hook: 'Partitions into smaller/larger groups around a pivot',
+      summary: 'Picks a pivot and partitions the array so smaller values go left and larger go right. The pivot lands in its final position, and both sides are sorted recursively.',
+      keyPoints: [
+        'Partition-based: pivot is permanently placed after each round',
+        'Average O(n log n); worst-case O(n²) with bad pivot choice',
+        'In-place — needs only O(log n) stack space',
+      ],
+      steps: [
+        'Choose the rightmost element as the pivot.',
+        'Scan with pointer j, moving elements smaller than pivot to the left side.',
+        'Place the pivot at the boundary i — its final position.',
+        'Recursively sort both sides of the pivot.',
+      ],
+      defaultInput: '7, 2, 9, 4, 3, 8, 1, 6',
+      inputHint: 'Comma-separated numbers (1–99), up to 14 values',
+    },
   },
   sourceCode: source,
   generate(input) {

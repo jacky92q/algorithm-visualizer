@@ -1,6 +1,8 @@
-import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { ALGORITHMS, CATEGORIES, algorithmsByCategory } from '../algorithms';
+import { useLang } from '../i18n/LangContext';
 
 const pageVariants = {
   initial: { opacity: 0, y: 18 },
@@ -10,6 +12,16 @@ const pageVariants = {
 
 export default function HomePage() {
   const navigate = useNavigate();
+  const { lang, setLang, t } = useLang();
+  const [settingsOpen, setSettingsOpen] = useState(false);
+
+  const meta = (algo: (typeof ALGORITHMS)[0]) => {
+    const m = algo.meta;
+    return {
+      name: lang === 'en' && m.en ? m.en.name : m.name,
+      hook: lang === 'en' && m.en ? m.en.hook : m.hook,
+    };
+  };
 
   return (
     <motion.main
@@ -27,7 +39,7 @@ export default function HomePage() {
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 0.05, type: 'spring', stiffness: 300, damping: 20 }}
         >
-          ✦ ALGORITHM VISUALIZER
+          {t('home.badge')}
         </motion.div>
         <motion.h1
           className="hero-title"
@@ -35,9 +47,9 @@ export default function HomePage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.12 }}
         >
-          알고리즘이 <span className="accent-teal">살아 움직이는</span>
+          {t('home.title.pre')}<span className="accent-teal">{t('home.title.accent')}</span>
           <br />
-          가장 아름다운 방법
+          {t('home.title.post')}
         </motion.h1>
         <motion.p
           className="hero-sub"
@@ -45,8 +57,20 @@ export default function HomePage() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
         >
-          {ALGORITHMS.length}개의 핵심 알고리즘을 단계별 애니메이션과 코드 하이라이트로.
+          {t('home.sub').replace('{n}', String(ALGORITHMS.length))}
         </motion.p>
+
+        <motion.button
+          className="settings-btn"
+          onClick={() => setSettingsOpen(true)}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.25 }}
+          aria-label="Language settings"
+          title={t('lang.title')}
+        >
+          🌐
+        </motion.button>
       </header>
 
       <div className="catalog">
@@ -63,36 +87,39 @@ export default function HomePage() {
               >
                 <span className="cat-glyph">{cat.glyph}</span>
                 <div>
-                  <h2>{cat.ko}</h2>
-                  <span className="cat-en">{cat.label} · {cat.blurb}</span>
+                  <h2>{t(`cat.${cat.id}.name`)}</h2>
+                  <span className="cat-en">{cat.label} · {t(`cat.${cat.id}.blurb`)}</span>
                 </div>
               </motion.div>
               <div className="card-grid">
-                {items.map((algo, i) => (
-                  <motion.button
-                    key={algo.meta.id}
-                    className={`algo-card accent-${algo.meta.accent}`}
-                    onClick={() => navigate(`/algo/${algo.meta.id}`)}
-                    initial={{ opacity: 0, y: 24, scale: 0.96 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    transition={{ delay: 0.12 + ci * 0.05 + i * 0.05, type: 'spring', stiffness: 260, damping: 22 }}
-                    whileHover={{ y: -6, scale: 1.025 }}
-                    whileTap={{ scale: 0.97 }}
-                  >
-                    <div className="card-glyph">{algo.meta.glyph}</div>
-                    <div className="card-body">
-                      <div className="card-name">{algo.meta.name}</div>
-                      <div className="card-hook">{algo.meta.hook}</div>
-                    </div>
-                    <div className="card-foot">
-                      <span className="chip chip-time">{algo.meta.time}</span>
-                      <span className={`chip chip-diff diff-${algo.meta.difficulty.toLowerCase()}`}>
-                        {algo.meta.difficulty}
-                      </span>
-                    </div>
-                    <span className="card-arrow">→</span>
-                  </motion.button>
-                ))}
+                {items.map((algo, i) => {
+                  const { name, hook } = meta(algo);
+                  return (
+                    <motion.button
+                      key={algo.meta.id}
+                      className={`algo-card accent-${algo.meta.accent}`}
+                      onClick={() => navigate(`/algo/${algo.meta.id}`)}
+                      initial={{ opacity: 0, y: 24, scale: 0.96 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      transition={{ delay: 0.12 + ci * 0.05 + i * 0.05, type: 'spring', stiffness: 260, damping: 22 }}
+                      whileHover={{ y: -6, scale: 1.025 }}
+                      whileTap={{ scale: 0.97 }}
+                    >
+                      <div className="card-glyph">{algo.meta.glyph}</div>
+                      <div className="card-body">
+                        <div className="card-name">{name}</div>
+                        <div className="card-hook">{hook}</div>
+                      </div>
+                      <div className="card-foot">
+                        <span className="chip chip-time">{algo.meta.time}</span>
+                        <span className={`chip chip-diff diff-${algo.meta.difficulty.toLowerCase()}`}>
+                          {algo.meta.difficulty}
+                        </span>
+                      </div>
+                      <span className="card-arrow">→</span>
+                    </motion.button>
+                  );
+                })}
               </div>
             </section>
           );
@@ -100,8 +127,46 @@ export default function HomePage() {
       </div>
 
       <footer className="home-foot">
-        <span>Made for shorts · Canvas + React + TypeScript</span>
+        <span>{t('home.footer')}</span>
       </footer>
+
+      {/* Language settings modal */}
+      <AnimatePresence>
+        {settingsOpen && (
+          <motion.div
+            className="modal-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSettingsOpen(false)}
+          >
+            <motion.div
+              className="modal"
+              initial={{ scale: 0.9, y: 20, opacity: 0 }}
+              animate={{ scale: 1, y: 0, opacity: 1 }}
+              exit={{ scale: 0.9, y: 20, opacity: 0 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 24 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <h3>{t('lang.title')}</h3>
+              <div className="modal-actions">
+                <button
+                  className={lang === 'ko' ? 'btn-solid' : 'btn-ghost'}
+                  onClick={() => { setLang('ko'); setSettingsOpen(false); }}
+                >
+                  {t('lang.ko')}
+                </button>
+                <button
+                  className={lang === 'en' ? 'btn-solid' : 'btn-ghost'}
+                  onClick={() => { setLang('en'); setSettingsOpen(false); }}
+                >
+                  {t('lang.en')}
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.main>
   );
 }

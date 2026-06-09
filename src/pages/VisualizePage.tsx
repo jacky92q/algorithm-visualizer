@@ -5,6 +5,7 @@ import { getAlgorithm } from '../algorithms';
 import CanvasStage from '../components/CanvasStage';
 import CodePanel from '../components/CodePanel';
 import { usePlayer } from '../hooks/usePlayer';
+import { useLang } from '../i18n/LangContext';
 
 const toneClass: Record<string, string> = {
   neutral: 'b-neutral',
@@ -17,6 +18,7 @@ const toneClass: Record<string, string> = {
 export default function VisualizePage() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { lang, t } = useLang();
   const algo = id ? getAlgorithm(id) : undefined;
 
   const [input, setInput] = useState(algo?.meta.defaultInput ?? '');
@@ -29,8 +31,8 @@ export default function VisualizePage() {
   if (!algo) {
     return (
       <div className="missing">
-        <p>알고리즘을 찾을 수 없습니다.</p>
-        <button onClick={() => navigate('/')}>← 홈으로</button>
+        <p>{t('viz.missing')}</p>
+        <button onClick={() => navigate('/')}>{t('viz.goHome')}</button>
       </div>
     );
   }
@@ -39,8 +41,14 @@ export default function VisualizePage() {
   const m = algo.meta;
   const progress = steps.length > 1 ? player.index / (steps.length - 1) : 0;
 
+  const caption = lang === 'en' ? (step?.captionEn ?? step?.caption) : step?.caption;
+  const action = lang === 'en' ? (step?.actionEn ?? step?.action) : step?.action;
+
+  const inputHint = lang === 'en' && m.en ? m.en.inputHint : m.inputHint;
+
   const applyInput = () => {
-    setInput(draft.trim() || m.defaultInput);
+    const defaultIn = lang === 'en' && m.en ? m.en.defaultInput : m.defaultInput;
+    setInput(draft.trim() || defaultIn);
     setEditOpen(false);
   };
 
@@ -59,7 +67,7 @@ export default function VisualizePage() {
             ←
           </button>
           <div className="viz-titlewrap">
-            <span className="viz-name">{m.name}</span>
+            <span className="viz-name">{lang === 'en' && m.en ? m.en.name : m.name}</span>
             <span className="viz-complex">
               {m.time} · {m.space}
             </span>
@@ -80,7 +88,7 @@ export default function VisualizePage() {
               exit={{ scale: 0.8, opacity: 0 }}
               transition={{ type: 'spring', stiffness: 420, damping: 22 }}
             >
-              {step?.action ?? ''}
+              {action ?? ''}
             </motion.span>
           </AnimatePresence>
         </div>
@@ -98,7 +106,7 @@ export default function VisualizePage() {
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.25 }}
             >
-              {step?.caption}
+              {caption}
             </motion.p>
           </AnimatePresence>
         </div>
@@ -162,8 +170,8 @@ export default function VisualizePage() {
               transition={{ type: 'spring', stiffness: 300, damping: 24 }}
               onClick={(e) => e.stopPropagation()}
             >
-              <h3>입력값 바꾸기</h3>
-              <p className="modal-hint">{m.inputHint}</p>
+              <h3>{t('viz.inputTitle')}</h3>
+              <p className="modal-hint">{inputHint}</p>
               <input
                 className="modal-input"
                 value={draft}
@@ -172,8 +180,10 @@ export default function VisualizePage() {
                 autoFocus
               />
               <div className="modal-actions">
-                <button className="btn-ghost" onClick={() => setDraft(m.defaultInput)}>기본값</button>
-                <button className="btn-solid" onClick={applyInput}>적용</button>
+                <button className="btn-ghost" onClick={() => setDraft(lang === 'en' && m.en ? m.en.defaultInput : m.defaultInput)}>
+                  {t('viz.default')}
+                </button>
+                <button className="btn-solid" onClick={applyInput}>{t('viz.apply')}</button>
               </div>
             </motion.div>
           </motion.div>

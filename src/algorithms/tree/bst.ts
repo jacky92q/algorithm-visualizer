@@ -200,6 +200,25 @@ export const bst: Algorithm<TreeStep> = {
     ],
     defaultInput: '50, 30, 70, 20, 40, 60, 80, 35, 65',
     inputHint: '삽입할 숫자들 (쉼표 구분), 최대 12개',
+    en: {
+      name: 'Binary Search Tree',
+      tagline: 'Ordered tree insertion and traversal',
+      hook: 'Inserts values into a self-ordering binary tree',
+      summary: 'Inserts values into a tree so that left children are always smaller and right children are larger. Average O(log n) for search and insert; in-order traversal yields a sorted sequence.',
+      keyPoints: [
+        'Left subtree < node < right subtree at every node',
+        'Average O(log n) search and insert',
+        'In-order traversal produces sorted output',
+      ],
+      steps: [
+        'Start at the root and compare with the new value.',
+        'Go left if smaller, right if larger.',
+        'Insert as a new leaf when an empty slot is reached.',
+        'Read values in-order to see a sorted sequence.',
+      ],
+      defaultInput: '50, 30, 70, 20, 40, 60, 80, 35, 65',
+      inputHint: 'Comma-separated numbers, up to 12 values',
+    },
   },
   sourceCode: source,
   generate(input) {
