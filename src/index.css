@@ -499,30 +499,25 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   background: linear-gradient(135deg, var(--accent), var(--accent-deep));
   border: none;
   box-shadow: 0 6px 16px color-mix(in srgb, var(--accent) 45%, transparent);
-  position: relative;
 }
-/* Play icon: right-pointing triangle, centered */
+/* Play icon: right-pointing triangle. Centered by the button's grid place-items. */
 .ctrl.play::before {
   content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
   width: 0; height: 0;
   border-top: 7px solid transparent;
   border-bottom: 7px solid transparent;
   border-left: 13px solid #fff;
-  /* visual centroid of triangle ≈ 4–5px from left; shift up by half height (7px) */
-  transform: translate(-4px, -7px);
+  /* nudge right so the left-weighted triangle looks optically centered */
+  margin-left: 4px;
 }
-/* Pause icon: two white bars, centered */
+/* Pause icon: two bars drawn as left+right borders (bounding box = 16x14, grid-centered). */
 .ctrl.play.is-playing::before {
-  /* bar1=4px + gap=8px + bar2=4px → total width=16px; height=14px */
-  width: 4px; height: 14px;
-  background: #fff;
+  box-sizing: border-box;
+  width: 16px; height: 14px;
   border: none;
-  border-radius: 2px;
-  box-shadow: 8px 0 0 #fff;
-  transform: translate(-8px, -7px);
+  border-left: 4px solid #fff;
+  border-right: 4px solid #fff;
+  margin-left: 0;
 }
 .ctrl.play:hover { background: linear-gradient(135deg, var(--accent), var(--accent-deep)); filter: brightness(1.08); }
 .speed-wrap { display: flex; gap: 3px; margin-left: 4px; background: var(--cream-2); padding: 3px; border-radius: 10px; flex-shrink: 0; }
