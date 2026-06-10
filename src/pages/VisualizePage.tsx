@@ -138,13 +138,13 @@ export default function VisualizePage() {
 
         {/* controls */}
         <div className="viz-controls">
-          <button className="ctrl" onClick={player.reset} aria-label="reset">⏮</button>
+          <button className="ctrl" onClick={player.reset} aria-label="reset">⏮︎</button>
           <button className="ctrl" onClick={player.prev} aria-label="prev">‹</button>
           <button className="ctrl play" onClick={player.toggle} aria-label="play">
-            {player.isPlaying ? '⏸' : '▶'}
+            {player.isPlaying ? '⏸︎' : '▶︎'}
           </button>
           <button className="ctrl" onClick={player.next} aria-label="next">›</button>
-          <button className="ctrl" onClick={player.goEnd} aria-label="end">⏭</button>
+          <button className="ctrl" onClick={player.goEnd} aria-label="end">⏭︎</button>
           <div className="speed-wrap">
             {[0.5, 1, 1.5, 2].map((s) => (
               <button
