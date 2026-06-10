@@ -1,6 +1,6 @@
 import type { Palette } from './palette';
 
-export type Category = 'sorting' | 'searching' | 'pathfinding' | 'stack' | 'tree' | 'dp';
+export type Category = 'sorting' | 'searching' | 'pathfinding' | 'stack' | 'tree' | 'dp' | 'math';
 
 export interface CodeLine {
   text: string;

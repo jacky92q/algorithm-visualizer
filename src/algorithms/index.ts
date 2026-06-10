@@ -6,6 +6,8 @@ import { quickSort } from './sorting/quickSort';
 import { mergeSort } from './sorting/mergeSort';
 import { heapSort } from './sorting/heapSort';
 import { countingSort } from './sorting/countingSort';
+import { shellSort } from './sorting/shellSort';
+import { cocktailSort } from './sorting/cocktailSort';
 import { binarySearch } from './searching/binarySearch';
 import { twoPointers } from './searching/twoPointers';
 import { bfsMaze } from './pathfinding/bfsMaze';
@@ -16,6 +18,11 @@ import { parentheses } from './stack/parentheses';
 import { hanoi } from './stack/hanoi';
 import { bst } from './tree/bst';
 import { fibonacci } from './dp/fibonacci';
+import { coinChange } from './dp/coinChange';
+import { knapsack } from './dp/knapsack';
+import { lcs } from './dp/lcs';
+import { sieve } from './math/sieve';
+import { gcd } from './math/gcd';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const ALGORITHMS: Algorithm<any>[] = [
@@ -26,6 +33,8 @@ export const ALGORITHMS: Algorithm<any>[] = [
   mergeSort,
   heapSort,
   countingSort,
+  shellSort,
+  cocktailSort,
   binarySearch,
   twoPointers,
   bfsMaze,
@@ -36,6 +45,11 @@ export const ALGORITHMS: Algorithm<any>[] = [
   hanoi,
   bst,
   fibonacci,
+  coinChange,
+  knapsack,
+  lcs,
+  sieve,
+  gcd,
 ];
 
 export interface CategoryInfo {
@@ -51,6 +65,7 @@ export const CATEGORIES: CategoryInfo[] = [
   { id: 'stack', label: 'Stack', glyph: '📚' },
   { id: 'tree', label: 'Tree', glyph: '🌳' },
   { id: 'dp', label: 'DP', glyph: '🧮' },
+  { id: 'math', label: 'Math', glyph: '🔢' },
 ];
 
 export function getAlgorithm(id: string): Algorithm<BaseStep> | undefined {
