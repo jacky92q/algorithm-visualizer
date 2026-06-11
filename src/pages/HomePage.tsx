@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { ALGORITHMS, CATEGORIES, algorithmsByCategory } from '../algorithms';
+import { CONCEPTS, CONCEPT_CATEGORIES, conceptsByCategory } from '../concepts';
 import { useLang } from '../i18n/LangContext';
 
 const pageVariants = {
@@ -125,6 +126,63 @@ export default function HomePage() {
           );
         })}
       </div>
+
+      {CONCEPTS.length > 0 && (
+        <div className="catalog catalog-concepts">
+          <div className="section-divider">
+            <span>{t('home.concepts')}</span>
+          </div>
+          {CONCEPT_CATEGORIES.map((cat, ci) => {
+            const items = conceptsByCategory(cat.id);
+            if (!items.length) return null;
+            return (
+              <section className="cat-section" key={cat.id}>
+                <motion.div
+                  className="cat-head"
+                  initial={{ opacity: 0, x: -12 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.1 + ci * 0.06 }}
+                >
+                  <span className="cat-glyph">{cat.glyph}</span>
+                  <div>
+                    <h2>{t(`cat.${cat.id}.name`)}</h2>
+                    <span className="cat-en">{cat.label} · {t(`cat.${cat.id}.blurb`)}</span>
+                  </div>
+                </motion.div>
+                <div className="card-grid">
+                  {items.map((concept, i) => {
+                    const cm = concept.meta;
+                    const cname = lang === 'en' && cm.en ? cm.en.name : cm.name;
+                    const cblurb = lang === 'en' && cm.en ? cm.en.blurb : cm.blurb;
+                    return (
+                      <motion.button
+                        key={cm.id}
+                        className={`algo-card concept-card accent-${cm.accent}`}
+                        onClick={() => navigate(`/concept/${cm.id}`)}
+                        initial={{ opacity: 0, y: 24, scale: 0.96 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        transition={{ delay: 0.12 + i * 0.05, type: 'spring', stiffness: 260, damping: 22 }}
+                        whileHover={{ y: -6, scale: 1.025 }}
+                        whileTap={{ scale: 0.97 }}
+                      >
+                        <div className="card-glyph">{cm.glyph}</div>
+                        <div className="card-body">
+                          <div className="card-name">{cname}</div>
+                          <div className="card-hook">{cblurb}</div>
+                        </div>
+                        <div className="card-foot">
+                          <span className="chip chip-time">{t('concept.tag')}</span>
+                        </div>
+                        <span className="card-arrow">→</span>
+                      </motion.button>
+                    );
+                  })}
+                </div>
+              </section>
+            );
+          })}
+        </div>
+      )}
 
       <footer className="home-foot">
         <span>{t('home.footer')}</span>

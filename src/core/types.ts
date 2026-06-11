@@ -33,6 +33,8 @@ export interface RenderCtx {
   /** Device pixel ratio already applied to the context transform. */
   dpr: number;
   palette: Palette;
+  /** Current UI language, so renderers can localize text they draw directly. */
+  lang: 'ko' | 'en';
 }
 
 export interface Renderer<S extends BaseStep = BaseStep> {

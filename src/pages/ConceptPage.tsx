@@ -1,9 +1,8 @@
 import { useMemo, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getAlgorithm } from '../algorithms';
+import { getConcept } from '../concepts';
 import CanvasStage from '../components/CanvasStage';
-import CodePanel from '../components/CodePanel';
 import { usePlayer } from '../hooks/usePlayer';
 import { useLang } from '../i18n/LangContext';
 
@@ -15,20 +14,17 @@ const toneClass: Record<string, string> = {
   bad: 'b-bad',
 };
 
-export default function VisualizePage() {
+export default function ConceptPage() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { lang, t } = useLang();
-  const algo = id ? getAlgorithm(id) : undefined;
+  const concept = id ? getConcept(id) : undefined;
 
-  const [input, setInput] = useState(algo?.meta.defaultInput ?? '');
-  const [draft, setDraft] = useState(input);
-  const [editOpen, setEditOpen] = useState(false);
-
-  const steps = useMemo(() => (algo ? algo.generate(input) : []), [algo, input]);
+  const [infoOpen, setInfoOpen] = useState(false);
+  const steps = useMemo(() => (concept ? concept.build() : []), [concept]);
   const player = usePlayer(steps.length);
 
-  if (!algo) {
+  if (!concept) {
     return (
       <div className="missing">
         <p>{t('viz.missing')}</p>
@@ -37,27 +33,13 @@ export default function VisualizePage() {
     );
   }
 
+  const m = concept.meta;
   const step = steps[player.index] ?? steps[0];
-  const m = algo.meta;
   const progress = steps.length > 1 ? player.index / (steps.length - 1) : 0;
-
   const caption = lang === 'en' ? (step?.captionEn ?? step?.caption) : step?.caption;
-  const action = lang === 'en' ? (step?.actionEn ?? step?.action) : step?.action;
-
-  const inputHint = lang === 'en' && m.en ? m.en.inputHint : m.inputHint;
-
-  const applyInput = () => {
-    const defaultIn = lang === 'en' && m.en ? m.en.defaultInput : m.defaultInput;
-    setInput(draft.trim() || defaultIn);
-    setEditOpen(false);
-  };
-
-  const applyPreset = (value: string) => {
-    setInput(value);
-    setDraft(value);
-    setEditOpen(false);
-    player.reset();
-  };
+  const action = step?.action;
+  const name = lang === 'en' && m.en ? m.en.name : m.name;
+  const summary = lang === 'en' && m.en ? m.en.summary : m.summary;
 
   return (
     <motion.main
@@ -70,21 +52,15 @@ export default function VisualizePage() {
       <div className="viz-frame">
         {/* top bar */}
         <div className="viz-top">
-          <button className="icon-btn" onClick={() => navigate(`/algo/${m.id}`)} aria-label="back">
-            ←
-          </button>
+          <button className="icon-btn" onClick={() => navigate('/')} aria-label="back">←</button>
           <div className="viz-titlewrap">
-            <span className="viz-name">{lang === 'en' && m.en ? m.en.name : m.name}</span>
-            <span className="viz-complex">
-              {m.time} · {m.space}
-            </span>
+            <span className="viz-name">{name}</span>
+            <span className="viz-complex">{t('concept.tag')}</span>
           </div>
-          <button className="icon-btn" onClick={() => { setDraft(input); setEditOpen(true); }} aria-label="edit input">
-            ✏️
-          </button>
+          <button className="icon-btn" onClick={() => setInfoOpen(true)} aria-label="info">ℹ︎</button>
         </div>
 
-        {/* action badge + caption */}
+        {/* action badge */}
         <div className="viz-status">
           <AnimatePresence mode="popLayout">
             <motion.span
@@ -101,10 +77,10 @@ export default function VisualizePage() {
         </div>
 
         {/* the stage */}
-        <CanvasStage source={algo} steps={steps} index={player.index} />
+        <CanvasStage source={concept} steps={steps} index={player.index} />
 
         {/* caption */}
-        <div className="viz-caption">
+        <div className="viz-caption concept-caption">
           <AnimatePresence mode="wait">
             <motion.p
               key={player.index}
@@ -118,9 +94,6 @@ export default function VisualizePage() {
           </AnimatePresence>
         </div>
 
-        {/* code */}
-        <CodePanel code={algo.sourceCode} activeLine={step?.line ?? 0} compact />
-
         {/* progress */}
         <div className="viz-progress">
           <div className="prog-track" onClick={(e) => {
@@ -131,9 +104,7 @@ export default function VisualizePage() {
             <motion.div className="prog-fill" animate={{ width: `${progress * 100}%` }} transition={{ ease: 'linear', duration: 0.2 }} />
             <motion.div className="prog-knob" animate={{ left: `${progress * 100}%` }} transition={{ ease: 'linear', duration: 0.2 }} />
           </div>
-          <span className="prog-count">
-            {player.index + 1} / {steps.length}
-          </span>
+          <span className="prog-count">{player.index + 1} / {steps.length}</span>
         </div>
 
         {/* controls */}
@@ -157,15 +128,15 @@ export default function VisualizePage() {
         </div>
       </div>
 
-      {/* input modal */}
+      {/* info modal */}
       <AnimatePresence>
-        {editOpen && (
+        {infoOpen && (
           <motion.div
             className="modal-overlay"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => setEditOpen(false)}
+            onClick={() => setInfoOpen(false)}
           >
             <motion.div
               className="modal"
@@ -175,47 +146,11 @@ export default function VisualizePage() {
               transition={{ type: 'spring', stiffness: 300, damping: 24 }}
               onClick={(e) => e.stopPropagation()}
             >
-              {m.presets ? (
-                <>
-                  <h3>{t('viz.presetTitle')}</h3>
-                  <p className="modal-hint">{inputHint}</p>
-                  <div className="preset-list">
-                    {m.presets.map((p) => {
-                      const selected = input === p.value;
-                      return (
-                        <button
-                          key={p.value}
-                          className={`preset-btn ${selected ? 'on' : ''}`}
-                          onClick={() => applyPreset(p.value)}
-                        >
-                          <span className="preset-label">
-                            {lang === 'en' ? (p.labelEn ?? p.label) : p.label}
-                          </span>
-                          {selected && <span className="preset-check">✓</span>}
-                        </button>
-                      );
-                    })}
-                  </div>
-                </>
-              ) : (
-                <>
-                  <h3>{t('viz.inputTitle')}</h3>
-                  <p className="modal-hint">{inputHint}</p>
-                  <input
-                    className="modal-input"
-                    value={draft}
-                    onChange={(e) => setDraft(e.target.value)}
-                    onKeyDown={(e) => e.key === 'Enter' && applyInput()}
-                    autoFocus
-                  />
-                  <div className="modal-actions">
-                    <button className="btn-ghost" onClick={() => setDraft(lang === 'en' && m.en ? m.en.defaultInput : m.defaultInput)}>
-                      {t('viz.default')}
-                    </button>
-                    <button className="btn-solid" onClick={applyInput}>{t('viz.apply')}</button>
-                  </div>
-                </>
-              )}
+              <h3>{m.glyph} {name}</h3>
+              <p className="modal-summary">{summary}</p>
+              <div className="modal-actions">
+                <button className="btn-solid" onClick={() => setInfoOpen(false)}>{t('concept.close')}</button>
+              </div>
             </motion.div>
           </motion.div>
         )}

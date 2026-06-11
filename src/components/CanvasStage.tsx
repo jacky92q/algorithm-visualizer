@@ -1,30 +1,35 @@
 import { useEffect, useRef } from 'react';
-import type { Algorithm, BaseStep, RenderCtx } from '../core/types';
+import type { BaseStep, RenderCtx, Renderer } from '../core/types';
 import { PALETTE } from '../core/palette';
 import { paperGrid } from '../core/draw';
 import { clamp } from '../core/easing';
+import { useLang } from '../i18n/LangContext';
 
-interface Props {
-  algorithm: Algorithm<BaseStep>;
-  steps: BaseStep[];
+interface Props<S extends BaseStep> {
+  /** Anything that can produce a renderer — an Algorithm or a Concept. */
+  source: { createRenderer: () => Renderer<S> };
+  steps: S[];
   index: number;
   /** transition duration in ms for step → step tween */
   transitionMs?: number;
 }
 
-export default function CanvasStage({ algorithm, steps, index, transitionMs = 480 }: Props) {
+export default function CanvasStage<S extends BaseStep>({ source, steps, index, transitionMs = 480 }: Props<S>) {
+  const { lang } = useLang();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
-  const rendererRef = useRef(algorithm.createRenderer());
+  const rendererRef = useRef(source.createRenderer());
   const sizeRef = useRef({ w: 0, h: 0, dpr: 1 });
   const animRef = useRef({ start: performance.now(), index: index });
   const indexRef = useRef(index);
   const mountRef = useRef(performance.now());
+  const langRef = useRef(lang);
+  langRef.current = lang;
 
-  // recreate renderer when algorithm changes
+  // recreate renderer when source changes
   useEffect(() => {
-    rendererRef.current = algorithm.createRenderer();
-  }, [algorithm]);
+    rendererRef.current = source.createRenderer();
+  }, [source]);
 
   // restart tween whenever the step index changes
   useEffect(() => {
@@ -77,7 +82,7 @@ export default function CanvasStage({ algorithm, steps, index, transitionMs = 48
       const curr = steps[i];
       const prev = i > 0 ? steps[i - 1] : null;
       if (curr) {
-        const rc: RenderCtx = { ctx, width: w, height: h, t, time, dpr, palette: PALETTE };
+        const rc: RenderCtx = { ctx, width: w, height: h, t, time, dpr, palette: PALETTE, lang: langRef.current };
         try {
           rendererRef.current.draw(rc, prev, curr);
         } catch {

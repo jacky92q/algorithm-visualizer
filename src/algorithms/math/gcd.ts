@@ -118,10 +118,12 @@ class GcdRenderer implements Renderer<GcdStep> {
 
     // ── caption hint ──────────────────────────────────────────────────────
     if (!curr.done) {
-      text(ctx, 'a 안에 b 가 몇 번 들어가고 얼마가 남는가 → 남은 값으로 반복',
-        width / 2, height - 30, {
-          size: clamp(width * 0.028, 10, 14), weight: 600, color: rgba('#9A8B70', 0.9),
-        });
+      const hint = rc.lang === 'en'
+        ? 'how many times b fits in a, and what remains → repeat with the remainder'
+        : 'a 안에 b 가 몇 번 들어가고 얼마가 남는가 → 남은 값으로 반복';
+      text(ctx, hint, width / 2, height - 30, {
+        size: clamp(width * 0.028, 10, 14), weight: 600, color: rgba('#9A8B70', 0.9),
+      });
     }
   }
 }

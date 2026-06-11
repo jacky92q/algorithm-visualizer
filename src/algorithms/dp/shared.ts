@@ -28,8 +28,12 @@ export interface DPStep extends BaseStep {
   corner?: string;
   /** Axis title above the column headers. */
   colAxis?: string;
+  /** English variant of colAxis (renderer picks via rc.lang). */
+  colAxisEn?: string;
   /** Axis title beside the row headers. */
   rowAxis?: string;
+  /** English variant of rowAxis (renderer picks via rc.lang). */
+  rowAxisEn?: string;
   /** Big summary text shown along the bottom. */
   result?: string;
 }
@@ -54,6 +58,8 @@ export class DPTableRenderer implements Renderer<DPStep> {
     const { ctx, width, height, time } = rc;
     const { rows, cols } = curr;
     const e = easeInOutCubic(rc.t);
+    const colAxis = rc.lang === 'en' ? (curr.colAxisEn ?? curr.colAxis) : curr.colAxis;
+    const rowAxis = rc.lang === 'en' ? (curr.rowAxisEn ?? curr.rowAxis) : curr.rowAxis;
 
     const gridCols = cols + 1; // +1 header column
     const gridRows = rows + 1; // +1 header row
@@ -77,16 +83,16 @@ export class DPTableRenderer implements Renderer<DPStep> {
     const hfs = clamp(cell * 0.3, 8, 15);
 
     // ── Axis titles ───────────────────────────────────────────────────────
-    if (curr.colAxis) {
-      text(ctx, curr.colAxis, startX + cell + (gridW - cell) / 2, startY - 16, {
+    if (colAxis) {
+      text(ctx, colAxis, startX + cell + (gridW - cell) / 2, startY - 16, {
         size: clamp(width * 0.03, 11, 15), weight: 700, color: COL.header, letterSpacing: 1,
       });
     }
-    if (curr.rowAxis) {
+    if (rowAxis) {
       ctx.save();
       ctx.translate(startX - 16, startY + cell + (gridH - cell) / 2);
       ctx.rotate(-Math.PI / 2);
-      text(ctx, curr.rowAxis, 0, 0, {
+      text(ctx, rowAxis, 0, 0, {
         size: clamp(width * 0.03, 11, 15), weight: 700, color: COL.header, letterSpacing: 1,
       });
       ctx.restore();

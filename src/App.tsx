@@ -4,6 +4,7 @@ import { LangProvider } from './i18n/LangContext';
 import HomePage from './pages/HomePage';
 import DescriptionPage from './pages/DescriptionPage';
 import VisualizePage from './pages/VisualizePage';
+import ConceptPage from './pages/ConceptPage';
 
 function AppRoutes() {
   const location = useLocation();
@@ -13,6 +14,7 @@ function AppRoutes() {
         <Route path="/" element={<HomePage />} />
         <Route path="/algo/:id" element={<DescriptionPage />} />
         <Route path="/algo/:id/run" element={<VisualizePage />} />
+        <Route path="/concept/:id" element={<ConceptPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </AnimatePresence>

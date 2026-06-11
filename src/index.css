@@ -586,6 +586,28 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .missing { min-height: 100%; display: grid; place-items: center; gap: 16px; text-align: center; color: var(--ink-soft); }
 .missing button { font-weight: 700; color: var(--brown); background: var(--paper); border: 1px solid var(--line); padding: 10px 20px; border-radius: 999px; }
 
+/* concept (protocol) section + cards */
+.catalog-concepts { margin-top: clamp(34px, 5vw, 52px); }
+.section-divider {
+  display: flex; align-items: center; gap: 16px;
+  margin-bottom: 8px;
+}
+.section-divider::before, .section-divider::after {
+  content: ''; flex: 1; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--line), transparent);
+}
+.section-divider span {
+  font-family: var(--font-display); font-weight: 600;
+  font-size: 15px; color: var(--brown); letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+.concept-card .card-glyph { font-size: 30px; }
+.concept-caption p { font-weight: 600; }
+.modal-summary {
+  font-size: 15px; line-height: 1.65; color: var(--ink-soft);
+  margin: 14px 0 4px; font-weight: 500;
+}
+
 @media (max-width: 420px) {
   .viz-frame { height: 100vh; border-radius: 0; border: none; }
   .viz { padding: 0; }

@@ -104,6 +104,7 @@ export const coinChange: Algorithm<DPStep> = {
       cells: cellsNow(),
       corner: 'a',
       rowAxis: '금액 a',
+      rowAxisEn: 'amount a',
       colAxis: `coins = {${coins.join(', ')}}`,
       ...e,
     });
